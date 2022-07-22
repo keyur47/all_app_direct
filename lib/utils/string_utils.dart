@@ -1,7 +1,9 @@
 class StringsUtils {
   StringsUtils._();
-
   static const String typeYourMessage = 'Type Your Message..';
+  static const String internetCheckError = 'Please check internet connection!!';
+  static const String check = 'check';
+  static const String ok = 'ok';
   static const String email = 'Email';
   static const String sendFeedBack = 'Send FeedBack';
   static const String phoneNumber = 'Phone Number';
@@ -13,11 +15,13 @@ class StringsUtils {
   static const String userNameTelegram = 'Username Telegram';
   static const String userNameInstagram = 'Username Instagram';
   static const String Messages = 'Messages';
-  static const String call = 'Calls';
+  static const String call = 'Open Calls';
   static const String userNameHistory = 'Username History';
   static const String history = 'History';
   static const String userName = 'Username';
   static const String whatsDirect = 'WhatsDirect';
+  static const String contactList = 'My contact list';
+  static const String callHistoryList = 'My call history';
   static const String whatsDirects = 'Direct WhatsApp';
   static const String whatsAppDirect = 'Direct \nWhatsApp';
   static const String telegramDirects = 'Direct Telegram';

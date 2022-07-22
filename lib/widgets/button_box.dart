@@ -11,7 +11,6 @@ Widget button(
     {required String text,
     required VoidCallback onTap,
     IconData? iconData,
-    required Color textColor,
     required Color boxColor,
     Color? ImageColor,
     double? scale,
@@ -58,9 +57,10 @@ Widget button(
                   ),
                   DefaultTextStyle(
                     style: const TextStyle(
+                      height: 1,
                         fontSize: 14.0,
                         fontFamily: 'Customtext',
-                        color: AppColor.darkBlue),
+                        color: AppColor.darkBlue,fontWeight: FontWeight.w600),
                     child: AnimatedTextKit(
                       pause: const Duration(milliseconds: 100),
                       animatedTexts: [

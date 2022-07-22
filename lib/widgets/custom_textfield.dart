@@ -104,7 +104,7 @@ Widget usernameTextField({
   );
 }
 
-Controller controller = Get.find();
+AllScreenController controller = Get.find();
 
 ///
 Widget textField({

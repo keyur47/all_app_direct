@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 import 'package:reviews_slider/reviews_slider.dart';
 
 
-Controller controller = Get.find();
+AllScreenController controller = Get.find();
 
 Future FeedbackBox(context) {
   return showModalBottomSheet(

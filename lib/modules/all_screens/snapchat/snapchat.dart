@@ -3,7 +3,8 @@ import 'package:all_app_direct/modules/appbar/appbar.dart';
 import 'package:all_app_direct/modules/controller/controller.dart';
 import 'package:all_app_direct/modules/openbutton/oepn_username_snapchat.dart';
 import 'package:all_app_direct/utils/app_color.dart';
-import 'package:all_app_direct/utils/route_page.dart';
+import 'package:all_app_direct/utils/navigation/dart/navigation.dart';
+import 'package:all_app_direct/utils/navigation/dart/route_page.dart';
 import 'package:all_app_direct/utils/size_utils.dart';
 import 'package:all_app_direct/utils/string_utils.dart';
 import 'package:all_app_direct/widgets/custom_textfield.dart';
@@ -18,17 +19,17 @@ class Snapchat extends StatefulWidget {
 }
 
 class _SnapchatState extends State<Snapchat> {
-  Controller controller = Get.find();
+  AllScreenController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Get.toNamed(Routes.telegram);
+        Navigation.popAndPushNamed(Routes.telegram);
         return false;
       },
       child: Scaffold(
-        backgroundColor: AppColor.backgroundColor,
+        // backgroundColor: AppColor.backgroundColor,
         resizeToAvoidBottomInset: false,
         body: Stack(
           alignment: Alignment.bottomCenter,

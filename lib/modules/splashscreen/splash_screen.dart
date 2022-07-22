@@ -1,11 +1,11 @@
 import 'dart:async';
+import 'package:all_app_direct/model/demo.dart';
 import 'package:all_app_direct/utils/app_color.dart';
-import 'package:all_app_direct/utils/route_page.dart';
+import 'package:all_app_direct/utils/assets_path.dart';
 import 'package:all_app_direct/utils/size_utils.dart';
 import 'package:all_app_direct/utils/string_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -17,27 +17,27 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  late Timer _timer;
+  // late Timer _timer;
   final List<Color> _kDefaultRainbowColors = const [
     AppColor.darkBlue,
   ];
-  @override
-  void initState() {
-    super.initState();
-    try {
-      startTimeOut();
-    } catch (e) {
-      // AppException.showException(e);
-    }
-  }
-
-  @override
-  void dispose() {
-    if (_timer.isActive) {
-      _timer.cancel();
-    }
-    super.dispose();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   try {
+  //     startTimeOut();
+  //   } catch (e) {
+  //     // AppException.showException(e);
+  //   }
+  // }
+  //
+  // @override
+  // void dispose() {
+  //   if (_timer.isActive) {
+  //     _timer.cancel();
+  //   }
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +58,7 @@ class _SplashScreenState extends State<SplashScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset("assets/image/splash_logo.png",width: SizeUtils.horizontalBlockSize * 35,),
+                  Image.asset(AssetsPath.splashScreenAppLogo,width: SizeUtils.horizontalBlockSize * 35,),
                   const Text(
                     StringsUtils.whatsAppDirect,
                     style: TextStyle(
@@ -88,12 +88,13 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 
-  void startTimeOut(){
-    _timer = Timer.periodic(
-      const Duration(seconds: 2),
-          (timer) {
-        Get.offAllNamed(Routes.whatsapp);
-      },
-    );
-  }
+  // void startTimeOut(){
+  //   _timer = Timer.periodic(
+  //     const Duration(seconds: 2),
+  //         (timer) {
+  //       // Get.to(MyHomePage());
+  //       Get.offAllNamed(Routes.whatsapp);
+  //     },
+  //   );
+  // }
 }

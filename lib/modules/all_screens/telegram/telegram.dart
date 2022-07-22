@@ -1,11 +1,10 @@
-
-
 import 'package:all_app_direct/ads/ads.dart';
 import 'package:all_app_direct/modules/appbar/appbar.dart';
 import 'package:all_app_direct/modules/controller/controller.dart';
 import 'package:all_app_direct/modules/openbutton/open_username_telegram.dart';
 import 'package:all_app_direct/utils/app_color.dart';
-import 'package:all_app_direct/utils/route_page.dart';
+import 'package:all_app_direct/utils/navigation/dart/navigation.dart';
+import 'package:all_app_direct/utils/navigation/dart/route_page.dart';
 import 'package:all_app_direct/utils/size_utils.dart';
 import 'package:all_app_direct/utils/string_utils.dart';
 import 'package:all_app_direct/widgets/custom_textfield.dart';
@@ -13,19 +12,21 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class Telegram extends StatefulWidget {
+  const Telegram({Key? key}) : super(key: key);
+
 
   @override
   _TelegramState createState() => _TelegramState();
 }
 
 class _TelegramState extends State<Telegram> {
-  Controller controller = Get.find();
+  AllScreenController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Get.toNamed(Routes.instagram);
+        Navigation.popAndPushNamed(Routes.instagram);
         return false;
       },
       child: Scaffold(
@@ -72,7 +73,7 @@ class _TelegramState extends State<Telegram> {
                   ),
                 ),
                 SizedBox(
-                  height: 2.5,
+                  height: SizeUtils.horizontalBlockSize * 4,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -82,9 +83,7 @@ class _TelegramState extends State<Telegram> {
                 ),
               ],
             ),
-            Container(
-              child:  BannerAds(),
-            ),
+            const BannerAds(),
           ],
         ),
       ),

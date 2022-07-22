@@ -12,7 +12,7 @@ import 'package:url_launcher/url_launcher.dart';
 class OpenUserNameSnapchat extends StatelessWidget {
   OpenUserNameSnapchat({Key? key}) : super(key: key);
 
-  Controller controller = Get.find();
+  AllScreenController controller = Get.find();
   AdController adController = Get.find();
 
   @override
@@ -42,7 +42,6 @@ class OpenUserNameSnapchat extends StatelessWidget {
         right: SizeUtils.horizontalBlockSize* 1,
         bottom: SizeUtils.horizontalBlockSize* 2,
         boxColor: AppColor.white,
-        textColor: AppColor.black,
         decoration: BoxDecoration(
             gradient: const LinearGradient(
                 begin: Alignment.topRight,

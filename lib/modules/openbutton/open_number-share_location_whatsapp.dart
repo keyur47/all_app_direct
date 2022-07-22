@@ -15,7 +15,7 @@ import 'package:permission_handler/permission_handler.dart';
 class OpenShareLocationWhatsAppNumber extends StatelessWidget {
   OpenShareLocationWhatsAppNumber({Key? key}) : super(key: key);
 
-  Controller controller = Get.find();
+  AllScreenController controller = Get.find();
   AdController adController = Get.find();
 
   @override
@@ -54,7 +54,6 @@ class OpenShareLocationWhatsAppNumber extends StatelessWidget {
         bottom: SizeUtils.horizontalBlockSize* 2,
         ImageColor: AppColor.green,
         boxColor: AppColor.white,
-        textColor: AppColor.black,
         iconColor: AppColor.appColors,
         sizeIcon: SizeUtils.horizontalBlockSize*  7);
   }

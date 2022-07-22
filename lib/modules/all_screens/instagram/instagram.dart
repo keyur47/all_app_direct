@@ -3,7 +3,8 @@ import 'package:all_app_direct/modules/appbar/appbar.dart';
 import 'package:all_app_direct/modules/controller/controller.dart';
 import 'package:all_app_direct/modules/openbutton/open_username_instagram.dart';
 import 'package:all_app_direct/utils/app_color.dart';
-import 'package:all_app_direct/utils/route_page.dart';
+import 'package:all_app_direct/utils/navigation/dart/navigation.dart';
+import 'package:all_app_direct/utils/navigation/dart/route_page.dart';
 import 'package:all_app_direct/utils/size_utils.dart';
 import 'package:all_app_direct/utils/string_utils.dart';
 import 'package:all_app_direct/widgets/custom_textfield.dart';
@@ -11,19 +12,21 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class Instagram extends StatefulWidget {
+  const Instagram({Key? key}) : super(key: key);
+
 
   @override
   _InstagramState createState() => _InstagramState();
 }
 
 class _InstagramState extends State<Instagram> {
-  Controller controller = Get.find();
+  AllScreenController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Get.toNamed(Routes.whatsapp);
+        Navigation.popAndPushNamed(Routes.whatsapp);
         return false;
       },
       child: Scaffold(
@@ -44,16 +47,6 @@ class _InstagramState extends State<Instagram> {
                       colors: [
                         AppColor.darkBlue,
                         AppColor.darkBlue,
-                        // Color(0xFF405DE6),
-                        // Color(0xFF5851DB),
-                        // Color(0xFF833AB4),
-                        // Color(0xFFC13584),
-                        // Color(0xFFE1306C),
-                        // Color(0xFFFD1D1D),
-                        // Color(0xFFF56040),
-                        // Color(0xFFF77737),
-                        // Color(0xFFFCAF45),
-                        // Color(0xFFFFDC80),
                       ]),
                   top: SizeUtils.horizontalBlockSize *1,
                   bottom: SizeUtils.horizontalBlockSize *1,
@@ -78,7 +71,7 @@ class _InstagramState extends State<Instagram> {
                   ),
                 ),
                 SizedBox(
-                  height: 2.5,
+                  height: SizeUtils.horizontalBlockSize * 4,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -86,9 +79,7 @@ class _InstagramState extends State<Instagram> {
                 ),
               ],
             ),
-            Container(
-              child:  BannerAds(),
-            ),
+            const BannerAds(),
           ],
         ),
       ),

@@ -13,14 +13,14 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 
 class OpenWhatsAppNumber extends StatelessWidget {
-  Controller controller = Get.find();
+  AllScreenController controller = Get.find();
   AdController adController = Get.find();
   @override
   Widget build(BuildContext context) {
     return button(
       onTap: () async {
         await adController.createRewardedAd();
-        await getPermission();
+        await controller.getPermission();
         if (controller.numberController.text != "") {
           print("numberController");
           controller.onOpenWhatsApp(controller.numberController.text,controller.textController.text);
@@ -39,23 +39,13 @@ class OpenWhatsAppNumber extends StatelessWidget {
       right: SizeUtils.horizontalBlockSize* 1,
       bottom: SizeUtils.horizontalBlockSize* 2,
       ImageColor: AppColor.green,
-      textColor: AppColor.black,
       boxColor: AppColor.white,
       iconColor:AppColor.appColors,
       // iconColor: Color(0xFF28D146),
       sizeIcon: SizeUtils.horizontalBlockSize* 7,
     );
   }
-  Future<void> getPermission() async {
-    await Geolocator.requestPermission();
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    final coordinates =
-    await placemarkFromCoordinates(position.latitude, position.longitude);
-    var country = CountryPickerUtils.getCountryByName(
-        coordinates.first.country.toString());
-    controller.countryCode.value = country.phoneCode;
-  }
+
 
 }
 

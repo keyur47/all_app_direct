@@ -4,7 +4,8 @@ import 'package:all_app_direct/modules/appbar/popupmenubutton/feedback/feedback.
 import 'package:all_app_direct/modules/appbar/popupmenubutton/rate/rate.dart';
 import 'package:all_app_direct/modules/appbar/popupmenubutton/share/shareapp.dart';
 import 'package:all_app_direct/utils/app_color.dart';
-import 'package:all_app_direct/utils/route_page.dart';
+import 'package:all_app_direct/utils/navigation/dart/navigation.dart';
+import 'package:all_app_direct/utils/navigation/dart/route_page.dart';
 import 'package:all_app_direct/utils/size_utils.dart';
 import 'package:all_app_direct/utils/string_utils.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
@@ -106,13 +107,13 @@ import 'package:get/get.dart';
                           onSelected: (int value) async{
                             controller.popupMenuItemIndex.value = value;
                             if (controller.popupMenuItemIndex.value == 1) {
-                              Get.toNamed(Routes.whatsapp);
+                              Navigation.popAndPushNamed(Routes.whatsapp);
                             } else if (controller.popupMenuItemIndex.value == 2) {
-                              Get.toNamed(Routes.instagram);
+                              Navigation.popAndPushNamed(Routes.instagram);
                             } else if (controller.popupMenuItemIndex.value == 3) {
-                              Get.toNamed(Routes.telegram);
+                              Navigation.popAndPushNamed(Routes.telegram);
                             } else if (controller.popupMenuItemIndex.value == 4) {
-                              Get.toNamed(Routes.snapchat);
+                              Navigation.popAndPushNamed(Routes.snapchat);
                             }  else {}
                             controller.pageIndex.value =
                                 controller.popupMenuItemIndex.value;

@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 class MessagesTextFormField extends StatelessWidget {
    MessagesTextFormField({Key? key}) : super(key: key);
 
-  Controller controller = Get.put(Controller());
+  AllScreenController controller = Get.put(AllScreenController());
 
   @override
   Widget build(BuildContext context) {

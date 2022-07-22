@@ -4,13 +4,14 @@ import 'package:all_app_direct/modules/controller/controller.dart';
 import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/utils/assets_path.dart';
 import 'package:all_app_direct/utils/size_utils.dart';
+import 'package:all_app_direct/utils/string_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class PhoneNumberTextFormField extends StatelessWidget {
    PhoneNumberTextFormField({Key? key}) : super(key: key);
-Controller controller = Get.find();
+AllScreenController controller = Get.find();
   @override
   Widget build(BuildContext context) {
     return FocusScope(
@@ -123,7 +124,7 @@ Controller controller = Get.find();
               ),
             ),
           ),
-          hintText: AppString.phoneNumber,
+          hintText: StringsUtils.phoneNumber,
           hintStyle: TextStyle(
               fontFamily: 'Customtext',
               color: AppColor.darkBlue.withOpacity(0.6),

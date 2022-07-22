@@ -55,11 +55,18 @@ dependencies:
   reviews_slider: ^2.0.0
   email_validator: ^2.0.1
   loading_indicator: ^3.1.0
-
+  connectivity_plus: ^2.3.6
+  flutter_contacts: ^1.1.5
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.9.2
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/image/application_logo.png"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -96,9 +103,49 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: Customtext
+    - family: Roboto
       fonts:
-          - asset: assets/font/OldNewspaperTypes.ttf
+        - asset: assets/font/Roboto-Light.ttf
+        - weight: 300
+        - asset: assets/font/Roboto-LightItalic.ttf
+        - weight: 300
+          style: italic
+        - asset: assets/font/Roboto-Regular.ttf
+        - weight: 400
+        - asset: assets/font/Roboto-Italic.ttf
+        - weight: 400
+          style: italic
+        - asset: assets/font/Roboto-Medium.ttf
+        - weight: 500
+        - asset: assets/font/Roboto-MediumItalic.ttf
+        - weight: 500
+          style: italic
+        - asset: assets/font/Roboto-Bold.ttf
+        - weight: 700
+        - asset: assets/font/Roboto-BoldItalic.ttf
+        - weight: 700
+          style: italic
+        - asset: assets/font/Roboto-Black.ttf
+        - weight: 900
+        - asset: assets/font/Roboto-BlackItalic.ttf
+        - weight: 900
+          style: italic
+    - family: MyriadPro
+      fonts:
+        - asset: assets/font/MyriadPro-Light.otf
+        - weight: 300
+        - asset: assets/font/MYRIADPRO-REGULAR.OTF
+        - weight: 400
+        - asset: assets/font/MYRIADPRO-SEMIBOLDIT.OTF
+        - weight: 600
+          style: italic
+        - asset: assets/font/MYRIADPRO-SEMIBOLD.OTF
+        - weight: 600
+        - asset: assets/font/MYRIADPRO-BOLD.OTF
+        - weight: 700
+        - asset: assets/font/MYRIADPRO-BOLDIT.OTF
+        - weight: 700
+          style: italic
   #   - family: Schyler
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf

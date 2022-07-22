@@ -18,7 +18,7 @@ class BannerAds extends StatefulWidget {
 
 class _BannerAdsState extends State<BannerAds> {
   BannerAd? _ad;
-  Controller controller = Get.find();
+  AllScreenController controller = Get.find();
 
   // String bannerAd = FirebaseRemoteConfigUtils.bannerAdId;
   @override

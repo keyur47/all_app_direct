@@ -1,4 +1,3 @@
-
 import 'package:all_app_direct/modules/all_screens/instagram/instagram.dart';
 import 'package:all_app_direct/modules/all_screens/snapchat/snapchat.dart';
 import 'package:all_app_direct/modules/all_screens/telegram/telegram.dart';
@@ -12,7 +11,7 @@ mixin Routes {
 
   // get started
   static const String splash = '/splash_screen';
-  static const homePage = '/HomePage_screen';
+  static const homePage = '/homePage_screen';
   static const whatsapp = '/whatsapp_screen';
   static const instagram = '/instagram_screen';
   static const telegram = '/telegram_screen';
