@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:all_app_direct/helper/shared_preferences.dart';
 import 'package:all_app_direct/modules/controller/controller.dart';
@@ -11,10 +12,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class ContactScreen extends StatelessWidget {
-  static const routeName = '/contact_screen';
+class MyCallHistory extends StatelessWidget {
 
-  ContactScreen({Key? key}) : super(key: key);
+  MyCallHistory({Key? key}) : super(key: key);
   final AllScreenController controller = Get.find();
 
   @override
@@ -22,7 +22,7 @@ class ContactScreen extends StatelessWidget {
     final theme =
         Theme.of(context).copyWith(dividerColor: Colors.transparent); //new
     return ListView.builder(
-      controller: AllScreenController.scrollController,
+      controller: AllScreenController.myCallScrollController,
       padding: EdgeInsets.zero,
       itemBuilder: (context, index) {
         return Padding(
@@ -70,8 +70,9 @@ class ContactScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         CircleAvatar(
-                          backgroundColor: AppColor.darkBlue,
-                          // Colors.primaries[Random().nextInt(Colors.primaries.length)],
+                          backgroundColor:
+                          AppColor.darkBlue,
+                           //Colors.primaries[Random().nextInt(Colors.primaries.length)],
                           child: Text(
                             controller.contactListHistory[index].name
                                         ?.isNotEmpty ??
@@ -189,7 +190,7 @@ class ContactScreen extends StatelessWidget {
                                 if (Platform.isAndroid) {
                                   final uri =
                                       'sms:+${controller.contactListHistory[index].number}}?body=${controller.textController.text}%20';
-                                  log("Sms :- $uri");
+                                  // log("Sms :- $uri");
                                   await launch(uri);
                                 } else if (Platform.isIOS) {
                                   final uri =

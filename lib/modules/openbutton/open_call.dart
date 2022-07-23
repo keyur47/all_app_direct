@@ -38,13 +38,13 @@ class _OpenCallsState extends State<OpenCalls> {
         text: StringsUtils.call,
         iconData: Icons.call_outlined,
         scale: SizeUtils.horizontalBlockSize* 3,
-        top: SizeUtils.horizontalBlockSize*  2.5,
-        left: SizeUtils.horizontalBlockSize* 2,
-        right: SizeUtils.horizontalBlockSize* 1.5,
+        top: SizeUtils.horizontalBlockSize*  2.4,
+        left: SizeUtils.horizontalBlockSize* 2.5,
+        right: SizeUtils.horizontalBlockSize* 1,
         bottom: SizeUtils.horizontalBlockSize* 2,
         boxColor: AppColor.white,
         iconColor:AppColor.appColors,
-        sizeIcon: SizeUtils.horizontalBlockSize* 7
+        sizeIcon: SizeUtils.horizontalBlockSize* 7,
     );
   }
 }

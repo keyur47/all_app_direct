@@ -1,6 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
-import 'package:all_app_direct/modules/all_screens/history/history.dart';
+import 'package:all_app_direct/modules/all_screens/history/mycallhistory.dart';
 import 'package:all_app_direct/utils/string_utils.dart';
 import 'package:all_app_direct/widgets/call.dart';
 import 'package:country_pickers/utils/utils.dart';
@@ -21,7 +21,8 @@ class AllScreenController extends GetxController{
 
   TextEditingController snapchatUsernameController = TextEditingController();
   RxList<CallLogEntry> contactListHistory = <CallLogEntry>[].obs;
-  static ScrollController scrollController = ScrollController();
+  static ScrollController myCallScrollController = ScrollController();
+  static ScrollController myContactScrollController = ScrollController();
   TextEditingController numberController = TextEditingController();
   TextEditingController textController = TextEditingController();
   TextEditingController instagramUsernameController = TextEditingController();
@@ -42,12 +43,17 @@ class AllScreenController extends GetxController{
   ///contact List
   RxList<Contact>? contacts = <Contact>[].obs;
   RxBool permissionDenied = false.obs;
+  RxString photo = ''.obs;
 
 
 
+  static void CallScrollUp() {
+    myCallScrollController.animateTo(myCallScrollController.position.minScrollExtent,
+        duration: const Duration(seconds: 3), curve: Curves.easeInToLinear);
+  }
 
-  static void scrollUp() {
-    scrollController.animateTo(scrollController.position.minScrollExtent,
+  static void contactScrollUp() {
+    myContactScrollController.animateTo(myContactScrollController.position.minScrollExtent,
         duration: const Duration(seconds: 3), curve: Curves.easeInToLinear);
   }
 

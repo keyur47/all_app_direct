@@ -2,6 +2,11 @@ class StringsUtils {
   StringsUtils._();
   static const String typeYourMessage = 'Type Your Message..';
   static const String internetCheckError = 'Please check internet connection!!';
+  static const String list1 = '- To send auto reply only to your contact list you added in WhatsAuto App' ;
+  static const String list2 = 'My Phone Contact list ' ;
+  static const String list3 = 'My Phone Call History list ' ;
+  static const String list4 = '- To send auto reply only to your call history list you added in WhatsAuto App' ;
+
   static const String check = 'check';
   static const String ok = 'ok';
   static const String email = 'Email';
@@ -20,8 +25,9 @@ class StringsUtils {
   static const String history = 'History';
   static const String userName = 'Username';
   static const String whatsDirect = 'WhatsDirect';
-  static const String contactList = 'My contact list';
-  static const String callHistoryList = 'My call history';
+  static const String contactList = 'Except my phone contacts ';
+  static const String callHistoryList = 'Except my phone call history';
+  static const String allHistoryList = 'My all history';
   static const String whatsDirects = 'Direct WhatsApp';
   static const String whatsAppDirect = 'Direct \nWhatsApp';
   static const String telegramDirects = 'Direct Telegram';

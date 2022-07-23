@@ -29,7 +29,7 @@ class _SnapchatState extends State<Snapchat> {
         return false;
       },
       child: Scaffold(
-        // backgroundColor: AppColor.backgroundColor,
+        backgroundColor: AppColor.backgroundColor,
         resizeToAvoidBottomInset: false,
         body: Stack(
           alignment: Alignment.bottomCenter,

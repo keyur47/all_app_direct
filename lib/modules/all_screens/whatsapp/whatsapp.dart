@@ -1,6 +1,6 @@
 import 'package:all_app_direct/ads/ads.dart';
-import 'package:all_app_direct/modules/all_screens/history/history.dart';
-import 'package:all_app_direct/modules/all_screens/history/list.dart';
+import 'package:all_app_direct/modules/all_screens/history/mycallhistory.dart';
+import 'package:all_app_direct/modules/all_screens/history/mycontactlist.dart';
 import 'package:all_app_direct/modules/all_screens/whatsapp/messages_textformfield.dart';
 import 'package:all_app_direct/modules/all_screens/whatsapp/phone_number_textformfield.dart';
 import 'package:all_app_direct/modules/appbar/appbar.dart';
@@ -90,7 +90,7 @@ class _WhatsAppState extends State<WhatsApp> {
                         AppColor.darkBlue,
                       ]),
                   top: SizeUtils.horizontalBlockSize * 0.7,
-                  bottom: SizeUtils.horizontalBlockSize * 0.8,
+                  bottom: SizeUtils.horizontalBlockSize * 1.1,
                   right: SizeUtils.horizontalBlockSize * 1.1,
                   left: SizeUtils.horizontalBlockSize * 1.1,
                   size: SizeUtils.horizontalBlockSize * 11,
@@ -129,7 +129,7 @@ class _WhatsAppState extends State<WhatsApp> {
                         () => Container(
                           height: controller.collpan.value
                               ? SizeUtils.horizontalBlockSize * 36
-                              : SizeUtils.horizontalBlockSize * 14,
+                              : SizeUtils.horizontalBlockSize * 13.5,
                           decoration: BoxDecoration(
                             boxShadow: const [
                               BoxShadow(
@@ -158,22 +158,24 @@ class _WhatsAppState extends State<WhatsApp> {
                 ),
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
-                  child: Column(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          OpenWhatsAppNumber(),
-                          SizedBox(
-                            width: SizeUtils.horizontalBlockSize * 3.5,
-                          ),
-                          OpenShareLocationWhatsAppNumber(),
-                        ],
-                      ),
                       SizedBox(
-                        height: SizeUtils.horizontalBlockSize * 5,
+                        width: SizeUtils.horizontalBlockSize * 4,
                       ),
-                      OpenCalls()
+                      OpenWhatsAppNumber(),
+                      SizedBox(
+                        width: SizeUtils.horizontalBlockSize * 3.5,
+                      ),
+                      OpenShareLocationWhatsAppNumber(),
+                      SizedBox(
+                        width: SizeUtils.horizontalBlockSize * 3.5,
+                      ),
+                      OpenCalls(),
+                      SizedBox(
+                        width: SizeUtils.horizontalBlockSize * 4,
+                      ),
                     ],
                   ),
                 ),
@@ -183,78 +185,189 @@ class _WhatsAppState extends State<WhatsApp> {
                 Padding(
                   padding: EdgeInsets.only(
                     left: SizeUtils.horizontalBlockSize * 5,
+                    right: SizeUtils.horizontalBlockSize * 5,
                   ),
-                  child: Column(
-                    children: [
-                      Row(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 4,
+                          offset: Offset(4, 8), // Shadow position
+                        ),
+                      ],
+                      border: Border.all(width: 0.2,color: AppColor.grey.withOpacity(0.3)),
+                      borderRadius: BorderRadius.circular(
+                        SizeUtils.horizontalBlockSize * 1,
+                      ),
+                      color: AppColor.white,
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          left: SizeUtils.horizontalBlockSize * 4,
+                          right: SizeUtils.horizontalBlockSize * 3,
+                          top: SizeUtils.horizontalBlockSize * 4,
+                          bottom: SizeUtils.horizontalBlockSize * 4,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Obx(
-                            () => GestureDetector(
-                                onTap: () async {
-                                  controller.myContactListChekBox.value =
-                                      !controller.myContactListChekBox.value;
-                                  controller.contactCallHistoryButtonClick();
-                                  fetchContacts();
-                                },
-                                child: controller.myContactListChekBox.value
-                                    ? const Icon(
-                                        Icons.check_box,
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Obx(
+                                () => GestureDetector(
+                                  onTap: () async {
+                                    controller.myContactListHistoryChekBox.value =
+                                        false;
+                                    controller.myContactListChekBox.value =
+                                        !controller.myContactListChekBox.value;
+                                    controller.contactCallHistoryButtonClick();
+                                    fetchContacts();
+                                  },
+                                  child: Row(
+                                    children: [
+                                      controller.myContactListChekBox.value
+                                          ? const Icon(
+                                              Icons.radio_button_checked,
+                                              color: AppColor.appColors,
+                                            )
+                                          : const Icon(
+                                              Icons.radio_button_unchecked_sharp,
+                                              color: AppColor.appColors),
+                                      SizedBox(
+                                        width: SizeUtils.horizontalBlockSize * 1,
+                                      ),
+                                      Text(
+                                        StringsUtils.contactList,
+                                        style: TextStyle(
+
+                                            color: controller
+                                                    .myContactListChekBox.value
+                                                ? AppColor.darkBlue.withOpacity(0.6)
+                                                : AppColor.grey,
+                                            fontSize:  SizeUtils.horizontalBlockSize * 4),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: SizeUtils.horizontalBlockSize * 2,
+                              ),
+                              Obx(
+                                () => GestureDetector(
+                                  onTap: () async {
+                                    controller.myContactListChekBox.value = false;
+                                    controller.myContactListHistoryChekBox.value =
+                                        !controller
+                                            .myContactListHistoryChekBox.value;
+                                    fetchContacts();
+                                  },
+                                  child: Row(
+                                    children: [
+                                      controller.myContactListHistoryChekBox.value
+                                          ? const Icon(
+                                              Icons.radio_button_checked,
+                                              color: AppColor.appColors,
+                                            )
+                                          : const Icon(
+                                              Icons.radio_button_unchecked_sharp,
+                                              color: AppColor.appColors),
+                                      SizedBox(
+                                        width: SizeUtils.horizontalBlockSize * 1,
+                                      ),
+                                      Text(
+                                        StringsUtils.callHistoryList,
+                                        style: TextStyle(
+                                            color: controller
+                                                    .myContactListHistoryChekBox
+                                                    .value
+                                                ? AppColor.darkBlue.withOpacity(0.6)
+                                                : AppColor.grey,
+                                            fontSize:  SizeUtils.horizontalBlockSize * 4),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: SizeUtils.horizontalBlockSize * 2,
+                              ),
+                              Obx(
+                                    () => GestureDetector(
+                                  onTap: () async {
+                                    // controller.myContactListChekBox.value = false;
+                                    // controller.myContactListHistoryChekBox.value =
+                                    // !controller
+                                    //     .myContactListHistoryChekBox.value;
+                                    // fetchContacts();
+                                  },
+                                  child: Row(
+                                    children: [
+                                      controller.myContactListHistoryChekBox.value
+                                          ? const Icon(
+                                        Icons.radio_button_checked,
                                         color: AppColor.appColors,
                                       )
-                                    : const Icon(Icons.check_box_outline_blank,
-                                        color: AppColor.appColors)),
+                                          : const Icon(
+                                          Icons.radio_button_unchecked_sharp,
+                                          color: AppColor.appColors),
+                                      SizedBox(
+                                        width: SizeUtils.horizontalBlockSize * 1,
+                                      ),
+                                      Text(
+                                        StringsUtils.allHistoryList,
+                                        style: TextStyle(
+                                            color: controller
+                                                .myContactListHistoryChekBox
+                                                .value
+                                                ? AppColor.darkBlue.withOpacity(0.6)
+                                                : AppColor.grey,
+                                            fontSize:  SizeUtils.horizontalBlockSize * 4),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                          SizedBox(width: SizeUtils.horizontalBlockSize * 2,),
-                          Text(
-                            StringsUtils.contactList,
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, color: AppColor.darkBlue),
-                          ),
+                          GestureDetector(
+                              onTap: (){
+                                showDialog(
+                                  barrierDismissible: true,
+                                  context: Get.context!,
+                                  builder: (context) {
+                                    return Dialog(
+                                      shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                                      backgroundColor: AppColor.white,
+                                      child: CheckBoxData(context),
+                                    );
+                                  },
+                                );
+                              },
+                              child: Icon(Icons.info_outline))
                         ],
                       ),
-                      SizedBox(height: SizeUtils.horizontalBlockSize * 5,),
-                      Row(
-                        children: [
-                          Obx(
-                            () => GestureDetector(
-                                onTap: () async {
-                                  controller.myContactListHistoryChekBox.value =
-                                      !controller.myContactListHistoryChekBox.value;
-                                  fetchContacts();
-                                },
-                                child: controller.myContactListHistoryChekBox.value
-                                    ? const Icon(
-                                        Icons.check_box,
-                                        color: AppColor.appColors,
-                                      )
-                                    : const Icon(Icons.check_box_outline_blank,
-                                        color: AppColor.appColors)),
-                          ),
-                          SizedBox(width: SizeUtils.horizontalBlockSize * 2,),
-                          Text(
-                            StringsUtils.callHistoryList,
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600, color: AppColor.darkBlue,fontSize: 14),
-                          ),
-                        ],
-                      ),
-                    ],
+                    ),
                   ),
                 ),
                 SizedBox(
-                  height: SizeUtils.verticalBlockSize * 2,
+                  height: SizeUtils.verticalBlockSize * 1,
                 ),
                 Obx(
-                      () => controller.myContactListChekBox.value == true
+                  () => controller.myContactListChekBox.value == true
                       ? Expanded(
-                    child: ContactScreen(),
-                  )
+                          child: MyContactList(),
+                        )
                       : const SizedBox(),
                 ),
                 Obx(
                   () => controller.myContactListHistoryChekBox.value == true
                       ? Expanded(
-                          child: ListData(),
+                          child: MyCallHistory(),
                         )
                       : const SizedBox(),
                 ),
@@ -264,12 +377,15 @@ class _WhatsAppState extends State<WhatsApp> {
           ],
         ),
         floatingActionButton: Obx(
-          () => controller.myContactListHistoryChekBox.value == true
+          () => controller.myContactListHistoryChekBox.value == true ||
+                  controller.myContactListChekBox.value == true
               ? FloatingActionButton(
                   backgroundColor: AppColor.darkBlue,
                   child: const Icon(Icons.arrow_upward_rounded),
                   onPressed: () {
-                    AllScreenController.scrollUp();
+                    controller.myContactListHistoryChekBox.value == true
+                        ? AllScreenController.CallScrollUp()
+                        : AllScreenController.contactScrollUp();
                   },
                 )
               : const SizedBox(),
@@ -290,4 +406,74 @@ class _WhatsAppState extends State<WhatsApp> {
       });
     }
   }
+
+
+  Widget CheckBoxData(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Padding(
+          padding:
+          EdgeInsets.symmetric(vertical: SizeUtils.verticalBlockSize * 2.5,horizontal: SizeUtils.horizontalBlockSize *4),
+          child:  Column(
+            children: [
+              Text.rich(
+                  TextSpan(
+                      text: StringsUtils.list2,
+                      style: TextStyle(
+                          color: AppColor.black,
+                          fontWeight: FontWeight.w500,
+                          fontSize: SizeUtils.fSize_15()),
+                      children: <InlineSpan>[
+                        TextSpan(
+                          text: StringsUtils.list1,
+                              style: TextStyle(
+                                  color: AppColor.black.withOpacity(0.7),
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: SizeUtils.fSize_13()),
+                        )
+                      ]
+                  )
+              ),
+              SizedBox(height: SizeUtils.horizontalBlockSize * 2,),
+              Text.rich(
+                  TextSpan(
+                      text: StringsUtils.list3,
+                      style: TextStyle(
+                          color: AppColor.black,
+                          fontWeight: FontWeight.w500,
+                          fontSize: SizeUtils.fSize_15()),
+                      children: <InlineSpan>[
+                        TextSpan(
+                          text: StringsUtils.list4,
+                              style: TextStyle(
+                                  color: AppColor.black.withOpacity(0.7),
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: SizeUtils.fSize_13()),
+                        )
+                      ]
+                  )
+              ),
+            ],
+          ),
+          // child: TextSpan(
+          //   children: [
+          //     RichText(text: text)
+          //     RichText(text: StringsUtils.list)
+          //   ],
+          //   child: Text(
+          //     StringsUtils.list,
+          //     textAlign: TextAlign.center,
+          //     style: TextStyle(
+          //         color: AppColor.grey.withOpacity(0.5),
+          //         fontWeight: FontWeight.w500,
+          //         fontSize: SizeUtils.fSize_13()),
+          //   ),
+          // ),
+        ),
+       ],
+    );
+  }
+
+
 }

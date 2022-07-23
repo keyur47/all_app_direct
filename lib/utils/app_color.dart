@@ -23,8 +23,8 @@ class AppColor {
   static const MaterialColor appColors = MaterialColor(0Xff75B73C, <int, Color>{
     100: Color(0Xff75B73C),
   });
-  static const MaterialColor backgroundColor = MaterialColor(0xFFFFFFFF, <int, Color>{
-    100: Color(0xFFFFFFFF),
+  static const MaterialColor backgroundColor = MaterialColor(0XffEFEFFF, <int, Color>{
+    100: Color(0XffEFEFFF),
   });
 ///
   static const MaterialColor darkBlue = MaterialColor(0xFF000749, <int, Color>{

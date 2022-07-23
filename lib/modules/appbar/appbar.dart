@@ -54,7 +54,7 @@ import 'package:get/get.dart';
         child: Stack(
           children: [
             Padding(
-              padding:  EdgeInsets.only(left: SizeUtils.horizontalBlockSize *4, top:SizeUtils.horizontalBlockSize *1),
+              padding:  EdgeInsets.only(left: SizeUtils.horizontalBlockSize *4, top:SizeUtils.horizontalBlockSize *2),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
