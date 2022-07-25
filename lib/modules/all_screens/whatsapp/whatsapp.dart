@@ -164,15 +164,15 @@ class _WhatsAppState extends State<WhatsApp> {
                       SizedBox(
                         width: SizeUtils.horizontalBlockSize * 4,
                       ),
+                      OpenCalls(),
+                      SizedBox(
+                        width: SizeUtils.horizontalBlockSize * 3.5,
+                      ),
                       OpenWhatsAppNumber(),
                       SizedBox(
                         width: SizeUtils.horizontalBlockSize * 3.5,
                       ),
                       OpenShareLocationWhatsAppNumber(),
-                      SizedBox(
-                        width: SizeUtils.horizontalBlockSize * 3.5,
-                      ),
-                      OpenCalls(),
                       SizedBox(
                         width: SizeUtils.horizontalBlockSize * 4,
                       ),
@@ -216,13 +216,15 @@ class _WhatsAppState extends State<WhatsApp> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              Text("Direct reply to",style: TextStyle(fontSize: SizeUtils.horizontalBlockSize * 4.4,color: AppColor.appColors,fontWeight: FontWeight.w700),),
+                              SizedBox(
+                                height: SizeUtils.horizontalBlockSize * 3,
+                              ),
                               Obx(
                                 () => GestureDetector(
                                   onTap: () async {
-                                    controller.myContactListHistoryChekBox.value =
-                                        false;
-                                    controller.myContactListChekBox.value =
-                                        !controller.myContactListChekBox.value;
+                                    controller.myContactListHistoryChekBox.value = false;
+                                    controller.myContactListChekBox.value = !controller.myContactListChekBox.value;
                                     controller.contactCallHistoryButtonClick();
                                     fetchContacts();
                                   },
@@ -340,15 +342,15 @@ class _WhatsAppState extends State<WhatsApp> {
                                   context: Get.context!,
                                   builder: (context) {
                                     return Dialog(
-                                      shape: const RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                                      // shape: const RoundedRectangleBorder(
+                                      //     borderRadius: BorderRadius.all(Radius.circular(10.0))),
                                       backgroundColor: AppColor.white,
                                       child: CheckBoxData(context),
                                     );
                                   },
                                 );
                               },
-                              child: Icon(Icons.info_outline))
+                              child: Icon(Icons.info_outline,size: SizeUtils.horizontalBlockSize * 6,))
                         ],
                       ),
                     ),
@@ -357,20 +359,23 @@ class _WhatsAppState extends State<WhatsApp> {
                 SizedBox(
                   height: SizeUtils.verticalBlockSize * 1,
                 ),
+                // Image.asset("assets/image/no_data.png",fit: BoxFit.cover,height: SizeUtils.horizontalBlockSize * 70,),
                 Obx(
                   () => controller.myContactListChekBox.value == true
                       ? Expanded(
                           child: MyContactList(),
                         )
-                      : const SizedBox(),
+                      :SizedBox(child: Text("Fsf"),)
+                     // :  SizedBox(child: controller.myContactListChekBox.value == true ? Image.asset("assets/image/no_data.png"): SizedBox() ),
                 ),
                 Obx(
                   () => controller.myContactListHistoryChekBox.value == true
                       ? Expanded(
                           child: MyCallHistory(),
                         )
-                      : const SizedBox(),
+                      :SizedBox(child: Text("Fsffsfd"),)
                 ),
+
               ],
             ),
             const BannerAds(),

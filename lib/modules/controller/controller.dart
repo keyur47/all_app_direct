@@ -44,7 +44,7 @@ class AllScreenController extends GetxController{
   RxList<Contact>? contacts = <Contact>[].obs;
   RxBool permissionDenied = false.obs;
   RxString photo = ''.obs;
-
+  RxBool boxSize = false.obs;
 
 
   static void CallScrollUp() {

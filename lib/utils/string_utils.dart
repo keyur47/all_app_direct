@@ -20,7 +20,7 @@ class StringsUtils {
   static const String userNameTelegram = 'Username Telegram';
   static const String userNameInstagram = 'Username Instagram';
   static const String Messages = 'Messages';
-  static const String call = 'Open Calls';
+  static const String call = 'Open Call';
   static const String userNameHistory = 'Username History';
   static const String history = 'History';
   static const String userName = 'Username';
