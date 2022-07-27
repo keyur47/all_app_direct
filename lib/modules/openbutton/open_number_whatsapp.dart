@@ -1,5 +1,9 @@
 
+import 'dart:convert';
+
 import 'package:all_app_direct/ads/adr.controller.dart';
+import 'package:all_app_direct/helper/shared_preferences.dart';
+import 'package:all_app_direct/model/demo.dart';
 import 'package:all_app_direct/modules/controller/controller.dart';
 import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/utils/size_utils.dart';
@@ -22,6 +26,7 @@ class OpenWhatsAppNumber extends StatelessWidget {
         await adController.createRewardedAd();
         await controller.getPermission();
         if (controller.numberController.text != "") {
+
           print("numberController");
           controller.onOpenWhatsApp(controller.numberController.text,controller.textController.text);
           print("numberController11${controller.numberController.text}");

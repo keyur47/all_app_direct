@@ -1,4 +1,5 @@
 import 'package:all_app_direct/ads/ads.dart';
+import 'package:all_app_direct/modules/all_screens/history/all_history.dart';
 import 'package:all_app_direct/modules/all_screens/history/mycallhistory.dart';
 import 'package:all_app_direct/modules/all_screens/history/mycontactlist.dart';
 import 'package:all_app_direct/modules/all_screens/whatsapp/messages_textformfield.dart';
@@ -36,8 +37,9 @@ class _WhatsAppState extends State<WhatsApp> {
   Widget build(BuildContext context) {
     Future<bool> _onWillPop() async {
       return (await showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
+        context: context,
+        builder: (context) =>
+            AlertDialog(
               backgroundColor: AppColor.backgroundColor,
               content: const Text(
                 'Are you sure want to exit?',
@@ -47,22 +49,22 @@ class _WhatsAppState extends State<WhatsApp> {
                 TextButton(
                   style: ButtonStyle(
                       backgroundColor:
-                          MaterialStateProperty.all(AppColor.darkBlue)),
+                      MaterialStateProperty.all(AppColor.darkBlue)),
                   onPressed: () => Navigator.of(context).pop(false),
                   child:
-                      const Text('NO', style: TextStyle(color: AppColor.white)),
+                  const Text('NO', style: TextStyle(color: AppColor.white)),
                 ),
                 TextButton(
                   style: ButtonStyle(
                       backgroundColor:
-                          MaterialStateProperty.all(AppColor.darkBlue)),
+                      MaterialStateProperty.all(AppColor.darkBlue)),
                   onPressed: () => Navigator.of(context).pop(true),
                   child: const Text('YES',
                       style: TextStyle(color: AppColor.white)),
                 ),
               ],
             ),
-          )) ??
+      )) ??
           false;
     }
 
@@ -126,32 +128,33 @@ class _WhatsAppState extends State<WhatsApp> {
                         height: SizeUtils.verticalBlockSize * 1,
                       ),
                       Obx(
-                        () => Container(
-                          height: controller.collpan.value
-                              ? SizeUtils.horizontalBlockSize * 36
-                              : SizeUtils.horizontalBlockSize * 13.5,
-                          decoration: BoxDecoration(
-                            boxShadow: const [
-                              BoxShadow(
-                                color: Colors.black12,
-                                blurRadius: 4,
-                                offset: Offset(4, 8), // Shadow position
+                            () =>
+                            Container(
+                              height: controller.collpan.value
+                                  ? SizeUtils.horizontalBlockSize * 36
+                                  : SizeUtils.horizontalBlockSize * 13.5,
+                              decoration: BoxDecoration(
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Colors.black12,
+                                    blurRadius: 4,
+                                    offset: Offset(4, 8), // Shadow position
+                                  ),
+                                ],
+                                borderRadius: BorderRadius.circular(
+                                  controller.collpan.value
+                                      ? SizeUtils.horizontalBlockSize * 5
+                                      : SizeUtils.horizontalBlockSize * 10,
+                                ),
+                                color: AppColor.white,
                               ),
-                            ],
-                            borderRadius: BorderRadius.circular(
-                              controller.collpan.value
-                                  ? SizeUtils.horizontalBlockSize * 5
-                                  : SizeUtils.horizontalBlockSize * 10,
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                  left: SizeUtils.horizontalBlockSize * 4,
+                                ),
+                                child: MessagesTextFormField(),
+                              ),
                             ),
-                            color: AppColor.white,
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                              left: SizeUtils.horizontalBlockSize * 4,
-                            ),
-                            child: MessagesTextFormField(),
-                          ),
-                        ),
                       ),
                     ],
                   ),
@@ -196,7 +199,8 @@ class _WhatsAppState extends State<WhatsApp> {
                           offset: Offset(4, 8), // Shadow position
                         ),
                       ],
-                      border: Border.all(width: 0.2,color: AppColor.grey.withOpacity(0.3)),
+                      border: Border.all(
+                          width: 0.2, color: AppColor.grey.withOpacity(0.3)),
                       borderRadius: BorderRadius.circular(
                         SizeUtils.horizontalBlockSize * 1,
                       ),
@@ -204,10 +208,10 @@ class _WhatsAppState extends State<WhatsApp> {
                     ),
                     child: Padding(
                       padding: EdgeInsets.only(
-                          left: SizeUtils.horizontalBlockSize * 4,
-                          right: SizeUtils.horizontalBlockSize * 3,
-                          top: SizeUtils.horizontalBlockSize * 4,
-                          bottom: SizeUtils.horizontalBlockSize * 4,
+                        left: SizeUtils.horizontalBlockSize * 4,
+                        right: SizeUtils.horizontalBlockSize * 3,
+                        top: SizeUtils.horizontalBlockSize * 4,
+                        bottom: SizeUtils.horizontalBlockSize * 4,
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -216,141 +220,188 @@ class _WhatsAppState extends State<WhatsApp> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Direct reply to",style: TextStyle(fontSize: SizeUtils.horizontalBlockSize * 4.4,color: AppColor.appColors,fontWeight: FontWeight.w700),),
+                              Text(
+                                "Direct reply to",
+                                style: TextStyle(
+                                    fontSize:
+                                    SizeUtils.horizontalBlockSize * 4.4,
+                                    color: AppColor.darkBlue,
+                                    fontWeight: FontWeight.w700),
+                              ),
                               SizedBox(
                                 height: SizeUtils.horizontalBlockSize * 3,
                               ),
-                              Obx(
-                                () => GestureDetector(
-                                  onTap: () async {
-                                    controller.myContactListHistoryChekBox.value = false;
-                                    controller.myContactListChekBox.value = !controller.myContactListChekBox.value;
-                                    controller.contactCallHistoryButtonClick();
-                                    fetchContacts();
-                                  },
-                                  child: Row(
-                                    children: [
-                                      controller.myContactListChekBox.value
-                                          ? const Icon(
-                                              Icons.radio_button_checked,
-                                              color: AppColor.appColors,
-                                            )
-                                          : const Icon(
-                                              Icons.radio_button_unchecked_sharp,
-                                              color: AppColor.appColors),
-                                      SizedBox(
-                                        width: SizeUtils.horizontalBlockSize * 1,
-                                      ),
-                                      Text(
-                                        StringsUtils.contactList,
-                                        style: TextStyle(
 
-                                            color: controller
+                              /// contacts
+                              Obx(
+                                    () =>
+                                    GestureDetector(
+                                      onTap: () async {
+                                        controller.myContactListHistoryChekBox
+                                            .value = false;
+                                        controller.myAllContactListChekBox
+                                            .value = false;
+                                        controller.myContactListChekBox.value =
+                                        !controller.myContactListChekBox.value;
+                                        // await controller.contactCallHistoryButtonClick();
+                                        fetchContacts();
+                                      },
+                                      child: Row(
+                                        children: [
+                                          controller.myContactListChekBox.value
+                                              ? const Icon(
+                                            Icons.radio_button_checked,
+                                            color: AppColor.appColors,
+                                          )
+                                              : const Icon(
+                                              Icons
+                                                  .radio_button_unchecked_sharp,
+                                              color: AppColor.appColors),
+                                          SizedBox(
+                                            width:
+                                            SizeUtils.horizontalBlockSize * 1,
+                                          ),
+                                          Text(
+                                            StringsUtils.contactList,
+                                            style: TextStyle(
+                                                color: controller
                                                     .myContactListChekBox.value
-                                                ? AppColor.darkBlue.withOpacity(0.6)
-                                                : AppColor.grey,
-                                            fontSize:  SizeUtils.horizontalBlockSize * 4),
+                                                    ? AppColor.darkBlue
+                                                    .withOpacity(0.6)
+                                                    : AppColor.grey,
+                                                fontSize:
+                                                SizeUtils.horizontalBlockSize *
+                                                    4),
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
-                                ),
+                                    ),
                               ),
                               SizedBox(
                                 height: SizeUtils.horizontalBlockSize * 2,
                               ),
+
+                              /// history
                               Obx(
-                                () => GestureDetector(
-                                  onTap: () async {
-                                    controller.myContactListChekBox.value = false;
-                                    controller.myContactListHistoryChekBox.value =
-                                        !controller
-                                            .myContactListHistoryChekBox.value;
-                                    fetchContacts();
-                                  },
-                                  child: Row(
-                                    children: [
-                                      controller.myContactListHistoryChekBox.value
-                                          ? const Icon(
-                                              Icons.radio_button_checked,
-                                              color: AppColor.appColors,
-                                            )
-                                          : const Icon(
-                                              Icons.radio_button_unchecked_sharp,
+                                    () =>
+                                    GestureDetector(
+                                      onTap: () async {
+                                        controller.myContactListChekBox.value =
+                                        false;
+                                        controller.myAllContactListChekBox
+                                            .value = false;
+                                        controller.myContactListHistoryChekBox
+                                            .value =
+                                        !controller.myContactListHistoryChekBox
+                                            .value;
+                                        await controller
+                                            .contactCallHistoryButtonClick();
+                                      },
+                                      child: Row(
+                                        children: [
+                                          controller
+                                              .myContactListHistoryChekBox.value
+                                              ? const Icon(
+                                            Icons.radio_button_checked,
+                                            color: AppColor.appColors,
+                                          )
+                                              : const Icon(
+                                              Icons
+                                                  .radio_button_unchecked_sharp,
                                               color: AppColor.appColors),
-                                      SizedBox(
-                                        width: SizeUtils.horizontalBlockSize * 1,
-                                      ),
-                                      Text(
-                                        StringsUtils.callHistoryList,
-                                        style: TextStyle(
-                                            color: controller
+                                          SizedBox(
+                                            width:
+                                            SizeUtils.horizontalBlockSize * 1,
+                                          ),
+                                          Text(
+                                            StringsUtils.callHistoryList,
+                                            style: TextStyle(
+                                                color: controller
                                                     .myContactListHistoryChekBox
                                                     .value
-                                                ? AppColor.darkBlue.withOpacity(0.6)
-                                                : AppColor.grey,
-                                            fontSize:  SizeUtils.horizontalBlockSize * 4),
+                                                    ? AppColor.darkBlue
+                                                    .withOpacity(0.6)
+                                                    : AppColor.grey,
+                                                fontSize:
+                                                SizeUtils.horizontalBlockSize *
+                                                    4),
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
-                                ),
+                                    ),
                               ),
+
                               SizedBox(
                                 height: SizeUtils.horizontalBlockSize * 2,
                               ),
+
+                              /// all data
                               Obx(
-                                    () => GestureDetector(
-                                  onTap: () async {
-                                    // controller.myContactListChekBox.value = false;
-                                    // controller.myContactListHistoryChekBox.value =
-                                    // !controller
-                                    //     .myContactListHistoryChekBox.value;
-                                    // fetchContacts();
-                                  },
-                                  child: Row(
-                                    children: [
-                                      controller.myContactListHistoryChekBox.value
-                                          ? const Icon(
-                                        Icons.radio_button_checked,
-                                        color: AppColor.appColors,
-                                      )
-                                          : const Icon(
-                                          Icons.radio_button_unchecked_sharp,
-                                          color: AppColor.appColors),
-                                      SizedBox(
-                                        width: SizeUtils.horizontalBlockSize * 1,
+                                    () =>
+                                    GestureDetector(
+                                      onTap: () async {
+                                        controller.myContactListChekBox.value =
+                                        false;
+                                        controller.myContactListHistoryChekBox
+                                            .value = false;
+                                        controller.myAllContactListChekBox
+                                            .value =
+                                        !controller.myAllContactListChekBox
+                                            .value;
+                                      },
+                                      child: Row(
+                                        children: [
+                                          controller
+                                              .myAllContactListChekBox.value
+                                              ? const Icon(
+                                            Icons.radio_button_checked,
+                                            color: AppColor.appColors,
+                                          )
+                                              : const Icon(
+                                              Icons
+                                                  .radio_button_unchecked_sharp,
+                                              color: AppColor.appColors),
+                                          SizedBox(
+                                            width:
+                                            SizeUtils.horizontalBlockSize * 1,
+                                          ),
+                                          Text(
+                                            StringsUtils.allHistoryList,
+                                            style: TextStyle(
+                                                color: controller
+                                                    .myAllContactListChekBox
+                                                    .value
+                                                    ? AppColor.darkBlue
+                                                    .withOpacity(0.6)
+                                                    : AppColor.grey,
+                                                fontSize:
+                                                SizeUtils.horizontalBlockSize *
+                                                    4),
+                                          ),
+                                        ],
                                       ),
-                                      Text(
-                                        StringsUtils.allHistoryList,
-                                        style: TextStyle(
-                                            color: controller
-                                                .myContactListHistoryChekBox
-                                                .value
-                                                ? AppColor.darkBlue.withOpacity(0.6)
-                                                : AppColor.grey,
-                                            fontSize:  SizeUtils.horizontalBlockSize * 4),
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                                    ),
                               ),
                             ],
                           ),
                           GestureDetector(
-                              onTap: (){
-                                showDialog(
-                                  barrierDismissible: true,
-                                  context: Get.context!,
-                                  builder: (context) {
-                                    return Dialog(
-                                      // shape: const RoundedRectangleBorder(
-                                      //     borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                                      backgroundColor: AppColor.white,
-                                      child: CheckBoxData(context),
-                                    );
-                                  },
-                                );
-                              },
-                              child: Icon(Icons.info_outline,size: SizeUtils.horizontalBlockSize * 6,))
+                            onTap: () {
+                              showDialog(
+                                barrierDismissible: true,
+                                context: Get.context!,
+                                builder: (context) {
+                                  return Dialog(
+                                    backgroundColor: AppColor.white,
+                                    child: CheckBoxData(context),
+                                  );
+                                },
+                              );
+                            },
+                            child: Icon(
+                              Icons.info_outline,
+                              size: SizeUtils.horizontalBlockSize * 6,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -359,22 +410,30 @@ class _WhatsAppState extends State<WhatsApp> {
                 SizedBox(
                   height: SizeUtils.verticalBlockSize * 1,
                 ),
-                // Image.asset("assets/image/no_data.png",fit: BoxFit.cover,height: SizeUtils.horizontalBlockSize * 70,),
-                Obx(
-                  () => controller.myContactListChekBox.value == true
-                      ? Expanded(
-                          child: MyContactList(),
-                        )
-                      :SizedBox(child: Text("Fsf"),)
-                     // :  SizedBox(child: controller.myContactListChekBox.value == true ? Image.asset("assets/image/no_data.png"): SizedBox() ),
+                // Obx(()=>controller.myContactListChekBox.value &&
+                //     controller.myContactListHistoryChekBox.value &&
+                //     controller.myAllContactListChekBox.value == false ? Text("ffg") : Text("data"),),
+                Obx(() =>
+                controller.myContactListChekBox.value == true
+                    ? Expanded(
+                  child: MyContactList(),
+                )
+                    : SizedBox(),
                 ),
-                Obx(
-                  () => controller.myContactListHistoryChekBox.value == true
-                      ? Expanded(
-                          child: MyCallHistory(),
-                        )
-                      :SizedBox(child: Text("Fsffsfd"),)
+                Obx(() =>
+                controller.myContactListHistoryChekBox.value == true
+                    ? Expanded(
+                  child: MyCallHistory(),
+                )
+                    : SizedBox(),
                 ),
+                Obx(() =>
+                controller.myAllContactListChekBox.value == true
+                    ? Expanded(
+                  child: AllHistory(),
+                )
+                    : SizedBox(),
+                )
 
               ],
             ),
@@ -382,17 +441,18 @@ class _WhatsAppState extends State<WhatsApp> {
           ],
         ),
         floatingActionButton: Obx(
-          () => controller.myContactListHistoryChekBox.value == true ||
-                  controller.myContactListChekBox.value == true
+              () =>
+          controller.myContactListHistoryChekBox.value == true ||
+              controller.myContactListChekBox.value == true
               ? FloatingActionButton(
-                  backgroundColor: AppColor.darkBlue,
-                  child: const Icon(Icons.arrow_upward_rounded),
-                  onPressed: () {
-                    controller.myContactListHistoryChekBox.value == true
-                        ? AllScreenController.CallScrollUp()
-                        : AllScreenController.contactScrollUp();
-                  },
-                )
+            backgroundColor: AppColor.darkBlue,
+            child: const Icon(Icons.arrow_upward_rounded),
+            onPressed: () {
+              controller.myContactListHistoryChekBox.value == true
+                  ? AllScreenController.CallScrollUp()
+                  : AllScreenController.contactScrollUp();
+            },
+          )
               : const SizedBox(),
         ),
       ),
@@ -412,73 +472,53 @@ class _WhatsAppState extends State<WhatsApp> {
     }
   }
 
-
   Widget CheckBoxData(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         Padding(
-          padding:
-          EdgeInsets.symmetric(vertical: SizeUtils.verticalBlockSize * 2.5,horizontal: SizeUtils.horizontalBlockSize *4),
-          child:  Column(
+          padding: EdgeInsets.symmetric(
+              vertical: SizeUtils.verticalBlockSize * 2.5,
+              horizontal: SizeUtils.horizontalBlockSize * 4),
+          child: Column(
             children: [
-              Text.rich(
-                  TextSpan(
-                      text: StringsUtils.list2,
+              Text.rich(TextSpan(
+                  text: StringsUtils.list2,
+                  style: TextStyle(
+                      color: AppColor.black,
+                      fontWeight: FontWeight.w500,
+                      fontSize: SizeUtils.fSize_15()),
+                  children: <InlineSpan>[
+                    TextSpan(
+                      text: StringsUtils.list1,
                       style: TextStyle(
-                          color: AppColor.black,
-                          fontWeight: FontWeight.w500,
-                          fontSize: SizeUtils.fSize_15()),
-                      children: <InlineSpan>[
-                        TextSpan(
-                          text: StringsUtils.list1,
-                              style: TextStyle(
-                                  color: AppColor.black.withOpacity(0.7),
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: SizeUtils.fSize_13()),
-                        )
-                      ]
-                  )
+                          color: AppColor.black.withOpacity(0.7),
+                          fontWeight: FontWeight.w400,
+                          fontSize: SizeUtils.fSize_13()),
+                    )
+                  ])),
+              SizedBox(
+                height: SizeUtils.horizontalBlockSize * 2,
               ),
-              SizedBox(height: SizeUtils.horizontalBlockSize * 2,),
-              Text.rich(
-                  TextSpan(
-                      text: StringsUtils.list3,
+              Text.rich(TextSpan(
+                  text: StringsUtils.list3,
+                  style: TextStyle(
+                      color: AppColor.black,
+                      fontWeight: FontWeight.w500,
+                      fontSize: SizeUtils.fSize_15()),
+                  children: <InlineSpan>[
+                    TextSpan(
+                      text: StringsUtils.list4,
                       style: TextStyle(
-                          color: AppColor.black,
-                          fontWeight: FontWeight.w500,
-                          fontSize: SizeUtils.fSize_15()),
-                      children: <InlineSpan>[
-                        TextSpan(
-                          text: StringsUtils.list4,
-                              style: TextStyle(
-                                  color: AppColor.black.withOpacity(0.7),
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: SizeUtils.fSize_13()),
-                        )
-                      ]
-                  )
-              ),
+                          color: AppColor.black.withOpacity(0.7),
+                          fontWeight: FontWeight.w400,
+                          fontSize: SizeUtils.fSize_13()),
+                    )
+                  ])),
             ],
           ),
-          // child: TextSpan(
-          //   children: [
-          //     RichText(text: text)
-          //     RichText(text: StringsUtils.list)
-          //   ],
-          //   child: Text(
-          //     StringsUtils.list,
-          //     textAlign: TextAlign.center,
-          //     style: TextStyle(
-          //         color: AppColor.grey.withOpacity(0.5),
-          //         fontWeight: FontWeight.w500,
-          //         fontSize: SizeUtils.fSize_13()),
-          //   ),
-          // ),
         ),
-       ],
+      ],
     );
   }
-
-
 }

@@ -22,7 +22,7 @@ class _MyContactListState extends State<MyContactList> {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () =>   ListView.builder(
+      () =>  ListView.builder(
         controller: AllScreenController.myContactScrollController,
         padding: EdgeInsets.zero,
         itemCount: controller.contacts!.length,
@@ -95,15 +95,15 @@ class _MyContactListState extends State<MyContactList> {
                               "https://wa.me/+${fullContact!.phones.first.number}'?text=${controller.textController.text}";
                           await launch(controller.url.value);
                           print("------${controller.url.value}");
-                          controller.contactsNumberList.addAll([
-                            (controller
-                                    .contactListHistory[index].number ??
-                                "")
-                          ]);
-                          await SharedPrefs.setNumberList(
-                              controller.contactsNumberList);
-                          print(
-                              "contactsNumberList:-${controller.contactsNumberList}");
+                          // controller.contactsNumberList.addAll([
+                          //   (controller
+                          //           .contactListHistory[index].number ??
+                          //       "")
+                          // ]);
+                          // await SharedPrefs.setNumberList(
+                          //     controller.contactsNumberList);
+                          // print(
+                          //     "contactsNumberList:-${controller.contactsNumberList}");
                         },
                         child: Icon(
                           Icons.whatsapp,

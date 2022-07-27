@@ -1,5 +1,6 @@
 
 import 'package:all_app_direct/ads/adr.controller.dart';
+import 'package:all_app_direct/helper/shared_preferences.dart';
 import 'package:all_app_direct/modules/controller/controller.dart';
 import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/utils/appsnackbar.dart';
@@ -25,6 +26,8 @@ class OpenUserNameInstagram extends StatelessWidget {
           if (controller
               .instagramUsernameController.text.isNotEmpty) {
             await adController.createRewardedAd();
+            controller.setInstagramUsernameList.addAll([(controller.instagramUsernameController.text)]);
+            SharedPrefs.setInstagramList(controller.setInstagramUsernameList);
             controller.url.value = "instagram://user?username=${controller.instagramUsernameController.text}";
             await launch(controller.url.value);
             if (kDebugMode) {

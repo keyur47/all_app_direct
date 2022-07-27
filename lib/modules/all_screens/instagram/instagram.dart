@@ -1,4 +1,5 @@
 import 'package:all_app_direct/ads/ads.dart';
+import 'package:all_app_direct/modules/all_screens/instagram/all_instagram_history.dart';
 import 'package:all_app_direct/modules/appbar/appbar.dart';
 import 'package:all_app_direct/modules/controller/controller.dart';
 import 'package:all_app_direct/modules/openbutton/open_username_instagram.dart';
@@ -77,6 +78,9 @@ class _InstagramState extends State<Instagram> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [OpenUserNameInstagram()],
                 ),
+
+                Expanded(child: AllInstgramHistory())
+
               ],
             ),
             const BannerAds(),

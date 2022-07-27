@@ -14,15 +14,32 @@ class SharedPrefs {
     return prefs.getStringList("numberList") ?? [];
   }
 
-  static Future<void> setStringData(String lastName) async {
+  static Future<void> setInstagramList(List<String> InstagramList) async {
     final SharedPreferences prefs = await prefsData;
-    prefs.setString("StringData", lastName);
+    await prefs.setStringList("InstagramList", InstagramList);
   }
 
-  static Future getStringData() async {
+  static Future<List<String>> getInstagramList() async {
     final SharedPreferences prefs = await prefsData;
-    prefs.getString("StringData");
+    return prefs.getStringList("InstagramList") ?? [];
   }
+
+
+  // static Future<bool> setSaveUserData(bool value) async {
+  //   final SharedPreferences prefs = await prefsData;
+  //   return await prefs.setBool('flag', value);
+  // }
+  //
+  // static Future getSaveUserData() async {
+  //   final SharedPreferences prefs = await prefsData;
+  //   prefs.getBool("flag") ?? false;
+  // }
+
+
+
+
+
+
 
   static Future<void> remove() async {
     final SharedPreferences prefs = await prefsData;
