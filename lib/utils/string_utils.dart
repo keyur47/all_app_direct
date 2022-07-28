@@ -28,6 +28,7 @@ class StringsUtils {
   static const String contactList = 'Except my phone contacts ';
   static const String callHistoryList = 'Except my phone call history';
   static const String allHistoryList = 'My all history';
+  static const String everyone = 'Everyone';
   static const String whatsDirects = 'Direct WhatsApp';
   static const String whatsAppDirect = 'Direct \nWhatsApp';
   static const String telegramDirects = 'Direct Telegram';

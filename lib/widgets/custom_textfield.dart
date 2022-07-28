@@ -70,6 +70,7 @@ Widget usernameTextField({
   required String? hintText,
   required TextInputType textInputType,
   required GestureTapCallback onTap,
+  required GestureLongPressCallback?  longPress,
 }) {
   return GestureDetector(
     child: TextFormField(
@@ -97,6 +98,7 @@ Widget usernameTextField({
             ),
             suffixIcon: GestureDetector(
                 onTap: onTap,
+                onLongPress: longPress,
                 child: const Icon(Icons.close, color: AppColor.darkBlue)),
             hintText: hintText,
             fillColor: AppColor.white,

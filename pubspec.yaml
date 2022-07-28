@@ -57,6 +57,7 @@ dependencies:
   loading_indicator: ^3.1.0
   connectivity_plus: ^2.3.6
   flutter_contacts: ^1.1.5
+  bootstrap_icons: ^1.8.1
 
 dev_dependencies:
   flutter_test:
@@ -146,9 +147,6 @@ flutter:
         - asset: assets/font/MYRIADPRO-BOLDIT.OTF
         - weight: 700
           style: italic
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

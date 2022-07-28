@@ -47,7 +47,7 @@ Widget button(
                         decoration: decoration,
                         child: Icon(iconData, color: iconColor, size: sizeIcon,)),
                 const SizedBox(
-                  width: 1,
+                  width: 4,
                 ),
                 Stack(
                   alignment: Alignment.center,
@@ -59,8 +59,8 @@ Widget button(
                     ),
                     DefaultTextStyle(
                       style: const TextStyle(
-                        height: 1,
-                          fontSize: 14.0,
+                        height: 1.2,
+                          fontSize: 15.0,
                           fontFamily: 'Customtext',
                           color: AppColor.darkBlue,fontWeight: FontWeight.w600),
                       child: AnimatedTextKit(

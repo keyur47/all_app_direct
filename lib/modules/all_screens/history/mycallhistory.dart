@@ -4,6 +4,7 @@ import 'package:all_app_direct/modules/controller/controller.dart';
 import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/utils/size_utils.dart';
 import 'package:all_app_direct/widgets/call.dart';
+import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:call_log/call_log.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -245,36 +246,45 @@ class MyCallHistory extends StatelessWidget {
     switch (callType) {
       case CallType.incoming:
         {
-          return imageDetails(icons: Icons.call, color: AppColor.appColors);
+          return imageDetails(
+              icons: BootstrapIcons.arrow_down_left, color: AppColor.appColors);
         }
 
       case CallType.outgoing:
         {
-          return imageDetails(icons: Icons.call, color: AppColor.appColors);
+          return imageDetails(
+              icons: BootstrapIcons.arrow_up_right, color: AppColor.appColors);
         }
       case CallType.rejected:
         {
-          return imageDetails(icons: Icons.call, color: AppColor.appColors);
+          return imageDetails(
+              icons: BootstrapIcons.arrow_up_right, color: AppColor.appColors);
         }
       case CallType.missed:
         {
-          return imageDetails(icons: Icons.call, color: Colors.red);
+          return imageDetails(
+              icons: BootstrapIcons.arrow_90deg_up, color: Colors.red);
         }
       case CallType.wifiOutgoing:
         {
-          return imageDetails(icons: Icons.call, color: AppColor.appColors);
+          return imageDetails(
+              icons: BootstrapIcons.arrow_up_right, color: AppColor.appColors);
         }
       case CallType.wifiIncoming:
         {
-          return imageDetails(icons: Icons.call, color: AppColor.appColors);
+          return imageDetails(
+              icons: BootstrapIcons.wifi,color: AppColor.appColors);
         }
       case CallType.blocked:
         {
-          return imageDetails(icons: Icons.call, color: AppColor.appColors);
+          return imageDetails(
+              icons: BootstrapIcons.arrow_down_right_square_fill,
+              color: AppColor.appColors);
         }
       default:
         {
-          return imageDetails(icons: Icons.call, color: AppColor.appColors);
+          return imageDetails(
+              icons: BootstrapIcons.arrow_up_right, color: AppColor.appColors);
         }
     }
   }

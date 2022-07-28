@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:all_app_direct/ads/ads.dart';
 import 'package:all_app_direct/modules/all_screens/history/all_history.dart';
 import 'package:all_app_direct/modules/all_screens/history/mycallhistory.dart';
@@ -12,9 +14,11 @@ import 'package:all_app_direct/modules/openbutton/open_number_whatsapp.dart';
 import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/utils/size_utils.dart';
 import 'package:all_app_direct/utils/string_utils.dart';
+import 'package:call_log/call_log.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class WhatsApp extends StatefulWidget {
   WhatsApp({Key? key}) : super(key: key);
@@ -231,7 +235,6 @@ class _WhatsAppState extends State<WhatsApp> {
                               SizedBox(
                                 height: SizeUtils.horizontalBlockSize * 3,
                               ),
-
                               /// contacts
                               Obx(
                                     () =>
@@ -241,6 +244,8 @@ class _WhatsAppState extends State<WhatsApp> {
                                             .value = false;
                                         controller.myAllContactListChekBox
                                             .value = false;
+                                        controller
+                                            .isError.value =false;
                                         controller.myContactListChekBox.value =
                                         !controller.myContactListChekBox.value;
                                         // await controller.contactCallHistoryButtonClick();
@@ -280,12 +285,14 @@ class _WhatsAppState extends State<WhatsApp> {
                               SizedBox(
                                 height: SizeUtils.horizontalBlockSize * 2,
                               ),
-
                               /// history
                               Obx(
                                     () =>
                                     GestureDetector(
                                       onTap: () async {
+                                        controller
+                                            .isError.value =false;
+                                       await callHistoryButtonClick();
                                         controller.myContactListChekBox.value =
                                         false;
                                         controller.myAllContactListChekBox
@@ -294,8 +301,6 @@ class _WhatsAppState extends State<WhatsApp> {
                                             .value =
                                         !controller.myContactListHistoryChekBox
                                             .value;
-                                        await controller
-                                            .contactCallHistoryButtonClick();
                                       },
                                       child: Row(
                                         children: [
@@ -330,16 +335,15 @@ class _WhatsAppState extends State<WhatsApp> {
                                       ),
                                     ),
                               ),
-
                               SizedBox(
                                 height: SizeUtils.horizontalBlockSize * 2,
                               ),
-
                               /// all data
-                              Obx(
-                                    () =>
+                              Obx(() =>
                                     GestureDetector(
                                       onTap: () async {
+                                        controller
+                                            .isError.value = false;
                                         controller.myContactListChekBox.value =
                                         false;
                                         controller.myContactListHistoryChekBox
@@ -382,7 +386,11 @@ class _WhatsAppState extends State<WhatsApp> {
                                       ),
                                     ),
                               ),
-                            ],
+                              SizedBox(
+                                height: SizeUtils.horizontalBlockSize * 2,
+                              ),
+                              ///everyone
+                      ],
                           ),
                           GestureDetector(
                             onTap: () {
@@ -410,9 +418,6 @@ class _WhatsAppState extends State<WhatsApp> {
                 SizedBox(
                   height: SizeUtils.verticalBlockSize * 1,
                 ),
-                // Obx(()=>controller.myContactListChekBox.value &&
-                //     controller.myContactListHistoryChekBox.value &&
-                //     controller.myAllContactListChekBox.value == false ? Text("ffg") : Text("data"),),
                 Obx(() =>
                 controller.myContactListChekBox.value == true
                     ? Expanded(
@@ -433,8 +438,8 @@ class _WhatsAppState extends State<WhatsApp> {
                   child: AllHistory(),
                 )
                     : SizedBox(),
-                )
-
+                ),
+               SizedBox(height: SizeUtils.verticalBlockSize * 7,)
               ],
             ),
             const BannerAds(),
@@ -458,6 +463,49 @@ class _WhatsAppState extends State<WhatsApp> {
       ),
     );
   }
+
+
+  callHistoryButtonClick() async {
+    try {
+      if (controller.contactListHistory.isEmpty) {
+        await CallLog.get();
+      }
+    } catch (e) {
+      await openAppSettings();
+    }
+    if (!controller.isContactsShowDialPad.value) {
+      if (await Permission.phone.status == PermissionStatus.permanentlyDenied) {
+        await openAppSettings();
+      } else {
+        if (controller.contactListHistory.isEmpty) {
+          await getContact();
+        }
+      }
+    }
+    controller.isContactsShowDialPad.value =
+    !controller.isContactsShowDialPad.value;
+    controller.isContactsShowCallHistory.value =
+    !controller.isContactsShowCallHistory.value;
+  }
+
+  Future<void> getContact() async {
+    try {
+      controller.contactListHistory.clear();
+      var entries = await CallLog.get();
+      for (var element in entries) {
+        if ( controller.contactListHistory.length < 100 &&
+            controller.contactListHistory.indexWhere(
+                    (elementInner) => elementInner.name == element.name) ==
+                -1) {
+          controller.contactListHistory.add(element);
+        }
+      }
+    } catch (e, st) {
+      log("e : $e , st $st");
+    }
+    setState(() {});
+  }
+
 
   Future fetchContacts() async {
     if (!await FlutterContacts.requestPermission(readonly: true)) {

@@ -24,8 +24,7 @@ class _AllHistoryState extends State<AllHistory> {
 
   getData() async {
     controller.setContactsNumberList = await SharedPrefs.getNumberList();
-    controller.getContactsNumberList =
-        controller.setContactsNumberList.toSet().toList();
+    controller.getContactsNumberList = controller.setContactsNumberList.toSet().toList();
     setState(() {
       controller.setContactsNumberList.join("");
       controller.getContactsNumberList.join("");
@@ -43,8 +42,10 @@ class _AllHistoryState extends State<AllHistory> {
             return Padding(
               padding: EdgeInsets.only(
                   left: SizeUtils.horizontalBlockSize * 2.4,
-                  top: SizeUtils.verticalBlockSize * 1.2,
-                  right: SizeUtils.horizontalBlockSize * 2),
+                  top: SizeUtils.verticalBlockSize * 0.6,
+                  bottom: SizeUtils.verticalBlockSize * 0.6,
+                  right: SizeUtils.horizontalBlockSize * 2,
+              ),
               child: GestureDetector(
                 child: Container(
                   // decoration: BoxDecoration(
@@ -108,6 +109,6 @@ class _AllHistoryState extends State<AllHistory> {
             );
           },
         )
-        : Center(child: Text("sfsd"));
+        : Center(child: Text(""));
   }
 }

@@ -12,6 +12,7 @@ class AssetsPath {
   /// Image
   static const String _baseImagePath = 'assets/image/';
   static const String splashScreenAppLogo = _baseImagePath + 'app_logo.png';
+  static const String noData = _baseImagePath + 'no_data.png';
 }
 
 

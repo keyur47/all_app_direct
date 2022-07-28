@@ -1,7 +1,9 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
 import 'package:all_app_direct/helper/shared_preferences.dart';
+import 'package:all_app_direct/model/demo.dart';
 import 'package:all_app_direct/utils/string_utils.dart';
 import 'package:all_app_direct/widgets/call.dart';
 import 'package:all_app_direct/widgets/toast_helper.dart';
@@ -19,7 +21,6 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AllScreenController extends GetxController {
-  TextEditingController snapchatUsernameController = TextEditingController();
   RxList<CallLogEntry> contactListHistory = <CallLogEntry>[].obs;
   static ScrollController myCallScrollController = ScrollController();
   static ScrollController myContactScrollController = ScrollController();
@@ -27,6 +28,7 @@ class AllScreenController extends GetxController {
   TextEditingController textController = TextEditingController();
   TextEditingController instagramUsernameController = TextEditingController();
   TextEditingController telegramUsernameController = TextEditingController();
+  TextEditingController snapchatUsernameController = TextEditingController();
   TextEditingController emailFeedBackController = TextEditingController();
   TextEditingController FeedBackController = TextEditingController();
   RxString url = ''.obs;
@@ -35,21 +37,98 @@ class AllScreenController extends GetxController {
   List<String> getContactsNumberList = [];
   List<String> setInstagramUsernameList = [];
   List<String> getInstagramUsernameList = [];
+  List<String> setTelegramUsernameList = [];
+  List<String> getTelegramUsernameList = [];
+  List<String> setSnapchatUsernameList = [];
+  List<String> getSnapchatUsernameList = [];
   RxBool isContactsShowDialPad = false.obs;
   RxBool isContactsShowCallHistory = true.obs;
   RxBool collpan = false.obs;
   RxBool myContactListHistoryChekBox = false.obs;
   RxBool myContactListChekBox = false.obs;
   RxBool myAllContactListChekBox = false.obs;
+  RxBool isError = true.obs;
   RxString errorMessage = "".obs;
   FocusNode emailFocusNode = FocusNode();
   FocusNode feedBackFocusNode = FocusNode();
+
+
+
 
   ///contact List
   RxList<Contact>? contacts = <Contact>[].obs;
   RxBool permissionDenied = false.obs;
   RxString photo = ''.obs;
   RxBool boxSize = false.obs;
+
+///
+
+
+  //
+  // getData() async {
+  //   setContactsNumberList = await SharedPrefs.getNumberList();
+  //   getContactsNumberList = setContactsNumberList.toSet().toList();
+  //   setContactsNumberList.join("");
+  //   getContactsNumberList.join("");
+  // }
+
+
+
+
+
+
+
+
+  ///
+  void onOpenWhatsApp(String countryCode, String message) async {
+    if (numberController.text != "") {
+      // contactsNumberList.addAll([numberController.text]);
+      // await SharedPrefs.setNumberList(contactsNumberList);
+      if (kDebugMode) {
+        print("contactsNumberList:-$setContactsNumberList");
+      }
+      try {
+        if (Platform.isIOS) {
+          String mobileNumber = getCountryNumberHistory();
+          print("Mobile Number $mobileNumber");
+
+          setContactsNumberList.addAll([(mobileNumber)]);
+          await SharedPrefs.setNumberList(setContactsNumberList);
+          var redirectUrl =
+              "https://faq.whatsapp.com/$mobileNumber/?helpref=uf_share";
+          // var redirectUrl =
+          // "https://wa.me/$mobileNumber?text=${Uri.parse(message.replaceAll(":", ""))}";
+          if (kDebugMode) {
+            print("redirectUrl$redirectUrl");
+          }
+          if (await canLaunch(redirectUrl)) {
+            await launch(redirectUrl, forceSafariVC: false);
+          }
+        } else {
+          String mobileNumber = getCountryNumberHistory();
+          print("Mobile Number $mobileNumber");
+
+
+
+          setContactsNumberList.addAll([(mobileNumber)]);
+          await SharedPrefs.setNumberList(setContactsNumberList);
+          var redirectUrl =
+              "https://wa.me/$mobileNumber?text=${Uri.parse(message.replaceAll(":", ""))}";
+          if (kDebugMode) {
+            print("redirectUrl$redirectUrl");
+          }
+          if (await canLaunch(redirectUrl)) {
+            await launch(redirectUrl, forceSafariVC: false);
+          }
+        }
+      } catch (e) {
+        AppToast.toastMessage("Invalid Mobile Number");
+      }
+    } else {
+      AppToast.toastMessage("Enter Mobile Number");
+    }
+  }
+
 
   static void CallScrollUp() {
     myCallScrollController.animateTo(
@@ -64,6 +143,7 @@ class AllScreenController extends GetxController {
         duration: const Duration(seconds: 3),
         curve: Curves.easeInToLinear);
   }
+
 
   String getCountryNumberHistory() {
     /// more than 10  digits and start with 00 remove 00 only
@@ -92,50 +172,6 @@ class AllScreenController extends GetxController {
     return mobileNumber;
   }
 
-  void onOpenWhatsApp(String countryCode, String message) async {
-    if (numberController.text != "") {
-      // contactsNumberList.addAll([numberController.text]);
-      // await SharedPrefs.setNumberList(contactsNumberList);
-      if (kDebugMode) {
-        print("contactsNumberList:-$setContactsNumberList");
-      }
-      try {
-        if (Platform.isIOS) {
-          String mobileNumber = getCountryNumberHistory();
-          print("Mobile Number $mobileNumber");
-          setContactsNumberList.addAll([(mobileNumber)]);
-          await SharedPrefs.setNumberList(setContactsNumberList);
-          var redirectUrl =
-              "https://faq.whatsapp.com/$mobileNumber/?helpref=uf_share";
-          // var redirectUrl =
-          // "https://wa.me/$mobileNumber?text=${Uri.parse(message.replaceAll(":", ""))}";
-          if (kDebugMode) {
-            print("redirectUrl$redirectUrl");
-          }
-          if (await canLaunch(redirectUrl)) {
-            await launch(redirectUrl, forceSafariVC: false);
-          }
-        } else {
-          String mobileNumber = getCountryNumberHistory();
-          print("Mobile Number $mobileNumber");
-          setContactsNumberList.addAll([(mobileNumber)]);
-          await SharedPrefs.setNumberList(setContactsNumberList);
-          var redirectUrl =
-              "https://wa.me/$mobileNumber?text=${Uri.parse(message.replaceAll(":", ""))}";
-          if (kDebugMode) {
-            print("redirectUrl$redirectUrl");
-          }
-          if (await canLaunch(redirectUrl)) {
-            await launch(redirectUrl, forceSafariVC: false);
-          }
-        }
-      } catch (e) {
-        AppToast.toastMessage("Invalid Mobile Number");
-      }
-    } else {
-      AppToast.toastMessage("Enter Mobile Number");
-    }
-  }
 
   void onOpenCalls(String countryCode) async {
     if (numberController.text != "") {
@@ -186,47 +222,47 @@ class AllScreenController extends GetxController {
     }
   }
 
-  contactCallHistoryButtonClick() async {
-    try {
-      if (contactListHistory.isEmpty) {
-        await CallLog.get();
-      }
-    } catch (e) {
-      // print("getContactHistory1333");
-      await openAppSettings();
-    }
-    if (!isContactsShowDialPad.value) {
-      if (await Permission.phone.status == PermissionStatus.permanentlyDenied) {
-        await openAppSettings();
-      } else {
-        if (contactListHistory.isEmpty) {
-          await getContactHistory();
-        }
-      }
-    }
-    isContactsShowDialPad.value = !isContactsShowDialPad.value;
-    isContactsShowCallHistory.value = !isContactsShowCallHistory.value;
-  }
-
-  Future<void> getContactHistory() async {
-    try {
-      contactListHistory.clear();
-      var entries = await CallLog.get();
-      for (var element in entries) {
-        if (contactListHistory.length < 100 &&
-            contactListHistory.indexWhere(
-                    (elementInner) => elementInner.name == element.name) ==
-                -1) {
-          contactListHistory.add(element);
-        }
-      }
-      // print("getContactHistory");
-    } catch (e, st) {
-      // print("getContactHistory12");
-      log("error: $e , st $st");
-    }
-    // setState(() {});
-  }
+  // contactCallHistoryButtonClick() async {
+  //   try {
+  //     if (contactListHistory.isEmpty) {
+  //       await CallLog.get();
+  //     }
+  //   } catch (e) {
+  //     // print("getContactHistory1333");
+  //     await openAppSettings();
+  //   }
+  //   if (!isContactsShowDialPad.value) {
+  //     if (await Permission.phone.status == PermissionStatus.permanentlyDenied) {
+  //       await openAppSettings();
+  //     } else {
+  //       if (contactListHistory.isEmpty) {
+  //         await getContactHistory();
+  //       }
+  //     }
+  //   }
+  //   isContactsShowDialPad.value = !isContactsShowDialPad.value;
+  //   isContactsShowCallHistory.value = !isContactsShowCallHistory.value;
+  // }
+  //
+  // Future<void> getContactHistory() async {
+  //   try {
+  //     contactListHistory.clear();
+  //     var entries = await CallLog.get();
+  //     for (var element in entries) {
+  //       if (contactListHistory.length < 100 &&
+  //           contactListHistory.indexWhere(
+  //                   (elementInner) => elementInner.name == element.name) ==
+  //               -1) {
+  //         contactListHistory.add(element);
+  //       }
+  //     }
+  //     // print("getContactHistory");
+  //   } catch (e, st) {
+  //     // print("getContactHistory12");
+  //     log("error: $e , st $st");
+  //   }
+  //   // setState(() {});
+  // }
 
   Future<void> getPermission() async {
     await Geolocator.requestPermission();

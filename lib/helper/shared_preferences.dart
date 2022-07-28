@@ -24,6 +24,26 @@ class SharedPrefs {
     return prefs.getStringList("InstagramList") ?? [];
   }
 
+  static Future<void> setTelegramString(List<String> Telegram) async {
+    final SharedPreferences prefs = await prefsData;
+    await prefs.setStringList("Telegram", Telegram);
+  }
+
+  static Future<List<String>> getTelegramString() async {
+    final SharedPreferences prefs = await prefsData;
+    return prefs.getStringList("Telegram") ?? [];
+  }
+
+
+  static Future<void> setSnapchatString(List<String> snapchat) async {
+    final SharedPreferences prefs = await prefsData;
+    await prefs.setStringList("snapchat", snapchat);
+  }
+
+  static Future<List<String>> getSnapchatString() async {
+    final SharedPreferences prefs = await prefsData;
+    return prefs.getStringList("snapchat") ?? [];
+  }
 
   // static Future<bool> setSaveUserData(bool value) async {
   //   final SharedPreferences prefs = await prefsData;
@@ -34,12 +54,6 @@ class SharedPrefs {
   //   final SharedPreferences prefs = await prefsData;
   //   prefs.getBool("flag") ?? false;
   // }
-
-
-
-
-
-
 
   static Future<void> remove() async {
     final SharedPreferences prefs = await prefsData;
