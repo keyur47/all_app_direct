@@ -31,6 +31,7 @@ class OpenUserNameInstagram extends StatelessWidget {
             SharedPrefs.setInstagramList(controller.setInstagramUsernameList);
             controller.url.value = "instagram://user?username=${controller.instagramUsernameController.text}";
             await launch(controller.url.value);
+            controller.getInstagramData();
             if (kDebugMode) {
               print("------${controller.url.value}");
             }

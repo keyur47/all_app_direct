@@ -34,6 +34,7 @@ class StringsUtils {
   static const String telegramDirects = 'Direct Telegram';
   static const String instagramDirects = 'Direct Instagram';
   static const String snapchatDirects = 'Direct Snapchat';
+  static const String galleryDirects = 'Direct Gallery';
   static const String smsDirects = 'Direct Call & Sms';
   static const String whatsApp = 'WhatsApp';
   static const String telegram = 'Telegram';
@@ -41,6 +42,7 @@ class StringsUtils {
   static const String callAndMessages = ' Call & Messages';
    static const String sms = 'Call & Sms';
    static const String snapchat = 'Snapchat';
+   static const String gallery = 'Gallery';
   static const String contacts = 'Contacts';
   static const String contactsHistory = 'Contacts History';
   static const String shareApp = 'Share App';

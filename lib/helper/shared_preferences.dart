@@ -24,23 +24,23 @@ class SharedPrefs {
     return prefs.getStringList("InstagramList") ?? [];
   }
 
-  static Future<void> setTelegramString(List<String> Telegram) async {
+  static Future<void> setTelegramList(List<String> Telegram) async {
     final SharedPreferences prefs = await prefsData;
     await prefs.setStringList("Telegram", Telegram);
   }
 
-  static Future<List<String>> getTelegramString() async {
+  static Future<List<String>> getTelegramList() async {
     final SharedPreferences prefs = await prefsData;
     return prefs.getStringList("Telegram") ?? [];
   }
 
 
-  static Future<void> setSnapchatString(List<String> snapchat) async {
+  static Future<void> setSnapchatList(List<String> snapchat) async {
     final SharedPreferences prefs = await prefsData;
     await prefs.setStringList("snapchat", snapchat);
   }
 
-  static Future<List<String>> getSnapchatString() async {
+  static Future<List<String>> getSnapchatList() async {
     final SharedPreferences prefs = await prefsData;
     return prefs.getStringList("snapchat") ?? [];
   }

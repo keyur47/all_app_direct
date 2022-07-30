@@ -24,10 +24,11 @@ class OpenUserNameTelegram extends StatelessWidget {
           if (controller.telegramUsernameController.text.isNotEmpty) {
             await adController.createRewardedAd();
             controller.setTelegramUsernameList.addAll([(controller.telegramUsernameController.text)]);
-            SharedPrefs.setTelegramString(controller.setTelegramUsernameList);
+            SharedPrefs.setTelegramList(controller.setTelegramUsernameList);
             controller.url.value =
                 "https://telegram.me/${controller.telegramUsernameController.text}";
             await launch(controller.url.value);
+            controller.getTelegramData();
             if (kDebugMode) {
               print("------${controller.url.value}");
             }

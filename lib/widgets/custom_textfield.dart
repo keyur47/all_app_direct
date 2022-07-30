@@ -72,10 +72,27 @@ Widget usernameTextField({
   required GestureTapCallback onTap,
   required GestureLongPressCallback?  longPress,
 }) {
-  return GestureDetector(
+  return Container(
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(SizeUtils.horizontalBlockSize * 10),
+      boxShadow: const [
+        BoxShadow(
+          color: Colors.black12,
+          blurRadius: 4,
+          offset: Offset(4, 8), // Shadow position
+        ),
+      ],
+    ),
     child: TextFormField(
       cursorColor: Colors.transparent,
         controller: controller,
+        toolbarOptions: const ToolbarOptions(
+          paste: false,
+          copy: true,
+          selectAll: true,
+          cut: true,
+        ),
+        showCursor: false,
         inputFormatters: <TextInputFormatter>[
           FilteringTextInputFormatter(RegExp(r'[a-z_.0-9]'), allow: true)
         ],

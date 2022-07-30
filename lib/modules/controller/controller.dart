@@ -1,9 +1,6 @@
-import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:all_app_direct/helper/shared_preferences.dart';
-import 'package:all_app_direct/model/demo.dart';
 import 'package:all_app_direct/utils/string_utils.dart';
 import 'package:all_app_direct/widgets/call.dart';
 import 'package:all_app_direct/widgets/toast_helper.dart';
@@ -17,7 +14,6 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AllScreenController extends GetxController {
@@ -33,27 +29,26 @@ class AllScreenController extends GetxController {
   TextEditingController FeedBackController = TextEditingController();
   RxString url = ''.obs;
   RxString countryCode = "".obs;
-  List<String> setContactsNumberList = [];
-  List<String> getContactsNumberList = [];
-  List<String> setInstagramUsernameList = [];
-  List<String> getInstagramUsernameList = [];
-  List<String> setTelegramUsernameList = [];
-  List<String> getTelegramUsernameList = [];
-  List<String> setSnapchatUsernameList = [];
-  List<String> getSnapchatUsernameList = [];
+  RxList<String> setContactsNumberList = <String>[].obs;
+  RxList<String> getContactsNumberList = <String>[].obs;
+  RxList<String> setInstagramUsernameList = <String>[].obs;
+  RxList<String> getInstagramUsernameList = <String>[].obs;
+  RxList<String> setTelegramUsernameList = <String>[].obs;
+  RxList<String> getTelegramUsernameList = <String>[].obs;
+  RxList<String> setSnapchatUsernameList = <String>[].obs;
+  RxList<String> getSnapchatUsernameList = <String>[].obs;
+  RxList<String> newSnapchatUsernameList = <String>[].obs;
   RxBool isContactsShowDialPad = false.obs;
   RxBool isContactsShowCallHistory = true.obs;
   RxBool collpan = false.obs;
   RxBool myContactListHistoryChekBox = false.obs;
   RxBool myContactListChekBox = false.obs;
   RxBool myAllContactListChekBox = false.obs;
+  RxBool collpan1 = false.obs;
   RxBool isError = true.obs;
   RxString errorMessage = "".obs;
   FocusNode emailFocusNode = FocusNode();
   FocusNode feedBackFocusNode = FocusNode();
-
-
-
 
   ///contact List
   RxList<Contact>? contacts = <Contact>[].obs;
@@ -61,29 +56,51 @@ class AllScreenController extends GetxController {
   RxString photo = ''.obs;
   RxBool boxSize = false.obs;
 
-///
+  @override
+  void onInit() {
+    super.onInit();
+    getContactsNumberData();
+    getInstagramData();
+    getSnapchatData();
+    getTelegramData();
+  }
+
+  ///  getContactsNumberData
+  getContactsNumberData() async {
+    setContactsNumberList.value = await SharedPrefs.getNumberList();
+    getContactsNumberList.value = setContactsNumberList.toSet().toList();
+    setContactsNumberList.join("");
+    getContactsNumberList.join("");
+  }
+
+  ///  getInstagramData
+  getInstagramData() async {
+   setInstagramUsernameList.value = await SharedPrefs.getInstagramList();
+   getInstagramUsernameList.value = setInstagramUsernameList.toSet().toList();
+     setInstagramUsernameList.join("");
+    getInstagramUsernameList.join("");
+  }
 
 
-  //
-  // getData() async {
-  //   setContactsNumberList = await SharedPrefs.getNumberList();
-  //   getContactsNumberList = setContactsNumberList.toSet().toList();
-  //   setContactsNumberList.join("");
-  //   getContactsNumberList.join("");
-  // }
+  ///  getSnapchatData
+  getSnapchatData() async {
+    setSnapchatUsernameList.value = await SharedPrefs.getSnapchatList();
+    getSnapchatUsernameList.value = setSnapchatUsernameList.toSet().toList();
+    setSnapchatUsernameList.join("");
+    getSnapchatUsernameList.join("");
+  }
 
+  ///  getTelegramData
+  getTelegramData() async {
+    setTelegramUsernameList.value = await SharedPrefs.getTelegramList();
+    getTelegramUsernameList.value = setTelegramUsernameList.toSet().toList();
+    setTelegramUsernameList.join("");
+    getTelegramUsernameList.join("");
+  }
 
-
-
-
-
-
-
-  ///
+  /// onOpenWhatsAppDialogBox
   void onOpenWhatsApp(String countryCode, String message) async {
     if (numberController.text != "") {
-      // contactsNumberList.addAll([numberController.text]);
-      // await SharedPrefs.setNumberList(contactsNumberList);
       if (kDebugMode) {
         print("contactsNumberList:-$setContactsNumberList");
       }
@@ -91,11 +108,11 @@ class AllScreenController extends GetxController {
         if (Platform.isIOS) {
           String mobileNumber = getCountryNumberHistory();
           print("Mobile Number $mobileNumber");
-
           setContactsNumberList.addAll([(mobileNumber)]);
           await SharedPrefs.setNumberList(setContactsNumberList);
           var redirectUrl =
               "https://faq.whatsapp.com/$mobileNumber/?helpref=uf_share";
+          getContactsNumberData();
           // var redirectUrl =
           // "https://wa.me/$mobileNumber?text=${Uri.parse(message.replaceAll(":", ""))}";
           if (kDebugMode) {
@@ -107,13 +124,10 @@ class AllScreenController extends GetxController {
         } else {
           String mobileNumber = getCountryNumberHistory();
           print("Mobile Number $mobileNumber");
-
-
-
           setContactsNumberList.addAll([(mobileNumber)]);
           await SharedPrefs.setNumberList(setContactsNumberList);
-          var redirectUrl =
-              "https://wa.me/$mobileNumber?text=${Uri.parse(message.replaceAll(":", ""))}";
+          var redirectUrl = "https://wa.me/$mobileNumber?text=${Uri.parse(message.replaceAll(":", ""))}";
+          getContactsNumberData();
           if (kDebugMode) {
             print("redirectUrl$redirectUrl");
           }
@@ -129,22 +143,7 @@ class AllScreenController extends GetxController {
     }
   }
 
-
-  static void CallScrollUp() {
-    myCallScrollController.animateTo(
-        myCallScrollController.position.minScrollExtent,
-        duration: const Duration(seconds: 3),
-        curve: Curves.easeInToLinear);
-  }
-
-  static void contactScrollUp() {
-    myContactScrollController.animateTo(
-        myContactScrollController.position.minScrollExtent,
-        duration: const Duration(seconds: 3),
-        curve: Curves.easeInToLinear);
-  }
-
-
+  /// getCountryNumberHistory
   String getCountryNumberHistory() {
     /// more than 10  digits and start with 00 remove 00 only
     String mobileNumber = numberController.text;
@@ -172,7 +171,7 @@ class AllScreenController extends GetxController {
     return mobileNumber;
   }
 
-
+  /// onOpenCalls
   void onOpenCalls(String countryCode) async {
     if (numberController.text != "") {
       if (kDebugMode) {
@@ -198,6 +197,23 @@ class AllScreenController extends GetxController {
     }
   }
 
+  ///  callScrollUp
+  static void callScrollUp() {
+    myCallScrollController.animateTo(
+        myCallScrollController.position.minScrollExtent,
+        duration: const Duration(seconds: 3),
+        curve: Curves.easeInToLinear);
+  }
+
+  /// contactScrollUp
+  static void contactScrollUp() {
+    myContactScrollController.animateTo(
+        myContactScrollController.position.minScrollExtent,
+        duration: const Duration(seconds: 3),
+        curve: Curves.easeInToLinear);
+  }
+
+  /// formatMillisecondToDate
   String formatMillisecondToDate(int milliSecond) {
     DateTime date = DateTime.fromMillisecondsSinceEpoch(milliSecond);
     String formattedDate = DateFormat('h:mm a').format(date).toString();
@@ -212,6 +228,19 @@ class AllScreenController extends GetxController {
     return dateTime;
   }
 
+  /// All getPermission
+  Future<void> getPermission() async {
+    await Geolocator.requestPermission();
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    final coordinates =
+    await placemarkFromCoordinates(position.latitude, position.longitude);
+    var country = CountryPickerUtils.getCountryByName(
+        coordinates.first.country.toString());
+    countryCode.value = country.phoneCode;
+  }
+
+  /// validateEmail
   void validateEmail(String val) {
     if (val.isEmpty) {
       errorMessage.value = StringsUtils.pleaseEmails;
@@ -222,56 +251,5 @@ class AllScreenController extends GetxController {
     }
   }
 
-  // contactCallHistoryButtonClick() async {
-  //   try {
-  //     if (contactListHistory.isEmpty) {
-  //       await CallLog.get();
-  //     }
-  //   } catch (e) {
-  //     // print("getContactHistory1333");
-  //     await openAppSettings();
-  //   }
-  //   if (!isContactsShowDialPad.value) {
-  //     if (await Permission.phone.status == PermissionStatus.permanentlyDenied) {
-  //       await openAppSettings();
-  //     } else {
-  //       if (contactListHistory.isEmpty) {
-  //         await getContactHistory();
-  //       }
-  //     }
-  //   }
-  //   isContactsShowDialPad.value = !isContactsShowDialPad.value;
-  //   isContactsShowCallHistory.value = !isContactsShowCallHistory.value;
-  // }
-  //
-  // Future<void> getContactHistory() async {
-  //   try {
-  //     contactListHistory.clear();
-  //     var entries = await CallLog.get();
-  //     for (var element in entries) {
-  //       if (contactListHistory.length < 100 &&
-  //           contactListHistory.indexWhere(
-  //                   (elementInner) => elementInner.name == element.name) ==
-  //               -1) {
-  //         contactListHistory.add(element);
-  //       }
-  //     }
-  //     // print("getContactHistory");
-  //   } catch (e, st) {
-  //     // print("getContactHistory12");
-  //     log("error: $e , st $st");
-  //   }
-  //   // setState(() {});
-  // }
 
-  Future<void> getPermission() async {
-    await Geolocator.requestPermission();
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    final coordinates =
-        await placemarkFromCoordinates(position.latitude, position.longitude);
-    var country = CountryPickerUtils.getCountryByName(
-        coordinates.first.country.toString());
-    countryCode.value = country.phoneCode;
-  }
 }

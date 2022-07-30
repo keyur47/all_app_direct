@@ -25,9 +25,10 @@ class OpenUserNameSnapchat extends StatelessWidget {
               .snapchatUsernameController.text.isNotEmpty){
             await adController.createRewardedAd();
             controller.setSnapchatUsernameList.addAll([(controller.snapchatUsernameController.text)]);
-            SharedPrefs.setSnapchatString(controller.setSnapchatUsernameList);
+            SharedPrefs.setSnapchatList(controller.setSnapchatUsernameList);
             controller.url.value = "https://www.snapchat.com/add/${controller.snapchatUsernameController.text}/";
             await launch(controller.url.value);
+            await controller.getSnapchatData();
             print("------${controller.url.value}");
           } else {
             AppSnackBar.showErrorSnackBar(
