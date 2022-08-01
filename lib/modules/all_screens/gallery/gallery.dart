@@ -244,6 +244,7 @@ class ViewerPage extends StatelessWidget {
           title: date != null ? Text(date.toLocal().toString()) : null,
         ),
         body: Container(
+          color: Colors.yellow,
           alignment: Alignment.center,
           child: medium.mediumType == MediumType.image
               ? FadeInImage(
