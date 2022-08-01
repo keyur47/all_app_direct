@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:all_app_direct/modules/controller/controller.dart';
 import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/utils/size_utils.dart';
@@ -9,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
-
 import 'history/all_history.dart';
 import 'history/mycallhistory.dart';
 import 'history/mycontactlist.dart';

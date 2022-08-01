@@ -1,6 +1,25 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefs {
+
+  static late SharedPreferences _prefs;
+
+  static Future initMySharedPreferences() async {
+    _prefs = await SharedPreferences.getInstance();
+  }
+
+
+
+  static Future setInt(String key, int value) async {
+    await _prefs.setInt(key, value);
+  }
+
+  static int? getInt(String key) {
+    final int? value = _prefs.getInt(key);
+    return value;
+  }
+
+
   static final Future<SharedPreferences> prefsData =
       SharedPreferences.getInstance();
 
@@ -34,7 +53,6 @@ class SharedPrefs {
     return prefs.getStringList("Telegram") ?? [];
   }
 
-
   static Future<void> setSnapchatList(List<String> snapchat) async {
     final SharedPreferences prefs = await prefsData;
     await prefs.setStringList("snapchat", snapchat);
@@ -44,6 +62,20 @@ class SharedPrefs {
     final SharedPreferences prefs = await prefsData;
     return prefs.getStringList("snapchat") ?? [];
   }
+
+  static  setPage(int page) async {
+    final SharedPreferences prefs = await prefsData;
+    return prefs.setInt("page", page);
+  }
+
+  static Future<int> getPage() async {
+    final SharedPreferences prefs = await prefsData;
+    return prefs.getInt("page") ?? 0;
+  }
+
+
+
+
 
   // static Future<bool> setSaveUserData(bool value) async {
   //   final SharedPreferences prefs = await prefsData;
