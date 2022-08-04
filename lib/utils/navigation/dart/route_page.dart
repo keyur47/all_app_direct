@@ -3,6 +3,9 @@ import 'package:all_app_direct/modules/all_screens/instagram/instagram.dart';
 import 'package:all_app_direct/modules/all_screens/snapchat/snapchat.dart';
 import 'package:all_app_direct/modules/all_screens/telegram/telegram.dart';
 import 'package:all_app_direct/modules/all_screens/whatsapp/whatsapp.dart';
+import 'package:all_app_direct/modules/login/forgot_password.dart';
+import 'package:all_app_direct/modules/login/sign_in_page.dart';
+import 'package:all_app_direct/modules/login/sign_up_page.dart';
 import 'package:all_app_direct/modules/splash_1.dart';
 import 'package:all_app_direct/modules/splash_2.dart';
 import 'package:all_app_direct/modules/splash_3.dart';
@@ -18,6 +21,9 @@ mixin Routes {
   static const String splashBox1 = '/SplashBox1';
   static const String splashBox2 = '/SplashBox2';
   static const String splashBox3 = '/SplashBox3';
+  static const String loginPage = '/LoginPage';
+  static const String signUpPage = '/SignUpPage';
+  static const String forgotPassword = '/ForgotPassword';
   static const homePage = '/homePage_screen';
   static const whatsapp = '/whatsapp_screen';
   static const instagram = '/instagram_screen';
@@ -41,11 +47,21 @@ mixin Routes {
     //   page: () => SplashBox2(),
     //   transition: defaultTransition,
     // ),
-    // GetPage<dynamic>(
-    //   name: splashBox3,
-    //   page: () => SplashBox3(),
-    //   transition: defaultTransition,
-    // ),
+    GetPage<dynamic>(
+      name: loginPage,
+      page: () => LoginPage(),
+      transition: defaultTransition,
+    ),
+    GetPage<dynamic>(
+      name: signUpPage,
+      page: () => SignUpPage(),
+      transition: defaultTransition,
+    ),
+    GetPage<dynamic>(
+      name: forgotPassword,
+      page: () => ForgotPassword(),
+      transition: defaultTransition,
+    ),
     GetPage<dynamic>(
       name: whatsapp,
       page: () => WhatsApp(),

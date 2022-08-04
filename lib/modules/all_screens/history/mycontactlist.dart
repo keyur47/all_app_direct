@@ -68,7 +68,6 @@ class _MyContactListState extends State<MyContactList> {
                                 child: (controller.contacts![index].photo == null)
                                     ? CircleAvatar(
                                         backgroundColor: AppColor.darkBlue,
-                                        //Colors.primaries[Random().nextInt(Colors.primaries.length)],
                                         child: Text(
                                           controller.contacts![index].displayName
                                               .substring(0, 1)
@@ -79,7 +78,8 @@ class _MyContactListState extends State<MyContactList> {
                                               fontWeight: FontWeight.w500),
                                         ),
                                       )
-                                    : CircleAvatar(
+                                    :
+                                CircleAvatar(
                                         backgroundImage: MemoryImage(image!)),
                               ),
                               SizedBox(
@@ -90,6 +90,7 @@ class _MyContactListState extends State<MyContactList> {
                                       onTap: () async {
                                         final fullContact =
                                             await FlutterContacts.getContact(
+                                              withPhoto: true,
                                                 controller.contacts![index].id);
                                         controller.numberController.text =
                                             fullContact!.phones.first.number;

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:all_app_direct/model/demo.dart';
+import 'package:all_app_direct/modules/login/Widget/bezierContainer.dart';
 import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/utils/assets_path.dart';
 import 'package:all_app_direct/utils/size_utils.dart';
@@ -41,6 +42,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
     SizeUtils().init(context);
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
@@ -49,9 +51,14 @@ class _SplashScreenState extends State<SplashScreen> {
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
     return Scaffold(
+      backgroundColor: AppColor.backgroundColor,
       body: Stack(
         alignment: Alignment.bottomCenter,
         children: [
+          // Positioned(
+          //     top: -height * .15,
+          //     right: -MediaQuery.of(context).size.width * .4,
+          //     child: const BezierContainer()),
           Padding(
             padding:  EdgeInsets.only(bottom: SizeUtils.horizontalBlockSize * 2),
             child: Center(

@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "26821770090",
+    "firebase_url": "https://ads-all-apps-default-rtdb.firebaseio.com",
     "project_id": "ads-all-apps",
     "storage_bucket": "ads-all-apps.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "26821770090-km8dc2f24vu7emrf42rj8c89bca2k3qh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.all_app_direct",
+            "certificate_hash": "a2ef50feca9172aeaa4ff0e0643ba0963d45df12"
+          }
+        },
         {
           "client_id": "26821770090-57r6qii7emksktqodvv4dt3sn6s6ibil.apps.googleusercontent.com",
           "client_type": 3

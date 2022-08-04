@@ -17,10 +17,9 @@ class SplashBox1 extends StatelessWidget {
             child: Align(
                 alignment: Alignment.bottomRight,
                 child: boxNext(onTap: () async {
-                  SharedPrefs.setInt("onbording", 1);
-                  SharedPrefs.getInt("onbording");
-                  print("ssssssss--${SharedPrefs.getInt("onbording")}");
-                  Navigation.popAndPushNamed(Routes.whatsapp);
+                  SharedPrefs.setInt(1);
+                  SharedPrefs.getInt();
+                  Navigation.popAndPushNamed(Routes.loginPage);
                 })),
           )
         ],

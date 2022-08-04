@@ -104,7 +104,10 @@ class _GalleryFileImageState extends State<GalleryFileImage> {
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(5.0),
                                   child: Container(
+                                    decoration: BoxDecoration(
                                     color: Colors.grey[300],
+                                        // border: Border.all(width: 2,color: )
+                                    ),
                                     height: gridWidth,
                                     width: gridWidth,
                                     child: FadeInImage(
@@ -244,7 +247,6 @@ class ViewerPage extends StatelessWidget {
           title: date != null ? Text(date.toLocal().toString()) : null,
         ),
         body: Container(
-          color: Colors.yellow,
           alignment: Alignment.center,
           child: medium.mediumType == MediumType.image
               ? FadeInImage(

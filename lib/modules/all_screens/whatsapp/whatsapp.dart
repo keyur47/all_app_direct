@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:all_app_direct/ads/ads.dart';
+import 'package:all_app_direct/ads/open_ad.dart';
 import 'package:all_app_direct/modules/all_screens/history/all_history.dart';
 import 'package:all_app_direct/modules/all_screens/history/mycallhistory.dart';
 import 'package:all_app_direct/modules/all_screens/history/mycontactlist.dart';
@@ -32,12 +33,45 @@ class WhatsApp extends StatefulWidget {
 class _WhatsAppState extends State<WhatsApp> {
   AllScreenController controller = Get.find();
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    // callHistoryButtonClick();
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   // callHistoryButtonClick();
+  //   super.initState();
+  // }
+
+  //
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   // AppOpenAdManager.loadAd();
+  //   WidgetsBinding.instance.addObserver(this);
+  // }
+  // @override
+  // void dispose() {
+  //   // TODO: implement dispose
+  //   super.dispose();
+  //   WidgetsBinding.instance.removeObserver(this);
+  // }
+  // @override
+  // void didChangeAppLifecycleState(AppLifecycleState state) {
+  //   // TODO: implement didChangeAppLifecycleState
+  //   super.didChangeAppLifecycleState(state);
+  //   if (state == AppLifecycleState.paused) {
+  //     isPaused = true;
+  //     print("user go to background");
+  //   }
+  //   if (state == AppLifecycleState.resumed && isPaused) {
+  //     print("State Resumed===========");
+  //     AppOpenAdManager.showOpenAdIfAvailable();
+  //     isPaused = false;
+  //   }
+  // }
+  //
+
+
+
 
   @override
   Widget build(BuildContext context) {

@@ -23,11 +23,10 @@ class OpenWhatsAppNumber extends StatelessWidget {
   Widget build(BuildContext context) {
     return button(
       onTap: () async {
-        await adController.createRewardedAd();
-        await adController.createInterstitialAd();
         await controller.getPermission();
         if (controller.numberController.text != "") {
-
+          await adController.createRewardedAd();
+          // await adController.createInterstitialAd();
           print("numberController");
           controller.onOpenWhatsApp(controller.numberController.text,controller.textController.text);
           print("numberController11${controller.numberController.text}");

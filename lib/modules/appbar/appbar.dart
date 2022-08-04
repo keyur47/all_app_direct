@@ -1,7 +1,11 @@
+import 'dart:developer';
+
+import 'package:all_app_direct/main.dart';
 import 'package:all_app_direct/modules/appbar/appbar_controller.dart';
 import 'package:all_app_direct/modules/appbar/popupmenubutton/feedback/feedback.dart';
 import 'package:all_app_direct/modules/appbar/popupmenubutton/rate/rate.dart';
 import 'package:all_app_direct/modules/appbar/popupmenubutton/share/shareapp.dart';
+import 'package:all_app_direct/modules/login/logout/home_controller.dart';
 import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/utils/navigation/dart/navigation.dart';
 import 'package:all_app_direct/utils/navigation/dart/route_page.dart';
@@ -11,6 +15,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class customAppbar extends StatefulWidget {
   customAppbar(
@@ -44,6 +49,7 @@ class _customAppbarState extends State<customAppbar> {
   //
   AppbarController controller = Get.put(AppbarController());
   final GlobalKey<PopupMenuButtonState<int>> _key = GlobalKey();
+  HomeController homeController = Get.find();
 
   @override
   void initState() {
@@ -182,7 +188,7 @@ class _customAppbarState extends State<customAppbar> {
                   ],
                 ),
                 PopupMenuButton(
-                  onSelected: (int value) {
+                  onSelected: (int value)async{
                     if (value == 1) {
                       // Get.toNamed(Routes.tabbar);
                     } else if (value == 2) {
@@ -192,7 +198,10 @@ class _customAppbarState extends State<customAppbar> {
                     } else if (value == 4) {
                       FeedbackBox(context);
                     } else {
-                      // Get.to(const About());
+                      sp = await SharedPreferences.getInstance();
+                      isUserLogin = sp.setBool('login', false);
+                      log('spout-----${sp.getBool('login')}');
+                      homeController.logOut();
                     }
                     controller.pageIndex.value =
                         controller.popupMenuItemIndex.value;

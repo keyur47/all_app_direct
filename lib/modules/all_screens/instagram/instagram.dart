@@ -1,4 +1,6 @@
+import 'package:all_app_direct/ads/adr.controller.dart';
 import 'package:all_app_direct/ads/ads.dart';
+import 'package:all_app_direct/ads/ads_new.dart';
 import 'package:all_app_direct/helper/shared_preferences.dart';
 import 'package:all_app_direct/modules/appbar/appbar.dart';
 import 'package:all_app_direct/modules/controller/controller.dart';
@@ -25,6 +27,7 @@ class Instagram extends StatefulWidget {
 
 class _InstagramState extends State<Instagram> {
   AllScreenController controller = Get.find();
+  AdController  adController = Get.find();
 
 
   @override
@@ -84,6 +87,11 @@ class _InstagramState extends State<Instagram> {
                 SizedBox(
                   height: SizeUtils.horizontalBlockSize * 4,
                 ),
+                GestureDetector(
+                    onTap: (){
+                      Get.to(AdsADs());
+                    },
+                    child:  Icon(Icons.arrow_back)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [OpenUserNameInstagram()],

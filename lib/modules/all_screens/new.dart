@@ -347,7 +347,7 @@ class _NewState extends State<New> {
          controller.permissionDenied = true.obs;
        });
      } else {
-       final _contacts = await FlutterContacts.getContacts();
+       final _contacts = await FlutterContacts.getContacts(withPhoto: true,withProperties: true);
        setState(() {
          controller.contacts = _contacts.obs;
        });

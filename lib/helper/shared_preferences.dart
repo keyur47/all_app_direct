@@ -9,13 +9,12 @@ class SharedPrefs {
   }
 
 
-
-  static Future setInt(String key, int value) async {
-    await _prefs.setInt(key, value);
+  static Future setInt( int value) async {
+    await _prefs.setInt("onbording", value);
   }
 
-  static int? getInt(String key) {
-    final int? value = _prefs.getInt(key);
+  static int? getInt() {
+    final int? value = _prefs.getInt("onbording");
     return value;
   }
 

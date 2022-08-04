@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:all_app_direct/helper/shared_preferences.dart';
+import 'package:all_app_direct/main.dart';
 import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/utils/navigation/dart/navigation.dart';
 import 'package:all_app_direct/utils/navigation/dart/route_page.dart';
@@ -18,6 +19,7 @@ class SplashController extends GetxController {
   final Connectivity _connectivity = Connectivity();
   late StreamSubscription<ConnectivityResult> _connectivitySubscription;
   String value = "";
+
   @override
   void onInit() async {
     super.onInit();
@@ -41,23 +43,31 @@ class SplashController extends GetxController {
   Future<void> initConnectivity() async {
     late ConnectivityResult result;
     result = await (Connectivity().checkConnectivity());
-    if (result == ConnectivityResult.mobile){
-      // var  value = await SharedPrefs.getPage();
-      final  value = SharedPrefs.getInt("onbording") ?? 0;
-      log("message-1->${SharedPrefs.getInt("onbording")}");
-      value == 1 ? Navigation.popAndPushNamed(Routes.whatsapp):
-      Navigation.popAndPushNamed(Routes.splashBox1);
+
+    if (result == ConnectivityResult.mobile) {
+      /// getInt
+      // final value = SharedPrefs.getInt() ?? 0;
+      // value == 1
+      //     ? Navigation.popAndPushNamed(Routes.loginPage)
+      //     : Navigation.popAndPushNamed(Routes.splashBox1);
+      log("loginlogin:-${isUserLogin}");
+      isUserLogin == true
+          ? Navigation.popAndPushNamed(Routes.whatsapp)
+          : Navigation.popAndPushNamed(Routes.loginPage);
 
       log("I am connected to a mobile network");
     } else if (result == ConnectivityResult.wifi) {
-      final  value =    SharedPrefs.getInt("onbording") ?? 0;
-      log("message-->${value.toString()}");
-      log("message-1->${SharedPrefs.getInt("onbording")}");
-      value == 1 ? Navigation.popAndPushNamed(Routes.whatsapp):
-      Navigation.popAndPushNamed(Routes.splashBox1);
+      /// getInt
+      // final value = SharedPrefs.getInt() ?? 0;
+      // value == 1
+      //     ? Navigation.popAndPushNamed(Routes.loginPage)
+      //     : Navigation.popAndPushNamed(Routes.splashBox1);
+      log("loginlogin:-${isUserLogin}");
+      isUserLogin == true
+          ? Navigation.popAndPushNamed(Routes.whatsapp)
+          : Navigation.popAndPushNamed(Routes.loginPage);
 
       log("I am connected to a wifi network");
-      // I am connected to a wifi network.
     } else {
       log("I am not connected to a mobile or Wifi network");
       return internetCheck();

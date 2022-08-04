@@ -2,6 +2,7 @@ import "dart:developer";
 import 'package:firebase_database/firebase_database.dart';
 import "package:get/get.dart";
 import "package:google_mobile_ads/google_mobile_ads.dart";
+
 class AdController extends GetxController {
   ///InterstitialAd
   InterstitialAd? _interstitialAd;
@@ -55,6 +56,7 @@ class AdController extends GetxController {
       print(e);
     }
   }
+
   ///RewardedAd
   Future<void> createRewardedAd() async {
     final firebaseRef = FirebaseDatabase(
@@ -65,6 +67,7 @@ class AdController extends GetxController {
     log("RewardedAd------>${rewardeId.value} \n ");
     try {
       RewardedAd.load(
+        // adUnitId: "ca-app-pub-3940256099942544/5224354917",
         adUnitId: rewardeId.value.toString(),
         // adUnitId: RewardedAdId,
         request: AdRequest(),
