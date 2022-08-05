@@ -42,7 +42,8 @@ class SignUpController extends GetxController {
 
       FirebaseAuth.instance.authStateChanges().listen((User? user) {
         if (user != null) {
-          Get.offNamed(Routes.whatsapp);
+          /// change direct screen
+          Get.offNamed(Routes.loginPage);
         }
       });
     } on FirebaseAuthException catch (e) {

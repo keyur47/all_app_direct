@@ -44,30 +44,36 @@ class _BannerAdsState extends State<BannerAds> {
         .child("Bannerid");
     DataSnapshot bannerId = await firebaseRef.get();
     log("banner-id----->${bannerId.value} \n ");
-    _ad = BannerAd(
-      size: AdSize.fullBanner,
-      adUnitId: bannerId.value.toString(),
-      // adUnitId: bannerAd,
-      listener: BannerAdListener(
-        onAdLoaded: (Ad ad) {
-          setState(() {
-            BannerAds.isLoaded = true;
-          });
-        },
-        onAdFailedToLoad: (Ad ad, LoadAdError error) {
-          log("$BannerAd failedToLoad: $error");
-          ad.dispose();
-        },
-        onAdOpened: (Ad ad) {
-          print('$BannerAd onAdOpened.');
-        },
-        onAdClosed: (Ad ad) {
-          print('$BannerAd onAdClosed.');
-        },
-      ),
-      request: const AdRequest(),
-    );
-    _ad?.load();
+    try{
+      _ad = BannerAd(
+        size: AdSize.fullBanner,
+        adUnitId: "ca-app-pub-3940256099942544/6300978111",
+        // adUnitId: bannerId.value.toString(),
+        // adUnitId: bannerAd,
+        listener: BannerAdListener(
+          onAdLoaded: (Ad ad) {
+            setState(() {
+              BannerAds.isLoaded = true;
+            });
+          },
+          onAdFailedToLoad: (Ad ad, LoadAdError error) {
+            log("$BannerAd failedToLoad: $error");
+            ad.dispose();
+          },
+          onAdOpened: (Ad ad) {
+            print('$BannerAd onAdOpened.');
+          },
+          onAdClosed: (Ad ad) {
+            print('onAdClosed$BannerAd onAdClosed.');
+          },
+        ),
+        request: const AdRequest(),
+      );
+      _ad?.load();
+    }catch(e,st){
+      log("BannerAd:- $e,$st");
+    }
+
   }
 
   @override

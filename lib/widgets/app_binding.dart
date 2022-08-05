@@ -1,9 +1,8 @@
 import 'package:all_app_direct/ads/adr.controller.dart';
 import 'package:all_app_direct/modules/controller/controller.dart';
 import 'package:all_app_direct/modules/login/controller/forget_password_controller.dart';
-import 'package:all_app_direct/modules/login/controller/log_in_controller.dart';
+import 'package:all_app_direct/modules/login/controller/sign_in_controller.dart';
 import 'package:all_app_direct/modules/login/controller/sign_up_controller.dart';
-import 'package:all_app_direct/modules/login/login_controller.dart';
 import 'package:all_app_direct/modules/login/logout/home_controller.dart';
 import 'package:all_app_direct/modules/splashscreen/splash_screen_controller.dart';
 import 'package:get/get.dart';

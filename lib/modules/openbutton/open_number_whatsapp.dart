@@ -1,19 +1,11 @@
-
-import 'dart:convert';
-
 import 'package:all_app_direct/ads/adr.controller.dart';
-import 'package:all_app_direct/helper/shared_preferences.dart';
-import 'package:all_app_direct/model/demo.dart';
 import 'package:all_app_direct/modules/controller/controller.dart';
 import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/utils/size_utils.dart';
 import 'package:all_app_direct/utils/string_utils.dart';
 import 'package:all_app_direct/widgets/button_box.dart';
 import 'package:all_app_direct/widgets/toast_helper.dart';
-import 'package:country_pickers/country_pickers.dart';
 import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 
 class OpenWhatsAppNumber extends StatelessWidget {

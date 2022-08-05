@@ -17,7 +17,7 @@ import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AllScreenController extends GetxController {
-  RxList<CallLogEntry> contactListHistory = <CallLogEntry>[].obs;
+  RxList<CallLogEntry> contactList = <CallLogEntry>[].obs;
   static ScrollController myCallScrollController = ScrollController();
   static ScrollController myContactScrollController = ScrollController();
   TextEditingController numberController = TextEditingController();
@@ -38,8 +38,8 @@ class AllScreenController extends GetxController {
   RxList<String> setSnapchatUsernameList = <String>[].obs;
   RxList<String> getSnapchatUsernameList = <String>[].obs;
   RxList<String> newSnapchatUsernameList = <String>[].obs;
-  RxBool isContactsShowDialPad = false.obs;
-  RxBool isContactsShowCallHistory = true.obs;
+  RxBool isShowDialPad = false.obs;
+  RxBool isShowCallHistory = true.obs;
   RxBool collpan = false.obs;
   RxBool myContactListHistoryChekBox = false.obs;
   RxBool myContactListChekBox = false.obs;

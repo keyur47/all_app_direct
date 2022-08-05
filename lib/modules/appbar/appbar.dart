@@ -5,13 +5,16 @@ import 'package:all_app_direct/modules/appbar/appbar_controller.dart';
 import 'package:all_app_direct/modules/appbar/popupmenubutton/feedback/feedback.dart';
 import 'package:all_app_direct/modules/appbar/popupmenubutton/rate/rate.dart';
 import 'package:all_app_direct/modules/appbar/popupmenubutton/share/shareapp.dart';
+import 'package:all_app_direct/modules/login/login_with_google_mobile_facebook/gmail_login/gmail_login.dart';
 import 'package:all_app_direct/modules/login/logout/home_controller.dart';
 import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/utils/navigation/dart/navigation.dart';
 import 'package:all_app_direct/utils/navigation/dart/route_page.dart';
 import 'package:all_app_direct/utils/size_utils.dart';
 import 'package:all_app_direct/utils/string_utils.dart';
+import 'package:all_app_direct/widgets/snackbar.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -198,10 +201,43 @@ class _customAppbarState extends State<customAppbar> {
                     } else if (value == 4) {
                       FeedbackBox(context);
                     } else {
+                      // sp = await SharedPreferences.getInstance();
+                      // isUserLogin = sp.setBool('login', false);
+                      // log('spout-----${sp.getBool('login')}');
+                      // homeController.logOut();
                       sp = await SharedPreferences.getInstance();
                       isUserLogin = sp.setBool('login', false);
                       log('spout-----${sp.getBool('login')}');
-                      homeController.logOut();
+                      for (final providerProfile
+                      in FirebaseAuth.instance.currentUser!.providerData) {
+                        // ID of the provider (google.com, apple.cpm, etc.)
+                        final provider = providerProfile.providerId;
+                        try {
+                          homeController.logOutLoading.value = true;
+                          if (provider == 'google.com') {
+                            log("logout with google");
+                            FirebaseService service = FirebaseService();
+                            await service.signOutFromGoogle();
+                          } else if (provider == 'facebook.com') {
+                            log("logout with facebook");
+                            // await signOutFromFacebook();
+                          } else {
+                            log("logout with other");
+                            homeController.logOut();
+                          }
+                        } on FirebaseAuthException catch (e) {
+                          log("----SignOut------${e.toString()}");
+                          getSnackBar("Some error accrues", "Please try again",
+                              Colors.red.shade500, 3);
+                        } catch (e) {
+                          getSnackBar("Some error accrues", "Please try again",
+                              Colors.red.shade500, 3);
+
+                          log("drawerLogOut---->${e.toString()}");
+                        } finally {
+                          homeController.logOutLoading.value = false;
+                        }
+                      }
                     }
                     controller.pageIndex.value =
                         controller.popupMenuItemIndex.value;

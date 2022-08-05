@@ -24,9 +24,9 @@ class OpenUserNameInstagram extends StatelessWidget {
   Widget build(BuildContext context) {
     return button(
         onTap: () async {
-          if (controller
-              .instagramUsernameController.text.isNotEmpty) {
-            await adController.createRewardedAd();
+          if (controller.instagramUsernameController.text.isNotEmpty) {
+            await adController.createInterstitialAd();
+            // await adController.createRewardedAd();
             controller.setInstagramUsernameList.addAll([(controller.instagramUsernameController.text)]);
             SharedPrefs.setInstagramList(controller.setInstagramUsernameList);
             controller.url.value = "instagram://user?username=${controller.instagramUsernameController.text}";

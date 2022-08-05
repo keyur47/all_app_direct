@@ -20,7 +20,7 @@ class New  extends StatefulWidget {
 }
 
 class _NewState extends State<New> {
-  AllScreenController controller = Get.find();
+  AllScreenController _homePageController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -80,23 +80,23 @@ class _NewState extends State<New> {
                             () =>
                             GestureDetector(
                               onTap: () async {
-                                controller
+                                _homePageController
                                     .myContactListHistoryChekBox
                                     .value = false;
-                                controller.myAllContactListChekBox
+                                _homePageController.myAllContactListChekBox
                                     .value = false;
-                                controller
+                                _homePageController
                                     .isError.value = false;
-                                controller.myContactListChekBox
+                                _homePageController.myContactListChekBox
                                     .value =
-                                !controller.myContactListChekBox
+                                !_homePageController.myContactListChekBox
                                     .value;
                                 // await controller.contactCallHistoryButtonClick();
                                 fetchContacts();
                               },
                               child: Row(
                                 children: [
-                                  controller.myContactListChekBox
+                                  _homePageController.myContactListChekBox
                                       .value
                                       ? const Icon(
                                     Icons.radio_button_checked,
@@ -114,7 +114,7 @@ class _NewState extends State<New> {
                                   Text(
                                     StringsUtils.contactList,
                                     style: TextStyle(
-                                        color: controller
+                                        color: _homePageController
                                             .myContactListChekBox
                                             .value
                                             ? AppColor.darkBlue
@@ -138,24 +138,30 @@ class _NewState extends State<New> {
                             () =>
                             GestureDetector(
                               onTap: () async {
-                                controller
+                                _homePageController
                                     .isError.value = false;
-                                await callHistoryButtonClick();
-                                controller.myContactListChekBox
+                                try {
+                                  print("callHistoryButtonClick error :- 1123");
+                                  callHistoryButtonClick();
+                                } catch (e,st) {
+                                 print("callHistoryButtonClick error :- $e $st");
+                                }
+
+                                _homePageController.myContactListChekBox
                                     .value =
                                 false;
-                                controller.myAllContactListChekBox
+                                _homePageController.myAllContactListChekBox
                                     .value = false;
-                                controller
+                                _homePageController
                                     .myContactListHistoryChekBox
                                     .value =
-                                !controller
+                                !_homePageController
                                     .myContactListHistoryChekBox
                                     .value;
                               },
                               child: Row(
                                 children: [
-                                  controller
+                                  _homePageController
                                       .myContactListHistoryChekBox
                                       .value
                                       ? const Icon(
@@ -174,7 +180,7 @@ class _NewState extends State<New> {
                                   Text(
                                     StringsUtils.callHistoryList,
                                     style: TextStyle(
-                                        color: controller
+                                        color: _homePageController
                                             .myContactListHistoryChekBox
                                             .value
                                             ? AppColor.darkBlue
@@ -197,22 +203,22 @@ class _NewState extends State<New> {
                       Obx(() =>
                           GestureDetector(
                             onTap: () async {
-                              controller
+                              _homePageController
                                   .isError.value = false;
-                              controller.myContactListChekBox
+                              _homePageController.myContactListChekBox
                                   .value =
                               false;
-                              controller
+                              _homePageController
                                   .myContactListHistoryChekBox
                                   .value = false;
-                              controller.myAllContactListChekBox
+                              _homePageController.myAllContactListChekBox
                                   .value =
-                              !controller.myAllContactListChekBox
+                              !_homePageController.myAllContactListChekBox
                                   .value;
                             },
                             child: Row(
                               children: [
-                                controller
+                                _homePageController
                                     .myAllContactListChekBox.value
                                     ? const Icon(
                                   Icons.radio_button_checked,
@@ -230,7 +236,7 @@ class _NewState extends State<New> {
                                 Text(
                                   StringsUtils.allHistoryList,
                                   style: TextStyle(
-                                      color: controller
+                                      color: _homePageController
                                           .myAllContactListChekBox
                                           .value
                                           ? AppColor.darkBlue
@@ -279,17 +285,17 @@ class _NewState extends State<New> {
           height: SizeUtils.verticalBlockSize * 1,
         ),
         Obx(
-              () => controller.myContactListChekBox.value == true
+              () => _homePageController.myContactListChekBox.value == true
               ? MyContactList()
               : SizedBox(),
         ),
         Obx(
-              () => controller.myContactListHistoryChekBox.value == true
+              () => _homePageController.myContactListHistoryChekBox.value == true
               ? MyCallHistory()
               : SizedBox(),
         ),
         Obx(
-              () => controller.myAllContactListChekBox.value == true
+              () => _homePageController.myAllContactListChekBox.value == true
               ? AllHistory()
               : SizedBox(),
         ),
@@ -300,39 +306,46 @@ class _NewState extends State<New> {
     );
   }
 
+
   callHistoryButtonClick() async {
     try {
-      if (controller.contactListHistory.isEmpty) {
+      print("callHistoryButtonClick-1");
+      if (_homePageController.contactList.isEmpty) {
+        print("callHistoryButtonClick-2");
         await CallLog.get();
+        print("callHistoryButtonClick-3");
       }
+      print("callHistoryButtonClick-4");
     } catch (e) {
+      print("callHistoryButtonClick-5");
       await openAppSettings();
+      print("callHistoryButtonClick-6");
     }
-    if (!controller.isContactsShowDialPad.value) {
+    if (!_homePageController.isShowDialPad.value) {
       if (await Permission.phone.status == PermissionStatus.permanentlyDenied) {
         await openAppSettings();
       } else {
-        if (controller.contactListHistory.isEmpty) {
+        if (_homePageController.contactList.isEmpty) {
           await getContact();
         }
       }
     }
-    controller.isContactsShowDialPad.value =
-    !controller.isContactsShowDialPad.value;
-    controller.isContactsShowCallHistory.value =
-    !controller.isContactsShowCallHistory.value;
+    _homePageController.isShowDialPad.value =
+    !_homePageController.isShowDialPad.value;
+    _homePageController.isShowCallHistory.value =
+    !_homePageController.isShowCallHistory.value;
   }
 
   Future<void> getContact() async {
     try {
-      controller.contactListHistory.clear();
+      _homePageController.contactList.clear();
       var entries = await CallLog.get();
       for (var element in entries) {
-        if (controller.contactListHistory.length < 100 &&
-            controller.contactListHistory.indexWhere(
+        if (_homePageController.contactList.length < 100 &&
+            _homePageController.contactList.indexWhere(
                     (elementInner) => elementInner.name == element.name) ==
                 -1) {
-          controller.contactListHistory.add(element);
+          _homePageController.contactList.add(element);
         }
       }
     } catch (e, st) {
@@ -341,15 +354,82 @@ class _NewState extends State<New> {
     setState(() {});
   }
 
+  // callHistoryButtonClick() async {
+  //   try {
+  //     print("callHistoryButtonClick-1");
+  //     if (controller.contactListHistory.isEmpty) {
+  //       print("callHistoryButtonClick-2");
+  //       await CallLog.get();
+  //       print("callHistoryButtonClick-3");
+  //     }
+  //     print("callHistoryButtonClick-4");
+  //   } catch (e) {
+  //     print("callHistoryButtonClick-5");
+  //     await openAppSettings();
+  //     print("callHistoryButtonClick-6");
+  //   }
+  //   if (!controller.isContactsShowDialPad.value) {
+  //     print("callHistoryButtonClick-7");
+  //     if (await Permission.phone.status == PermissionStatus.permanentlyDenied) {
+  //       print("callHistoryButtonClick-8");
+  //       await openAppSettings();
+  //       print("callHistoryButtonClick-9");
+  //     } else {
+  //       print("callHistoryButtonClick-10");
+  //       if (controller.contactListHistory.isEmpty) {
+  //         print("callHistoryButtonClick-11");
+  //         await getContact();
+  //         print("callHistoryButtonClick-12");
+  //       }
+  //       print("callHistoryButtonClick-13");
+  //     }
+  //     print("callHistoryButtonClick-14");
+  //   }
+  //   print("callHistoryButtonClick-15");
+  //   controller.isContactsShowDialPad.value = !controller.isContactsShowDialPad.value;
+  //   print("callHistoryButtonClick-16");
+  //   controller.isContactsShowCallHistory.value = !controller.isContactsShowCallHistory.value;
+  //   print("callHistoryButtonClick-17");
+  // }
+  //
+  // Future<void> getContact() async {
+  //   try {
+  //     print("callHistoryButtonClick-18");
+  //     controller.contactListHistory.clear();
+  //     print("callHistoryButtonClick-19");
+  //     var entries = await CallLog.get();
+  //     print("callHistoryButtonClick-20");
+  //     for (var element in entries) {
+  //       print("callHistoryButtonClick-21");
+  //       if (controller.contactListHistory.length < 100 && controller.contactListHistory.indexWhere((elementInner) => elementInner.name == element.name) == -1) {
+  //         print("callHistoryButtonClick-22");
+  //         controller.contactListHistory.add(element);
+  //         print("callHistoryButtonClick-23");
+  //       }
+  //       print("callHistoryButtonClick-24");
+  //     }
+  //     print("callHistoryButtonClick-25");
+  //   } catch (e, st) {
+  //     print("callHistoryButtonClick-26");
+  //     log("e : $e , st $st");
+  //     print("callHistoryButtonClick-27");
+  //   }
+  //   print("callHistoryButtonClick-28");
+  //   setState(() {
+  //     print("callHistoryButtonClick-29");
+  //   });
+  //   print("callHistoryButtonClick-30");
+  // }
+
    Future fetchContacts() async {
      if (!await FlutterContacts.requestPermission(readonly: true)) {
        setState(() {
-         controller.permissionDenied = true.obs;
+         _homePageController.permissionDenied = true.obs;
        });
      } else {
        final _contacts = await FlutterContacts.getContacts(withPhoto: true,withProperties: true);
        setState(() {
-         controller.contacts = _contacts.obs;
+         _homePageController.contacts = _contacts.obs;
        });
      }
    }

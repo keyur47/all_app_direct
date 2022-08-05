@@ -1,7 +1,9 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:all_app_direct/direct.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -14,16 +16,24 @@ var isUserLogin;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   await MobileAds.instance.initialize();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  // await SharedPrefs.initMySharedPreferences();
   await initSp();
-  await Firebase.initializeApp();
-  await SharedPrefs.initMySharedPreferences();
-  runApp(Direct());
+  final FirebaseCrashlytics crashlytics = FirebaseCrashlytics.instance;
+  runZonedGuarded<Future<void>>(() async {
+    await crashlytics.setCrashlyticsCollectionEnabled(true);
+    FlutterError.onError = crashlytics.recordFlutterError;
+    await SharedPrefs.initMySharedPreferences();
+    MobileAds.instance.initialize();
+    runApp(Direct());
+  }, (error, stack) => crashlytics.recordError(error, stack));
+  // runApp(Direct());
 }
 
 initSp() async {
   sp = await SharedPreferences.getInstance();
-  isUserLogin = sp.getBool('login');
+  isUserLogin = await sp.getBool('login');
   log('mainSPValue-----${sp.getBool('login')}');
 }

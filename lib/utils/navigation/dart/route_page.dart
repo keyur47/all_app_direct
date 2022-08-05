@@ -7,8 +7,6 @@ import 'package:all_app_direct/modules/login/forgot_password.dart';
 import 'package:all_app_direct/modules/login/sign_in_page.dart';
 import 'package:all_app_direct/modules/login/sign_up_page.dart';
 import 'package:all_app_direct/modules/splash_1.dart';
-import 'package:all_app_direct/modules/splash_2.dart';
-import 'package:all_app_direct/modules/splash_3.dart';
 import 'package:all_app_direct/modules/splashscreen/splash_screen.dart';
 import 'package:get/get.dart';
 

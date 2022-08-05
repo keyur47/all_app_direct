@@ -1,6 +1,5 @@
 import 'package:all_app_direct/modules/login/Widget/bezierContainer.dart';
 import 'package:all_app_direct/modules/login/controller/forget_password_controller.dart';
-import 'package:all_app_direct/modules/login/login_controller.dart';
 import 'package:all_app_direct/utils/navigation/dart/navigation.dart';
 import 'package:all_app_direct/utils/navigation/dart/route_page.dart';
 import 'package:flutter/material.dart';
@@ -214,7 +213,7 @@ class ForgotPassword  extends StatelessWidget {
                     const SizedBox(
                       height: 50,
                     ),
-                    // _emailPasswordWidget(),
+                    _emailPasswordWidget(),
                     const SizedBox(
                       height: 20,
                     ),

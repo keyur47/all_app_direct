@@ -46,7 +46,7 @@ class MyCallHistory extends StatelessWidget {
                       trailing: GestureDetector(
                           onTap: () async {
                             controller.url.value =
-                                "https://wa.me/+${controller.contactListHistory[index].number ?? ""}'?text=${controller.textController.text}";
+                                "https://wa.me/+${controller.contactList[index].number ?? ""}'?text=${controller.textController.text}";
                             await launch(controller.url.value);
                             print("------${controller.url.value}");
                             print(
@@ -59,11 +59,11 @@ class MyCallHistory extends StatelessWidget {
                       title: GestureDetector(
                         onTap: () {
                           controller.numberController.text =
-                              controller.contactListHistory[index].number ?? "";
+                              controller.contactList[index].number ?? "";
                         },
                         onLongPress: () async {
                           controller.textController.text =
-                              controller.contactListHistory[index].number ?? "";
+                              controller.contactList[index].number ?? "";
                         },
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -72,10 +72,10 @@ class MyCallHistory extends StatelessWidget {
                               backgroundColor: AppColor.darkBlue,
                               //Colors.primaries[Random().nextInt(Colors.primaries.length)],
                               child: Text(
-                                controller.contactListHistory[index].name
+                                controller.contactList[index].name
                                             ?.isNotEmpty ??
                                         false
-                                    ? controller.contactListHistory[index].name
+                                    ? controller.contactList[index].name
                                             ?.substring(0, 1) ??
                                         ""
                                     :
@@ -84,7 +84,7 @@ class MyCallHistory extends StatelessWidget {
                                 //             ?.substring(0, 3) ??
                                         "+91",
                                 style: TextStyle(
-                                  fontSize: controller.contactListHistory[index]
+                                  fontSize: controller.contactList[index]
                                               .name?.isNotEmpty ??
                                           false
                                       ? SizeUtils.horizontalBlockSize * 6
@@ -103,13 +103,13 @@ class MyCallHistory extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    controller.contactListHistory[index].name
+                                    controller.contactList[index].name
                                                 ?.isNotEmpty ??
                                             false
-                                        ? controller.contactListHistory[index]
+                                        ? controller.contactList[index]
                                                 .name ??
                                             ""
-                                        : controller.contactListHistory[index]
+                                        : controller.contactList[index]
                                                 .number ??
                                             "",
                                     maxLines: 1,
@@ -118,7 +118,7 @@ class MyCallHistory extends StatelessWidget {
                                       fontFamily: 'Customtext',
                                       color: colorData(
                                         controller
-                                            .contactListHistory[index].callType,
+                                            .contactList[index].callType,
                                       ),
                                       fontSize:
                                           SizeUtils.horizontalBlockSize * 4.5,
@@ -128,19 +128,19 @@ class MyCallHistory extends StatelessWidget {
                                     children: [
                                       iconData(
                                         controller
-                                            .contactListHistory[index].callType,
+                                            .contactList[index].callType,
                                       ),
                                       Text(
                                         controller.formatMillisecondToDate(
                                           int.parse(
-                                            controller.contactListHistory[index]
+                                            controller.contactList[index]
                                                 .timestamp
                                                 .toString(),
                                           ),
                                         ),
                                         style: TextStyle(
                                           color: colorData(
-                                            controller.contactListHistory[index]
+                                            controller.contactList[index]
                                                 .callType,
                                           ),
                                           fontSize:
@@ -168,7 +168,7 @@ class MyCallHistory extends StatelessWidget {
                                   onTap: () {
                                     makePhoneCall(
                                         contact:
-                                            "${controller.contactListHistory[index].number}",
+                                            "${controller.contactList[index].number}",
                                         direct: true);
                                   },
                                   child: Column(
@@ -192,12 +192,12 @@ class MyCallHistory extends StatelessWidget {
                                   onTap: () async {
                                     if (Platform.isAndroid) {
                                       final uri =
-                                          'sms:+${controller.contactListHistory[index].number}}?body=${controller.textController.text}%20';
+                                          'sms:+${controller.contactList[index].number}}?body=${controller.textController.text}%20';
                                       // log("Sms :- $uri");
                                       await launch(uri);
                                     } else if (Platform.isIOS) {
                                       final uri =
-                                          'sms:${controller.contactListHistory[index].number}}&body=${controller.textController.text}%20';
+                                          'sms:${controller.contactList[index].number}}&body=${controller.textController.text}%20';
                                       await launch(uri);
                                     }
                                   },
@@ -249,7 +249,7 @@ class MyCallHistory extends StatelessWidget {
               ),
             );
           },
-          itemCount: controller.contactListHistory.length,
+          itemCount: controller.contactList.length,
         ),
       ),
     );

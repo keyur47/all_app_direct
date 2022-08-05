@@ -512,9 +512,9 @@ class _WhatsAppState extends State<WhatsApp> {
               ? FloatingActionButton(
                   backgroundColor: AppColor.darkBlue,
                   child: const Icon(Icons.arrow_upward_rounded),
-                  onPressed: () {
+                  onPressed: ()async {
                     controller.myContactListHistoryChekBox.value == true
-                        ? AllScreenController.callScrollUp()
+                        ?  AllScreenController.callScrollUp()
                         : AllScreenController.contactScrollUp();
                   },
                 )

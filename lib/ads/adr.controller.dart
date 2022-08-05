@@ -40,7 +40,6 @@ class AdController extends GetxController {
         request: AdRequest(),
         adLoadCallback:
         InterstitialAdLoadCallback(onAdLoaded: (InterstitialAd ad) {
-          print("--------333---------");
           _interstitialAd = ad;
           num_of_attempt_load = 0;
         }, onAdFailedToLoad: (LoadAdError error) {
@@ -67,9 +66,9 @@ class AdController extends GetxController {
     log("RewardedAd------>${rewardeId.value} \n ");
     try {
       RewardedAd.load(
-        // adUnitId: "ca-app-pub-3940256099942544/5224354917",
-        adUnitId: rewardeId.value.toString(),
-        // adUnitId: RewardedAdId,
+         adUnitId: "ca-app-pub-3940256099942544/5224354917",
+        //adUnitId: rewardeId.value.toString(),
+        //adUnitId: RewardedAdId,
         request: AdRequest(),
         rewardedAdLoadCallback: RewardedAdLoadCallback(
           onAdLoaded: (rad) {

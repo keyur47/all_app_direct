@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:all_app_direct/helper/shared_preferences.dart';
 import 'package:all_app_direct/main.dart';
 import 'package:all_app_direct/utils/navigation/dart/route_page.dart';
 import 'package:all_app_direct/widgets/snackbar.dart';
@@ -7,10 +8,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-// import 'package:notes_with_login_management/main.dart';
-// import 'package:notes_with_login_management/screen/home/data_model/home_model.dart';
-// import 'package:notes_with_login_management/utils/navigation_utils/navigation.dart';
-// import 'package:notes_with_login_management/widget/snackbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeController extends GetxController {
@@ -35,6 +32,8 @@ class HomeController extends GetxController {
         isUserLogin = sp.setBool('login', true);
         log('spInAtHomeCon-----${sp.getBool('login')}');
         log('spInAtHomeController-----${user.uid}');
+        final value = SharedPrefs.getInt() ?? 0;
+        log("value12345$value");
       } else {
         log("spInAtHomeController----logout");
       }

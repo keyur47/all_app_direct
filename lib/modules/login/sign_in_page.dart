@@ -1,9 +1,11 @@
-import 'package:all_app_direct/modules/login/controller/log_in_controller.dart';
-import 'package:all_app_direct/modules/login/login_controller.dart';
+import 'package:all_app_direct/modules/login/controller/sign_in_controller.dart';
+import 'package:all_app_direct/modules/login/login_with_google_mobile_facebook/gmail_login/gmail_login.dart';
+import 'package:all_app_direct/utils/app_color.dart';
+import 'package:all_app_direct/utils/assets_path.dart';
 import 'package:all_app_direct/utils/navigation/dart/navigation.dart';
 import 'package:all_app_direct/utils/navigation/dart/route_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import 'Widget/bezierContainer.dart';
@@ -193,8 +195,8 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  /// _facebookButton
-  Widget _facebookButton() {
+  /// _auto_login_G_F_M
+  Widget _auto_login_G_F_M() {
     return Container(
       height: 50,
       margin: const EdgeInsets.symmetric(vertical: 20),
@@ -204,46 +206,147 @@ class _LoginPageState extends State<LoginPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          // Image.network(
-          //     "https://cdn4.iconfinder.com/data/icons/social-messaging-ui-color-shapes-2/128/social-circle-google-plus-2-512.png",
-          //     height: 35),
-          // SizedBox(width: 10,),
-          // Image.asset("assets/image/facebook-logo-png-2320.png", height: 33),
-
-          Expanded(
-            flex: 1,
-            child: Container(
-              decoration: const BoxDecoration(
-                color: Color(0xff1959a9),
-                borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(5),
-                    topLeft: Radius.circular(5)),
+          SizedBox(
+            height: 40,
+            child: ElevatedButton(
+              onPressed: () async {
+                FirebaseService
+                service =
+                FirebaseService();
+                await service
+                    .signInWithGoogle();
+              },
+              style: ButtonStyle(
+                elevation:
+                MaterialStateProperty
+                    .all(5),
+                backgroundColor:
+                MaterialStateProperty
+                    .all(AppColor
+                    .white),
+                shape:
+                MaterialStateProperty
+                    .all(
+                  const CircleBorder(),
+                ),
               ),
-              alignment: Alignment.center,
-              child: const Text('f',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                      fontWeight: FontWeight.w400)),
+              child: SvgPicture.asset(
+                  AssetsPath.google),
             ),
           ),
-          Expanded(
-            flex: 5,
-            child: Container(
-              decoration: const BoxDecoration(
-                color: Color(0xff2872ba),
-                borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(5),
-                    topRight: Radius.circular(5)),
+          SizedBox(
+            height: 40,
+            child: ElevatedButton(
+              onPressed: () {
+                // Get.toNamed(Routes
+                //     .mobileScreen);
+              },
+              style: ButtonStyle(
+                elevation:
+                MaterialStateProperty
+                    .all(5),
+                backgroundColor:
+                MaterialStateProperty
+                    .all(AppColor
+                    .white),
+                shape:
+                MaterialStateProperty
+                    .all(
+                  const CircleBorder(),
+                ),
               ),
-              alignment: Alignment.center,
-              child: const Text('Log in with Facebook',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w400)),
+              child: const Icon(
+                Icons.phone_android,
+                color: AppColor.black,
+              ),
             ),
           ),
+          SizedBox(
+            height: 40,
+            child: ElevatedButton(
+              onPressed: () async {
+                // signInWithFacebook();
+///
+                //for login with fb but without firebase
+                // try {
+                //   final result =
+                //       await FacebookAuth.i
+                //           .login(
+                //               permissions: [
+                //         'public_profile',
+                //         'email'
+                //       ]);
+                //   if (result.status ==
+                //       LoginStatus
+                //           .success) {
+                //     final userData =
+                //         await FacebookAuth
+                //             .i
+                //             .getUserData();
+                //     print(userData);
+                //   }
+                // } catch (error) {
+                //   print(error);
+                // }
+              },
+              style: ButtonStyle(
+                elevation:
+                MaterialStateProperty
+                    .all(5),
+                backgroundColor:
+                MaterialStateProperty
+                    .all(AppColor
+                    .white),
+                shape:
+                MaterialStateProperty
+                    .all(
+                  const CircleBorder(),
+                ),
+              ),
+              child: Padding(
+                padding:
+                const EdgeInsets
+                    .all(8.0),
+                child: Image.asset(
+                    AssetsPath.faceBook),
+              ),
+            ),
+          ),
+          ///
+          // Expanded(
+          //   flex: 1,
+          //   child: Container(
+          //     decoration: const BoxDecoration(
+          //       color: Color(0xff1959a9),
+          //       borderRadius: BorderRadius.only(
+          //           bottomLeft: Radius.circular(5),
+          //           topLeft: Radius.circular(5)),
+          //     ),
+          //     alignment: Alignment.center,
+          //     child: const Text('f',
+          //         style: TextStyle(
+          //             color: Colors.white,
+          //             fontSize: 25,
+          //             fontWeight: FontWeight.w400)),
+          //   ),
+          // ),
+          // Expanded(
+          //   flex: 5,
+          //   child: Container(
+          //     decoration: const BoxDecoration(
+          //       color: Color(0xff2872ba),
+          //       borderRadius: BorderRadius.only(
+          //           bottomRight: Radius.circular(5),
+          //           topRight: Radius.circular(5)),
+          //     ),
+          //     alignment: Alignment.center,
+          //     child: const Text('Log in with Facebook',
+          //         style: TextStyle(
+          //             color: Colors.white,
+          //             fontSize: 18,
+          //             fontWeight: FontWeight.w400)),
+          //   ),
+          // ),
         ],
       ),
     );
@@ -267,7 +370,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
           ),
-          Text('or'),
+          Text('Or login with'),
           Expanded(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 10),
@@ -332,7 +435,7 @@ class _LoginPageState extends State<LoginPage> {
                       //           fontSize: 14, fontWeight: FontWeight.w500)),
                       // ),
                       _divider(),
-                      _facebookButton(),
+                      _auto_login_G_F_M(),
                       // SizedBox(height: height * .055),
                     ],
                   ),

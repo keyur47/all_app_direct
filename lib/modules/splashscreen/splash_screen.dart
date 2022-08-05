@@ -1,6 +1,3 @@
-import 'dart:async';
-import 'package:all_app_direct/model/demo.dart';
-import 'package:all_app_direct/modules/login/Widget/bezierContainer.dart';
 import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/utils/assets_path.dart';
 import 'package:all_app_direct/utils/size_utils.dart';
