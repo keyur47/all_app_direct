@@ -1,5 +1,5 @@
 import 'dart:developer';
-import 'package:all_app_direct/modules/controller/controller.dart';
+import 'package:all_app_direct/modules/controller/all_screen_controller.dart';
 import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/utils/size_utils.dart';
 import 'package:all_app_direct/utils/string_utils.dart';
@@ -8,18 +8,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'history/all_history.dart';
-import 'history/mycallhistory.dart';
-import 'history/mycontactlist.dart';
+import '../history/all_history.dart';
+import '../history/mycallhistory.dart';
+import '../history/mycontactlist.dart';
 
-class New  extends StatefulWidget {
-   New({Key? key}) : super(key: key);
+class AllHistoryButton  extends StatefulWidget {
+   AllHistoryButton({Key? key}) : super(key: key);
 
   @override
-  State<New> createState() => _NewState();
+  State<AllHistoryButton> createState() => _AllHistoryButtonState();
 }
 
-class _NewState extends State<New> {
+class _AllHistoryButtonState extends State<AllHistoryButton> {
   AllScreenController _homePageController = Get.find();
 
   @override
@@ -354,73 +354,6 @@ class _NewState extends State<New> {
     setState(() {});
   }
 
-  // callHistoryButtonClick() async {
-  //   try {
-  //     print("callHistoryButtonClick-1");
-  //     if (controller.contactListHistory.isEmpty) {
-  //       print("callHistoryButtonClick-2");
-  //       await CallLog.get();
-  //       print("callHistoryButtonClick-3");
-  //     }
-  //     print("callHistoryButtonClick-4");
-  //   } catch (e) {
-  //     print("callHistoryButtonClick-5");
-  //     await openAppSettings();
-  //     print("callHistoryButtonClick-6");
-  //   }
-  //   if (!controller.isContactsShowDialPad.value) {
-  //     print("callHistoryButtonClick-7");
-  //     if (await Permission.phone.status == PermissionStatus.permanentlyDenied) {
-  //       print("callHistoryButtonClick-8");
-  //       await openAppSettings();
-  //       print("callHistoryButtonClick-9");
-  //     } else {
-  //       print("callHistoryButtonClick-10");
-  //       if (controller.contactListHistory.isEmpty) {
-  //         print("callHistoryButtonClick-11");
-  //         await getContact();
-  //         print("callHistoryButtonClick-12");
-  //       }
-  //       print("callHistoryButtonClick-13");
-  //     }
-  //     print("callHistoryButtonClick-14");
-  //   }
-  //   print("callHistoryButtonClick-15");
-  //   controller.isContactsShowDialPad.value = !controller.isContactsShowDialPad.value;
-  //   print("callHistoryButtonClick-16");
-  //   controller.isContactsShowCallHistory.value = !controller.isContactsShowCallHistory.value;
-  //   print("callHistoryButtonClick-17");
-  // }
-  //
-  // Future<void> getContact() async {
-  //   try {
-  //     print("callHistoryButtonClick-18");
-  //     controller.contactListHistory.clear();
-  //     print("callHistoryButtonClick-19");
-  //     var entries = await CallLog.get();
-  //     print("callHistoryButtonClick-20");
-  //     for (var element in entries) {
-  //       print("callHistoryButtonClick-21");
-  //       if (controller.contactListHistory.length < 100 && controller.contactListHistory.indexWhere((elementInner) => elementInner.name == element.name) == -1) {
-  //         print("callHistoryButtonClick-22");
-  //         controller.contactListHistory.add(element);
-  //         print("callHistoryButtonClick-23");
-  //       }
-  //       print("callHistoryButtonClick-24");
-  //     }
-  //     print("callHistoryButtonClick-25");
-  //   } catch (e, st) {
-  //     print("callHistoryButtonClick-26");
-  //     log("e : $e , st $st");
-  //     print("callHistoryButtonClick-27");
-  //   }
-  //   print("callHistoryButtonClick-28");
-  //   setState(() {
-  //     print("callHistoryButtonClick-29");
-  //   });
-  //   print("callHistoryButtonClick-30");
-  // }
-
    Future fetchContacts() async {
      if (!await FlutterContacts.requestPermission(readonly: true)) {
        setState(() {
@@ -435,3 +368,81 @@ class _NewState extends State<New> {
    }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+/// callHistoryButtonClick
+// callHistoryButtonClick() async {
+//   try {
+//     print("callHistoryButtonClick-1");
+//     if (controller.contactListHistory.isEmpty) {
+//       print("callHistoryButtonClick-2");
+//       await CallLog.get();
+//       print("callHistoryButtonClick-3");
+//     }
+//     print("callHistoryButtonClick-4");
+//   } catch (e) {
+//     print("callHistoryButtonClick-5");
+//     await openAppSettings();
+//     print("callHistoryButtonClick-6");
+//   }
+//   if (!controller.isContactsShowDialPad.value) {
+//     print("callHistoryButtonClick-7");
+//     if (await Permission.phone.status == PermissionStatus.permanentlyDenied) {
+//       print("callHistoryButtonClick-8");
+//       await openAppSettings();
+//       print("callHistoryButtonClick-9");
+//     } else {
+//       print("callHistoryButtonClick-10");
+//       if (controller.contactListHistory.isEmpty) {
+//         print("callHistoryButtonClick-11");
+//         await getContact();
+//         print("callHistoryButtonClick-12");
+//       }
+//       print("callHistoryButtonClick-13");
+//     }
+//     print("callHistoryButtonClick-14");
+//   }
+//   print("callHistoryButtonClick-15");
+//   controller.isContactsShowDialPad.value = !controller.isContactsShowDialPad.value;
+//   print("callHistoryButtonClick-16");
+//   controller.isContactsShowCallHistory.value = !controller.isContactsShowCallHistory.value;
+//   print("callHistoryButtonClick-17");
+// }
+//
+// Future<void> getContact() async {
+//   try {
+//     print("callHistoryButtonClick-18");
+//     controller.contactListHistory.clear();
+//     print("callHistoryButtonClick-19");
+//     var entries = await CallLog.get();
+//     print("callHistoryButtonClick-20");
+//     for (var element in entries) {
+//       print("callHistoryButtonClick-21");
+//       if (controller.contactListHistory.length < 100 && controller.contactListHistory.indexWhere((elementInner) => elementInner.name == element.name) == -1) {
+//         print("callHistoryButtonClick-22");
+//         controller.contactListHistory.add(element);
+//         print("callHistoryButtonClick-23");
+//       }
+//       print("callHistoryButtonClick-24");
+//     }
+//     print("callHistoryButtonClick-25");
+//   } catch (e, st) {
+//     print("callHistoryButtonClick-26");
+//     log("e : $e , st $st");
+//     print("callHistoryButtonClick-27");
+//   }
+//   print("callHistoryButtonClick-28");
+//   setState(() {
+//     print("callHistoryButtonClick-29");
+//   });
+//   print("callHistoryButtonClick-30");
+// }

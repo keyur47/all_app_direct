@@ -1,5 +1,5 @@
-import 'package:all_app_direct/modules/login/Widget/bezierContainer.dart';
-import 'package:all_app_direct/modules/login/controller/forget_password_controller.dart';
+import 'package:all_app_direct/modules/Auth/controller/forget_password_controller.dart';
+import 'package:all_app_direct/widgets/Clipper/bezierContainer.dart';
 import 'package:all_app_direct/utils/navigation/dart/navigation.dart';
 import 'package:all_app_direct/utils/navigation/dart/route_page.dart';
 import 'package:flutter/material.dart';

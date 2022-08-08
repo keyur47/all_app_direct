@@ -1,4 +1,4 @@
-import 'package:all_app_direct/modules/controller/controller.dart';
+import 'package:all_app_direct/modules/controller/all_screen_controller.dart';
 import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/utils/appsnackbar.dart';
 import 'package:all_app_direct/utils/string_utils.dart';
@@ -40,7 +40,7 @@ Future FeedbackBox(context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    textField(
+                    FeedbackTextField(
                         focusNode: controller.emailFocusNode,
                         boxBorder: Border.all(
                           width: 2,color: AppColor.darkBlue
@@ -70,7 +70,7 @@ Future FeedbackBox(context) {
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 5, left: 5, top: 1),
-                child: textField(
+                child: FeedbackTextField(
                   boxBorder: Border.all(
                     width: 2,color: AppColor.darkBlue),
                   focusNode: controller.feedBackFocusNode,
@@ -150,3 +150,4 @@ Future FeedbackBox(context) {
     },
   );
 }
+

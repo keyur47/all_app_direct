@@ -1,7 +1,7 @@
-import 'package:all_app_direct/modules/controller/controller.dart';
+import 'package:all_app_direct/modules/controller/all_screen_controller.dart';
 import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/utils/size_utils.dart';
-import 'package:all_app_direct/widgets/nodata.dart';
+import 'package:all_app_direct/widgets/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';

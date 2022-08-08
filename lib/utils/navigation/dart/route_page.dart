@@ -1,12 +1,12 @@
+import 'package:all_app_direct/modules/Auth/forgot_password.dart';
+import 'package:all_app_direct/modules/Auth/sign_in_page.dart';
+import 'package:all_app_direct/modules/Auth/sign_up_page.dart';
 import 'package:all_app_direct/modules/all_screens/gallery/gallery.dart';
 import 'package:all_app_direct/modules/all_screens/instagram/instagram.dart';
 import 'package:all_app_direct/modules/all_screens/snapchat/snapchat.dart';
 import 'package:all_app_direct/modules/all_screens/telegram/telegram.dart';
 import 'package:all_app_direct/modules/all_screens/whatsapp/whatsapp.dart';
-import 'package:all_app_direct/modules/login/forgot_password.dart';
-import 'package:all_app_direct/modules/login/sign_in_page.dart';
-import 'package:all_app_direct/modules/login/sign_up_page.dart';
-import 'package:all_app_direct/modules/splash_1.dart';
+import 'package:all_app_direct/modules/onboarding/onboarding_Screen.dart';
 import 'package:all_app_direct/modules/splashscreen/splash_screen.dart';
 import 'package:get/get.dart';
 
@@ -16,9 +16,7 @@ mixin Routes {
 
   // get started
   static const String splash = '/splash_screen';
-  static const String splashBox1 = '/SplashBox1';
-  static const String splashBox2 = '/SplashBox2';
-  static const String splashBox3 = '/SplashBox3';
+  static const String onboardingScreen = '/onBoardingScreen';
   static const String loginPage = '/LoginPage';
   static const String signUpPage = '/SignUpPage';
   static const String forgotPassword = '/ForgotPassword';
@@ -36,15 +34,10 @@ mixin Routes {
       transition: defaultTransition,
     ),
     GetPage<dynamic>(
-      name: splashBox1,
-      page: () => SplashBox1(),
+      name: onboardingScreen,
+      page: () => onBoardingScreen(),
       transition: defaultTransition,
     ),
-    // GetPage<dynamic>(
-    //   name: splashBox2,
-    //   page: () => SplashBox2(),
-    //   transition: defaultTransition,
-    // ),
     GetPage<dynamic>(
       name: loginPage,
       page: () => LoginPage(),

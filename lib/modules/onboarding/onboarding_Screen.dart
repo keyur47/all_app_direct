@@ -4,7 +4,7 @@ import 'package:all_app_direct/utils/navigation/dart/route_page.dart';
 import 'package:all_app_direct/widgets/newt_box_buttons.dart';
 import 'package:flutter/material.dart';
 
-class SplashBox1 extends StatelessWidget {
+class onBoardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

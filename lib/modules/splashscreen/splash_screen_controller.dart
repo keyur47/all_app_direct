@@ -19,7 +19,6 @@ class SplashController extends GetxController {
   ConnectivityResult _connectionStatus = ConnectivityResult.none;
   final Connectivity _connectivity = Connectivity();
   late StreamSubscription<ConnectivityResult> _connectivitySubscription;
-  // String value = "";
 
   @override
   void onInit() async {
@@ -46,34 +45,34 @@ class SplashController extends GetxController {
     result = await (Connectivity().checkConnectivity());
 
     if (result == ConnectivityResult.mobile) {
-      /// getInt
-      final value = SharedPrefs.getInt() ?? 0;
-      value == 1
-          ? Navigation.popAndPushNamed(Routes.loginPage)
-          : Navigation.popAndPushNamed(Routes.splashBox1);
-      ///
-      // isUserLogin == true
-      //     ? Navigation.popAndPushNamed(Routes.whatsapp)
-      //     : Navigation.popAndPushNamed(Routes.loginPage);
-      // log("loginlogin1:-${isUserLogin.toString()}");
 
-      log("I am connected to a mobile network");
-    } else if (result == ConnectivityResult.wifi) {
-      /// getInt
       final value = SharedPrefs.getInt() ?? 0;
       SharedPreferences sp = await SharedPreferences.getInstance();
       isUserLogin = await sp.getBool('login');
-      log("loginlogin2:-${isUserLogin}");
-      log("value====>>>:-$value");
+
       value == 1
           ? isUserLogin == true || isUserLogin == "true"
           ? Navigation.popAndPushNamed(Routes.whatsapp):Navigation.popAndPushNamed(Routes.loginPage)
-          : Navigation.popAndPushNamed(Routes.splashBox1);
-      ///
-      // isUserLogin == true
-      //     ? Navigation.popAndPushNamed(Routes.whatsapp)
-      //     : Navigation.popAndPushNamed(Routes.loginPage);
-      // log("loginlogin2:-${isUserLogin.toString()}");
+          : Navigation.popAndPushNamed(Routes.onboardingScreen);
+
+      /// onboardingScreen
+      // final value = SharedPrefs.getInt() ?? 0;
+      // value == 1
+      //     ? Navigation.popAndPushNamed(Routes.loginPage)
+      //     : Navigation.popAndPushNamed(Routes.onboardingScreen);
+
+
+      log("I am connected to a mobile network");
+    } else if (result == ConnectivityResult.wifi) {
+
+      final value = SharedPrefs.getInt() ?? 0;
+      SharedPreferences sp = await SharedPreferences.getInstance();
+      isUserLogin = await sp.getBool('login');
+      value == 1
+          ? isUserLogin == true || isUserLogin == "true"
+          ? Navigation.popAndPushNamed(Routes.whatsapp):Navigation.popAndPushNamed(Routes.loginPage)
+          : Navigation.popAndPushNamed(Routes.onboardingScreen);
+
 
       log("I am connected to a wifi network");
     } else {

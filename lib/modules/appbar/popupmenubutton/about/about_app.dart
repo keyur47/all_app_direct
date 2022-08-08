@@ -1,13 +1,41 @@
-// import 'package:flutter/material.dart';
-//
-// class LogOut extends StatelessWidget {
-//   const LogOut({Key? key}) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container();
-//   }
-// }
+import 'package:all_app_direct/helper/app_color.dart';
+import 'package:all_app_direct/helper/shared_preferences.dart';
+import 'package:all_app_direct/modules/appbar/popupmenubutton/about/theme.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+class DarkDemo extends StatelessWidget {
+   DarkDemo({Key? key}) : super(key: key);
+
+  ThemeController themeController = Get.find();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+       appBar: AppBar(),
+      body: Column(
+        children: [
+          Obx(()=>
+             Switch(
+              activeColor: AppColor.primaryColor,
+              value: themeController.isSwitched.value,
+              onChanged: (value) {
+                themeController.isSwitched.value = value;
+                Get.changeThemeMode(
+                  themeController.isSwitched.value == true
+                      ? ThemeMode.dark
+                      : ThemeMode.light,
+                );
+                SharedPrefs.setBoolean("theme",
+                    value: themeController.isSwitched.value);
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
 
 
 

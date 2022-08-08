@@ -2,7 +2,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefs {
 
-  static late SharedPreferences _prefs;
 
   static Future initMySharedPreferences() async {
     _prefs = await SharedPreferences.getInstance();
@@ -18,9 +17,19 @@ class SharedPrefs {
     return value;
   }
 
+  static Future setBoolean(String key, {required bool value}) async {
+    await _prefs.setBool(key, value);
+  }
 
-  static final Future<SharedPreferences> prefsData =
-      SharedPreferences.getInstance();
+  static bool getBoolean(String key) {
+    final bool? value = _prefs.getBool(key);
+    return value ?? false;
+  }
+
+
+  static late SharedPreferences _prefs;
+
+  static final Future<SharedPreferences> prefsData = SharedPreferences.getInstance();
 
   static Future<void> setNumberList(List<String> numberList) async {
     final SharedPreferences prefs = await prefsData;
@@ -62,15 +71,7 @@ class SharedPrefs {
     return prefs.getStringList("snapchat") ?? [];
   }
 
-  static  setPage(int page) async {
-    final SharedPreferences prefs = await prefsData;
-    return prefs.setInt("page", page);
-  }
 
-  static Future<int> getPage() async {
-    final SharedPreferences prefs = await prefsData;
-    return prefs.getInt("page") ?? 0;
-  }
 
 
 

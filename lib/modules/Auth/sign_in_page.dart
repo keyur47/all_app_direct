@@ -1,14 +1,15 @@
-import 'package:all_app_direct/modules/login/controller/sign_in_controller.dart';
-import 'package:all_app_direct/modules/login/login_with_google_mobile_facebook/gmail_login/gmail_login.dart';
+import 'package:all_app_direct/modules/Auth/controller/sign_in_controller.dart';
+import 'package:all_app_direct/modules/Auth/login_with_google_mobile_facebook/facebook_login/facebook_login.dart';
+import 'package:all_app_direct/modules/Auth/login_with_google_mobile_facebook/gmail_login/gmail_login.dart';
 import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/utils/assets_path.dart';
 import 'package:all_app_direct/utils/navigation/dart/navigation.dart';
 import 'package:all_app_direct/utils/navigation/dart/route_page.dart';
+import 'package:all_app_direct/widgets/Clipper/bezierContainer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import 'Widget/bezierContainer.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key? key, this.title}) : super(key: key);
@@ -265,7 +266,7 @@ class _LoginPageState extends State<LoginPage> {
             height: 40,
             child: ElevatedButton(
               onPressed: () async {
-                // signInWithFacebook();
+                 signInWithFacebook();
 ///
                 //for login with fb but without firebase
                 // try {

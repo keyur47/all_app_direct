@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:all_app_direct/modules/login/controller/sign_in_controller.dart';
+import 'package:all_app_direct/modules/Auth/controller/sign_in_controller.dart';
 import 'package:all_app_direct/utils/navigation/dart/route_page.dart';
 import 'package:all_app_direct/widgets/snackbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';

@@ -1,12 +1,14 @@
 import 'dart:developer';
 
 import 'package:all_app_direct/main.dart';
+import 'package:all_app_direct/modules/Auth/login_with_google_mobile_facebook/facebook_login/facebook_login.dart';
+import 'package:all_app_direct/modules/Auth/login_with_google_mobile_facebook/gmail_login/gmail_login.dart';
+import 'package:all_app_direct/modules/Auth/logout/home_controller.dart';
 import 'package:all_app_direct/modules/appbar/appbar_controller.dart';
+import 'package:all_app_direct/modules/appbar/popupmenubutton/about/about_app.dart';
 import 'package:all_app_direct/modules/appbar/popupmenubutton/feedback/feedback.dart';
 import 'package:all_app_direct/modules/appbar/popupmenubutton/rate/rate.dart';
 import 'package:all_app_direct/modules/appbar/popupmenubutton/share/shareapp.dart';
-import 'package:all_app_direct/modules/login/login_with_google_mobile_facebook/gmail_login/gmail_login.dart';
-import 'package:all_app_direct/modules/login/logout/home_controller.dart';
 import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/utils/navigation/dart/navigation.dart';
 import 'package:all_app_direct/utils/navigation/dart/route_page.dart';
@@ -75,9 +77,44 @@ class _customAppbarState extends State<customAppbar> {
                 Row(
                   children: [
                     GestureDetector(
-                      onTap: () {
-                        // _key.currentState?.showButtonMenu();
+                      onTap: () async {
+                        sp = await SharedPreferences.getInstance();
+                        isUserLogin = sp.setBool('login', false);
+                        log('spout-----${sp.getBool('login')}');
+                        for (final providerProfile
+                        in FirebaseAuth.instance.currentUser!.providerData) {
+                          // ID of the provider (google.com, apple.cpm, etc.)
+                          final provider = providerProfile.providerId;
+                          try {
+                            homeController.logOutLoading.value = true;
+                            if (provider == 'google.com') {
+                              log("logout with google");
+                              FirebaseService service = FirebaseService();
+                              await service.signOutFromGoogle();
+                            } else if (provider == 'facebook.com') {
+                              log("logout with facebook");
+                              await signOutFromFacebook();
+                            } else {
+                              log("logout with other");
+                              homeController.logOut();
+                            }
+                          } on FirebaseAuthException catch (e) {
+                            log("----SignOut------${e.toString()}");
+                            getSnackBar("Some error accrues", "Please try again",
+                                Colors.red.shade500, 3);
+                          } catch (e) {
+                            getSnackBar("Some error accrues", "Please try again",
+                                Colors.red.shade500, 3);
+
+                            log("drawerLogOut---->${e.toString()}");
+                          } finally {
+                            homeController.logOutLoading.value = false;
+                          }
+                        }
                       },
+                      // onTap: () {
+                      //   // _key.currentState?.showButtonMenu();
+                      // },
                       child: Container(
                         decoration: BoxDecoration(
                             boxShadow: const [
@@ -193,7 +230,7 @@ class _customAppbarState extends State<customAppbar> {
                 PopupMenuButton(
                   onSelected: (int value)async{
                     if (value == 1) {
-                      // Get.toNamed(Routes.tabbar);
+                      Get.to(DarkDemo());
                     } else if (value == 2) {
                       Share();
                     } else if (value == 3) {
@@ -201,10 +238,7 @@ class _customAppbarState extends State<customAppbar> {
                     } else if (value == 4) {
                       FeedbackBox(context);
                     } else {
-                      // sp = await SharedPreferences.getInstance();
-                      // isUserLogin = sp.setBool('login', false);
-                      // log('spout-----${sp.getBool('login')}');
-                      // homeController.logOut();
+                    // Get.to(DarkDemo());
                       sp = await SharedPreferences.getInstance();
                       isUserLogin = sp.setBool('login', false);
                       log('spout-----${sp.getBool('login')}');
@@ -220,7 +254,7 @@ class _customAppbarState extends State<customAppbar> {
                             await service.signOutFromGoogle();
                           } else if (provider == 'facebook.com') {
                             log("logout with facebook");
-                            // await signOutFromFacebook();
+                            await signOutFromFacebook();
                           } else {
                             log("logout with other");
                             homeController.logOut();
