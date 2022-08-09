@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:all_app_direct/helper/app_color.dart';
 import 'package:all_app_direct/modules/appbar/appbar.dart';
 import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/utils/size_utils.dart';
@@ -55,20 +56,12 @@ class _GalleryFileImageState extends State<GalleryFileImage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.backgroundColor,
+      backgroundColor:ColorRes.backgroundColor(context),
       body: Column(
           children: [
             customAppbar(
               text: StringsUtils.instagramDirects,
               icon: Icons.photo,
-              iconColor: Colors.white,
-              gradient:  LinearGradient(
-                  begin: Alignment.topRight,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    AppColor.darkBlue,
-                    AppColor.darkBlue,
-                  ]),
               top: SizeUtils.horizontalBlockSize * 0.5,
               bottom: SizeUtils.horizontalBlockSize * 0.6,
               right: SizeUtils.horizontalBlockSize * 0.6,

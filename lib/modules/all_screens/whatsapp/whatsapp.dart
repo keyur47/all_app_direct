@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:all_app_direct/ads/ads.dart';
 import 'package:all_app_direct/ads/open_ad.dart';
+import 'package:all_app_direct/helper/app_color.dart';
 import 'package:all_app_direct/modules/all_screens/history/all_history.dart';
 import 'package:all_app_direct/modules/all_screens/history/mycallhistory.dart';
 import 'package:all_app_direct/modules/all_screens/history/mycontactlist.dart';
@@ -111,68 +112,31 @@ class _WhatsAppState extends State<WhatsApp> {
     return WillPopScope(
       onWillPop: _onWillPop,
       child: Scaffold(
-        backgroundColor: themeController.isSwitched.value ? AppColor.backgroundColor: AppColor.white,
-        resizeToAvoidBottomInset: false,
-        // bottomSheet: BannerAds(),
-        body: Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            Column(
-              children: [
-                customAppbar(
-                  text: StringsUtils.whatsDirects,
-                  icon: Icons.whatsapp,
-                  iconColor: AppColor.white,
-                  gradient: const LinearGradient(
-                      begin: Alignment.topRight,
-                      end: Alignment.bottomRight,
-                      colors: [
-                        // Color(0xFF5FFC7B),
-                        // Color(0xFF28D146),
-                        AppColor.darkBlue,
-                        AppColor.darkBlue,
-                      ]),
-                  top: SizeUtils.horizontalBlockSize * 0.7,
-                  bottom: SizeUtils.horizontalBlockSize * 1.1,
-                  right: SizeUtils.horizontalBlockSize * 1.1,
-                  left: SizeUtils.horizontalBlockSize * 1.1,
-                  size: SizeUtils.horizontalBlockSize * 11,
-                  directText: StringsUtils.whatsDirects,
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: SizeUtils.horizontalBlockSize * 4,
-                      vertical: SizeUtils.verticalBlockSize * 2),
-                  child: Column(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          boxShadow: const [
-                            BoxShadow(
-                              color: Colors.black12,
-                              blurRadius: 4,
-                              offset: Offset(4, 8), // Shadow position
-                            ),
-                          ],
-                          borderRadius: BorderRadius.circular(
-                            SizeUtils.horizontalBlockSize * 10,
-                          ),
-                          color: AppColor.white,
-                        ),
-                        child: Padding(
-                            padding: EdgeInsets.only(
-                              left: SizeUtils.horizontalBlockSize * 4,
-                            ),
-                            child: PhoneNumberTextFormField()),
-                      ),
-                      SizedBox(
-                        height: SizeUtils.verticalBlockSize * 1,
-                      ),
-                      Obx(
-                        () => Container(
-                          height: controller.collpan.value
-                              ? SizeUtils.horizontalBlockSize * 36
-                              : SizeUtils.horizontalBlockSize * 13.5,
+          backgroundColor:ColorRes.backgroundColor(context),
+          resizeToAvoidBottomInset: false,
+          // bottomSheet: BannerAds(),
+          body: Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              Column(
+                children: [
+                  customAppbar(
+                    text: StringsUtils.whatsDirects,
+                    icon: Icons.whatsapp,
+                    top: SizeUtils.horizontalBlockSize * 0.7,
+                    bottom: SizeUtils.horizontalBlockSize * 1.1,
+                    right: SizeUtils.horizontalBlockSize * 1.1,
+                    left: SizeUtils.horizontalBlockSize * 1.1,
+                    size: SizeUtils.horizontalBlockSize * 11,
+                    directText: StringsUtils.whatsDirects,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: SizeUtils.horizontalBlockSize * 4,
+                        vertical: SizeUtils.verticalBlockSize * 2),
+                    child: Column(
+                      children: [
+                        Container(
                           decoration: BoxDecoration(
                             boxShadow: const [
                               BoxShadow(
@@ -182,67 +146,95 @@ class _WhatsAppState extends State<WhatsApp> {
                               ),
                             ],
                             borderRadius: BorderRadius.circular(
-                              controller.collpan.value
-                                  ? SizeUtils.horizontalBlockSize * 5
-                                  : SizeUtils.horizontalBlockSize * 10,
+                              SizeUtils.horizontalBlockSize * 10,
                             ),
                             color: AppColor.white,
                           ),
                           child: Padding(
-                            padding: EdgeInsets.only(
-                              left: SizeUtils.horizontalBlockSize * 4,
+                              padding: EdgeInsets.only(
+                                left: SizeUtils.horizontalBlockSize * 4,
+                              ),
+                              child: PhoneNumberTextFormField()),
+                        ),
+                        SizedBox(
+                          height: SizeUtils.verticalBlockSize * 1,
+                        ),
+                        Obx(
+                          () => Container(
+                            height: controller.collpan.value
+                                ? SizeUtils.horizontalBlockSize * 36
+                                : SizeUtils.horizontalBlockSize * 13.5,
+                            decoration: BoxDecoration(
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Colors.black12,
+                                  blurRadius: 4,
+                                  offset: Offset(4, 8), // Shadow position
+                                ),
+                              ],
+                              borderRadius: BorderRadius.circular(
+                                controller.collpan.value
+                                    ? SizeUtils.horizontalBlockSize * 5
+                                    : SizeUtils.horizontalBlockSize * 10,
+                              ),
+                              color: AppColor.white,
                             ),
-                            child: MessagesTextFormField(),
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                left: SizeUtils.horizontalBlockSize * 4,
+                              ),
+                              child: MessagesTextFormField(),
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(
-                        width: SizeUtils.horizontalBlockSize * 4,
-                      ),
-                      OpenCalls(),
-                      SizedBox(
-                        width: SizeUtils.horizontalBlockSize * 3.5,
-                      ),
-                      OpenWhatsAppNumber(),
-                      SizedBox(
-                        width: SizeUtils.horizontalBlockSize * 3.5,
-                      ),
-                      OpenShareLocationWhatsAppNumber(),
-                      SizedBox(
-                        width: SizeUtils.horizontalBlockSize * 4,
-                      ),
-                    ],
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                          width: SizeUtils.horizontalBlockSize * 4,
+                        ),
+                        OpenCalls(),
+                        SizedBox(
+                          width: SizeUtils.horizontalBlockSize * 3.5,
+                        ),
+                        OpenWhatsAppNumber(),
+                        SizedBox(
+                          width: SizeUtils.horizontalBlockSize * 3.5,
+                        ),
+                        OpenShareLocationWhatsAppNumber(),
+                        SizedBox(
+                          width: SizeUtils.horizontalBlockSize * 4,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                Expanded(child: AllHistoryButton())
-              ],
-            ),
-            BannerAds()
-          ],
+                  Expanded(child: AllHistoryButton())
+                ],
+              ),
+              BannerAds()
+            ],
+          ),
+          floatingActionButton: Obx(
+            () => controller.myContactListHistoryChekBox.value == true ||
+                    controller.myContactListChekBox.value == true
+                ? FloatingActionButton(
+                    backgroundColor: AppColor.darkBlue,
+                    child: const Icon(Icons.arrow_upward_rounded),
+                    onPressed: ()async {
+                      controller.myContactListHistoryChekBox.value == true
+                          ?  AllScreenController.callScrollUp()
+                          : AllScreenController.contactScrollUp();
+                    },
+                  )
+                : const SizedBox(),
+          ),
         ),
-        floatingActionButton: Obx(
-          () => controller.myContactListHistoryChekBox.value == true ||
-                  controller.myContactListChekBox.value == true
-              ? FloatingActionButton(
-                  backgroundColor: AppColor.darkBlue,
-                  child: const Icon(Icons.arrow_upward_rounded),
-                  onPressed: ()async {
-                    controller.myContactListHistoryChekBox.value == true
-                        ?  AllScreenController.callScrollUp()
-                        : AllScreenController.contactScrollUp();
-                  },
-                )
-              : const SizedBox(),
-        ),
-      ),
+
     );
   }
 

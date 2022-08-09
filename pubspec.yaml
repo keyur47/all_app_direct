@@ -75,8 +75,6 @@ dependencies:
   firebase_crashlytics: ^2.8.5
   google_sign_in: ^5.4.0
   flutter_facebook_auth: ^4.4.0+1
-  image_picker: ^0.8.5+3
-  file_picker: ^5.0.0
 
 dev_dependencies:
   flutter_test:

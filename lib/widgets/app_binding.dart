@@ -12,7 +12,7 @@ import 'package:get/get.dart';
 class AppBinding extends Bindings {
   @override
   void dependencies() {
-    Get.put<ThemeController>(ThemeController());
+    // Get.put<ThemeController>(ThemeController());
     Get.put<LogInController>(LogInController());
     Get.put<SignUpController>(SignUpController());
     Get.put<HomeController>(HomeController());

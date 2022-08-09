@@ -1,4 +1,5 @@
 import 'package:all_app_direct/ads/ads.dart';
+import 'package:all_app_direct/helper/app_color.dart';
 import 'package:all_app_direct/helper/shared_preferences.dart';
 import 'package:all_app_direct/modules/appbar/appbar.dart';
 import 'package:all_app_direct/modules/controller/all_screen_controller.dart';
@@ -31,8 +32,7 @@ class _SnapchatState extends State<Snapchat> {
         return false;
       },
       child: Scaffold(
-        backgroundColor: AppColor.backgroundColor,
-        resizeToAvoidBottomInset: false,
+        backgroundColor:ColorRes.backgroundColor(context),        resizeToAvoidBottomInset: false,
         body: Stack(
           alignment: Alignment.bottomCenter,
           children: [
@@ -41,14 +41,7 @@ class _SnapchatState extends State<Snapchat> {
                 customAppbar(
                   text: StringsUtils.snapchatDirects,
                   icon: Icons.snapchat,
-                  iconColor: Colors.white,
-                  gradient: const LinearGradient(
-                      begin: Alignment.topRight,
-                      end: Alignment.bottomRight,
-                      colors: [
-                        AppColor.darkBlue,
-                        AppColor.darkBlue,
-                      ]),
+
                   top: SizeUtils.horizontalBlockSize * 1,
                   bottom: SizeUtils.horizontalBlockSize * 1.1,
                   right: SizeUtils.horizontalBlockSize * 1.4,

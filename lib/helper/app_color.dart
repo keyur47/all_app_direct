@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class AppColor {
+class AppColor2 {
   static const appBarColors = Color(0Xff2C2C2C);
   static const primaryColor = Color(0xff2BB895);
   static const green38 = Color.fromRGBO(43, 184, 149, 0.38);
@@ -124,9 +124,10 @@ class Themes {
 
 class ColorCollection {
   ///dark theme color
-  static const Color backGroundColorDark = Color(0xff3B4744);
+  static const Color backGroundColorDark = Color(0xFF212121);
+  // static const Color backGroundColorDark = Color(0xFF212121);
   static const Color dartTextColor = Color(0xffFFFFFF);
-  static const Color darkAppBarColor = Color(0xffF5F5F5);
+  static const Color darkAppBarColor = Color(0xFF212121);
 
   // static const Color mainTextColorDark = Color(0xFFdad6d6);
   // static const Color itemBackGroundColorDark = Color(0xff241F1C);
@@ -148,9 +149,9 @@ class ColorCollection {
   // static const Color updateScreenBackContainerColorDark = Color(0xff0F0E0F);
 
   ///light theme color
-  static const Color backGroundColorLight = Color(0xffFFFFFF);
+  static const Color backGroundColorLight = Color(0XffEFEFFF);
   static const Color lightTextColor = Color(0xff3B4744);
-  static const Color lightAppBarColor = Color(0Xff2C2C2C);
+  static const Color lightAppBarColor = Color(0XffEFEFFF);
 
 // static const Color mainTextColorLight = Color(0xff2596be);
 // static const Color itemBackGroundColorLight = Color(0xffFFFFFF);

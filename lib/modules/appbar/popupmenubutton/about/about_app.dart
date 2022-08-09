@@ -1,6 +1,7 @@
 import 'package:all_app_direct/helper/app_color.dart';
 import 'package:all_app_direct/helper/shared_preferences.dart';
 import 'package:all_app_direct/modules/appbar/popupmenubutton/about/theme.dart';
+import 'package:all_app_direct/utils/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -17,7 +18,7 @@ class DarkDemo extends StatelessWidget {
         children: [
           Obx(()=>
              Switch(
-              activeColor: AppColor.primaryColor,
+              activeColor: AppColor2.primaryColor,
               value: themeController.isSwitched.value,
               onChanged: (value) {
                 themeController.isSwitched.value = value;
