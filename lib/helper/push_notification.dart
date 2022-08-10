@@ -119,7 +119,7 @@ class FirebaseMessagingUtils {
     ///app background ma open hoy tyare
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       ///for open specific screen when user click on notification
-      if (message.data["page"] ==
+      if (message.data["page"] ==   
           "example") //firebase cloud messaging ->Additional options -> key : value hoy aema key=page and value=example
       {
         Get.toNamed(Routes.instagram);
