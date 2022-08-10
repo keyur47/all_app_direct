@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:all_app_direct/ads/adr.controller.dart';
 import 'package:all_app_direct/ads/ads.dart';
 import 'package:all_app_direct/ads/ads_new.dart';
@@ -15,6 +17,7 @@ import 'package:all_app_direct/utils/string_utils.dart';
 import 'package:all_app_direct/widgets/custom_textfield.dart';
 import 'package:all_app_direct/widgets/snackbar.dart';
 import 'package:bootstrap_icons/bootstrap_icons.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
@@ -31,6 +34,23 @@ class _InstagramState extends State<Instagram> {
   AllScreenController controller = Get.find();
   AdController  adController = Get.find();
    ThemeController themeController = Get.find();
+
+
+   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    FirebaseMessaging.instance
+        .getInitialMessage()
+        .then((RemoteMessage? message) {
+      log("home Screen test");
+      if (message != null) {
+        // if (message.data["page"] == "example") {
+        //   // Get.to(const NotificationOpenScreen());
+        // }
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

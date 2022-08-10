@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:all_app_direct/utils/navigation/dart/route_page.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -121,7 +122,7 @@ class FirebaseMessagingUtils {
       if (message.data["page"] ==
           "example") //firebase cloud messaging ->Additional options -> key : value hoy aema key=page and value=example
       {
-        // Get.to(SettingPage());
+        Get.toNamed(Routes.instagram);
       }
     });
 
