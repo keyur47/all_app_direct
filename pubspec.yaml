@@ -75,6 +75,10 @@ dependencies:
   firebase_crashlytics: ^2.8.5
   google_sign_in: ^5.4.0
   flutter_facebook_auth: ^4.4.0+1
+  firebase_messaging: ^12.0.1
+  flutter_local_notifications: ^9.7.0
+  push_notification: ^1.1.1
+  app_settings: ^4.1.8
 
 dev_dependencies:
   flutter_test:

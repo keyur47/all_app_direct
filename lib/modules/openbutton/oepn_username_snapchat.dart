@@ -46,17 +46,10 @@ class OpenUserNameSnapchat extends StatelessWidget {
         left: SizeUtils.horizontalBlockSize* 3.5,
         right: SizeUtils.horizontalBlockSize* 1.2,
         bottom: SizeUtils.horizontalBlockSize* 2.4,
-        boxColor: AppColor.white,
         decoration: BoxDecoration(
-            gradient: const LinearGradient(
-                begin: Alignment.topRight,
-                end: Alignment.bottomRight,colors: [
-              Colors.white,
-              Colors.white,
-            ]),
             borderRadius: BorderRadius.circular(5)
         ),
-        iconColor: AppColor.appColors);
+        iconColor: AppColor.appGreen);
   }
 }
 

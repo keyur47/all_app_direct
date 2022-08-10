@@ -124,10 +124,11 @@ class Themes {
 
 class ColorCollection {
   ///dark theme color
-  static const Color backGroundColorDark = Color(0xFF212121);
+  static const Color backGroundColorDark = Colors.black;
   // static const Color backGroundColorDark = Color(0xFF212121);
   static const Color dartTextColor = Color(0xffFFFFFF);
-  static const Color darkAppBarColor = Color(0xFF212121);
+  static const Color darkAppBarColor = Colors.black;
+  // static const Color darkAppBarColor = Color(0xFF212121);
 
   // static const Color mainTextColorDark = Color(0xFFdad6d6);
   // static const Color itemBackGroundColorDark = Color(0xff241F1C);

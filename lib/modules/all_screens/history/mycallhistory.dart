@@ -54,7 +54,7 @@ class MyCallHistory extends StatelessWidget {
                           },
                           child: const Icon(
                             Icons.whatsapp,
-                            color: AppColor.appColors,
+                            color: AppColor.appGreen,
                           )),
                       title: GestureDetector(
                         onTap: () {
@@ -271,18 +271,18 @@ class MyCallHistory extends StatelessWidget {
       case CallType.incoming:
         {
           return imageDetails(
-              icons: BootstrapIcons.arrow_down_left, color: AppColor.appColors);
+              icons: BootstrapIcons.arrow_down_left, color: AppColor.appGreen);
         }
 
       case CallType.outgoing:
         {
           return imageDetails(
-              icons: BootstrapIcons.arrow_up_right, color: AppColor.appColors);
+              icons: BootstrapIcons.arrow_up_right, color: AppColor.appGreen);
         }
       case CallType.rejected:
         {
           return imageDetails(
-              icons: BootstrapIcons.arrow_up_right, color: AppColor.appColors);
+              icons: BootstrapIcons.arrow_up_right, color: AppColor.appGreen);
         }
       case CallType.missed:
         {
@@ -292,23 +292,23 @@ class MyCallHistory extends StatelessWidget {
       case CallType.wifiOutgoing:
         {
           return imageDetails(
-              icons: BootstrapIcons.arrow_up_right, color: AppColor.appColors);
+              icons: BootstrapIcons.arrow_up_right, color: AppColor.appGreen);
         }
       case CallType.wifiIncoming:
         {
           return imageDetails(
-              icons: BootstrapIcons.wifi, color: AppColor.appColors);
+              icons: BootstrapIcons.wifi, color: AppColor.appGreen);
         }
       case CallType.blocked:
         {
           return imageDetails(
               icons: BootstrapIcons.arrow_down_right_square_fill,
-              color: AppColor.appColors);
+              color: AppColor.appGreen);
         }
       default:
         {
           return imageDetails(
-              icons: BootstrapIcons.arrow_up_right, color: AppColor.appColors);
+              icons: BootstrapIcons.arrow_up_right, color: AppColor.appGreen);
         }
     }
   }

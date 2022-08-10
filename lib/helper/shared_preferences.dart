@@ -27,6 +27,16 @@ class SharedPrefs {
   }
 
 
+  static Future<void> setNotification({required bool notification}) async {
+    final SharedPreferences prefs = _prefs;
+    prefs.setBool("_notification", notification);
+  }
+
+  static bool get notification {
+    final bool value = _prefs.getBool("_notification") ?? false;
+    return value;
+  }
+
   static late SharedPreferences _prefs;
 
   static final Future<SharedPreferences> prefsData = SharedPreferences.getInstance();

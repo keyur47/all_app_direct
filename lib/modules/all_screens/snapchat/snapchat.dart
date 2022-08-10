@@ -2,6 +2,7 @@ import 'package:all_app_direct/ads/ads.dart';
 import 'package:all_app_direct/helper/app_color.dart';
 import 'package:all_app_direct/helper/shared_preferences.dart';
 import 'package:all_app_direct/modules/appbar/appbar.dart';
+import 'package:all_app_direct/modules/appbar/popupmenubutton/setting/theme.dart';
 import 'package:all_app_direct/modules/controller/all_screen_controller.dart';
 import 'package:all_app_direct/modules/openbutton/oepn_username_snapchat.dart';
 import 'package:all_app_direct/utils/app_color.dart';
@@ -23,6 +24,7 @@ class Snapchat extends StatefulWidget {
 
 class _SnapchatState extends State<Snapchat> {
   AllScreenController controller = Get.find();
+  ThemeController themeController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -138,15 +140,14 @@ class _SnapchatState extends State<Snapchat> {
                                                       .spaceBetween,
                                               children: [
                                                 CircleAvatar(
-                                                  backgroundColor:
-                                                      AppColor.darkBlue,
+                                                  backgroundColor: themeController.isSwitched.value ? AppColor.white : AppColor.darkBlue,
+
                                                   child: GestureDetector(
                                                     child: Text(
                                                       "${controller.getSnapchatUsernameList[index]}"
                                                           .substring(0, 1)
                                                           .toUpperCase(),
                                                       style: TextStyle(
-                                                          color: AppColor.white,
                                                           fontSize: SizeUtils
                                                                   .horizontalBlockSize *
                                                               5,

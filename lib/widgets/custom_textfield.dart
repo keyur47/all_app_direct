@@ -1,3 +1,4 @@
+import 'package:all_app_direct/modules/appbar/popupmenubutton/setting/theme.dart';
 import 'package:all_app_direct/modules/controller/all_screen_controller.dart';
 import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/utils/size_utils.dart';
@@ -15,6 +16,7 @@ Widget usernameTextField({
   required GestureTapCallback onTap,
   required GestureLongPressCallback?  longPress,
 }) {
+  ThemeController themeController = Get.find();
   return Container(
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(SizeUtils.horizontalBlockSize * 10),
@@ -52,18 +54,18 @@ Widget usernameTextField({
             contentPadding:
                 EdgeInsets.only(top: SizeUtils.verticalBlockSize * 1.7),
             border: InputBorder.none,
-            prefixIcon: const Icon(
+            prefixIcon:  Icon(
               Icons.search,
-              color: AppColor.darkBlue,
+                color: themeController.isSwitched.value ? AppColor.white: AppColor.appGreen,
             ),
             suffixIcon: GestureDetector(
                 onTap: onTap,
                 onLongPress: longPress,
-                child: const Icon(Icons.close, color: AppColor.darkBlue)),
+                child:  Icon(Icons.close,color: themeController.isSwitched.value ? AppColor.white: AppColor.appGreen)),
             hintText: hintText,
-            fillColor: AppColor.white,
+            fillColor: themeController.isSwitched.value ? AppColor.grey[200] : AppColor.white,
             filled: true,
-            hintStyle: const TextStyle(fontSize: 16))),
+            hintStyle:  TextStyle(fontSize: 16,color: themeController.isSwitched.value ? AppColor.white: AppColor.darkBlue.withOpacity(0.6)))),
   );
 }
 

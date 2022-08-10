@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:all_app_direct/ads/ads.dart';
 import 'package:all_app_direct/ads/open_ad.dart';
 import 'package:all_app_direct/helper/app_color.dart';
@@ -10,7 +9,7 @@ import 'package:all_app_direct/modules/all_screens/whatsapp/all_history_button.d
 import 'package:all_app_direct/modules/all_screens/whatsapp/messages_textformfield.dart';
 import 'package:all_app_direct/modules/all_screens/whatsapp/phone_number_textformfield.dart';
 import 'package:all_app_direct/modules/appbar/appbar.dart';
-import 'package:all_app_direct/modules/appbar/popupmenubutton/about/theme.dart';
+import 'package:all_app_direct/modules/appbar/popupmenubutton/setting/theme.dart';
 import 'package:all_app_direct/modules/controller/all_screen_controller.dart';
 import 'package:all_app_direct/modules/openbutton/open_call.dart';
 import 'package:all_app_direct/modules/openbutton/open_number-share_location_whatsapp.dart';
@@ -19,7 +18,6 @@ import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/utils/size_utils.dart';
 import 'package:all_app_direct/utils/string_utils.dart';
 import 'package:call_log/call_log.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:get/get.dart';
@@ -35,42 +33,6 @@ class WhatsApp extends StatefulWidget {
 class _WhatsAppState extends State<WhatsApp> {
   AllScreenController controller = Get.find();
   ThemeController themeController = Get.find();
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   // callHistoryButtonClick();
-  //   super.initState();
-  // }
-
-  //
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   // AppOpenAdManager.loadAd();
-  //   WidgetsBinding.instance.addObserver(this);
-  // }
-  // @override
-  // void dispose() {
-  //   // TODO: implement dispose
-  //   super.dispose();
-  //   WidgetsBinding.instance.removeObserver(this);
-  // }
-  // @override
-  // void didChangeAppLifecycleState(AppLifecycleState state) {
-  //   // TODO: implement didChangeAppLifecycleState
-  //   super.didChangeAppLifecycleState(state);
-  //   if (state == AppLifecycleState.paused) {
-  //     isPaused = true;
-  //     print("user go to background");
-  //   }
-  //   if (state == AppLifecycleState.resumed && isPaused) {
-  //     print("State Resumed===========");
-  //     AppOpenAdManager.showOpenAdIfAvailable();
-  //     isPaused = false;
-  //   }
-  // }
-  //
 
 
 
@@ -148,7 +110,7 @@ class _WhatsAppState extends State<WhatsApp> {
                             borderRadius: BorderRadius.circular(
                               SizeUtils.horizontalBlockSize * 10,
                             ),
-                            color: AppColor.white,
+                            color:  themeController.isSwitched.value ?AppColor.grey[200] :AppColor.white,
                           ),
                           child: Padding(
                               padding: EdgeInsets.only(
@@ -177,7 +139,7 @@ class _WhatsAppState extends State<WhatsApp> {
                                     ? SizeUtils.horizontalBlockSize * 5
                                     : SizeUtils.horizontalBlockSize * 10,
                               ),
-                              color: AppColor.white,
+                              color:  themeController.isSwitched.value ?AppColor.grey[200] :AppColor.white,
                             ),
                             child: Padding(
                               padding: EdgeInsets.only(
@@ -220,10 +182,10 @@ class _WhatsAppState extends State<WhatsApp> {
             ],
           ),
           floatingActionButton: Obx(
-            () => controller.myContactListHistoryChekBox.value == true ||
-                    controller.myContactListChekBox.value == true
+            () => controller.myContactListHistoryChekBox.value == true || controller.myContactListChekBox.value == true
                 ? FloatingActionButton(
-                    backgroundColor: AppColor.darkBlue,
+                 elevation: 0,
+                 backgroundColor: themeController.isSwitched.value ? AppColor.grey[200]:AppColor.darkBlue,
                     child: const Icon(Icons.arrow_upward_rounded),
                     onPressed: ()async {
                       controller.myContactListHistoryChekBox.value == true

@@ -20,11 +20,14 @@ class AppColor {
     100: Color(0xFF000000),
   });
   ///
-  static const MaterialColor appColors = MaterialColor(0Xff75B73C, <int, Color>{
+  static const MaterialColor appGreen = MaterialColor(0Xff75B73C, <int, Color>{
     100: Color(0Xff75B73C),
   });
   static const MaterialColor backgroundColor = MaterialColor(0XffEFEFFF, <int, Color>{
     100: Color(0XffEFEFFF),
+  });
+  static const MaterialColor darkMode = MaterialColor(0xFF212121, <int, Color>{
+    100: Color(0xFF212121),
   });
 ///
   static const MaterialColor darkBlue = MaterialColor(0xFF000749, <int, Color>{
@@ -60,7 +63,8 @@ class AppColor {
     80: Color(0xFFAFAFAF),
     90: Color(0xFFCCD0CC),
     100: Color(0xFF656565),
-    200: Color(0xFFC4C4C4),
+    200: Color(0xFF5F5F5F),
+    // 200: Color(0xFFC4C4C4),
   });
 
   static MaterialColor colors = const MaterialColor(

@@ -40,8 +40,7 @@ class _OpenCallsState extends State<OpenCalls> {
       left: SizeUtils.horizontalBlockSize * 2.5,
       right: SizeUtils.horizontalBlockSize * 1,
       bottom: SizeUtils.horizontalBlockSize * 2,
-      boxColor: AppColor.white,
-      iconColor: AppColor.appColors,
+      iconColor: AppColor.appGreen,
       sizeIcon: SizeUtils.horizontalBlockSize * 7,
     );
   }

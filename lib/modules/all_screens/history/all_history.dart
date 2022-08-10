@@ -1,3 +1,4 @@
+import 'package:all_app_direct/modules/appbar/popupmenubutton/setting/theme.dart';
 import 'package:all_app_direct/modules/controller/all_screen_controller.dart';
 import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/utils/size_utils.dart';
@@ -16,7 +17,7 @@ class AllHistory extends StatefulWidget {
 
 class _AllHistoryState extends State<AllHistory> {
   AllScreenController controller = Get.find();
-
+  ThemeController themeController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -61,7 +62,7 @@ class _AllHistoryState extends State<AllHistory> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     CircleAvatar(
-                                      backgroundColor: AppColor.darkBlue,
+                                      backgroundColor: themeController.isSwitched.value ? AppColor.grey[200]:AppColor.darkBlue,
                                       child: Text(
                                         "+${controller.getContactsNumberList[index]}"
                                             .substring(0, 3)
@@ -105,7 +106,7 @@ class _AllHistoryState extends State<AllHistory> {
                                       },
                                       child: Icon(
                                         Icons.whatsapp,
-                                        color: AppColor.appColors,
+                                        color: AppColor.appGreen,
                                       ),
                                     )
                                   ],

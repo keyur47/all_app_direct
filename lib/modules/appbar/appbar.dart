@@ -1,14 +1,13 @@
 import 'dart:developer';
-
 import 'package:all_app_direct/main.dart';
 import 'package:all_app_direct/modules/Auth/login_with_google_mobile_facebook/facebook_login/facebook_login.dart';
 import 'package:all_app_direct/modules/Auth/login_with_google_mobile_facebook/gmail_login/gmail_login.dart';
 import 'package:all_app_direct/modules/Auth/logout/home_controller.dart';
 import 'package:all_app_direct/modules/appbar/appbar_controller.dart';
-import 'package:all_app_direct/modules/appbar/popupmenubutton/about/about_app.dart';
-import 'package:all_app_direct/modules/appbar/popupmenubutton/about/theme.dart';
 import 'package:all_app_direct/modules/appbar/popupmenubutton/feedback/feedback.dart';
 import 'package:all_app_direct/modules/appbar/popupmenubutton/rate/rate.dart';
+import 'package:all_app_direct/modules/appbar/popupmenubutton/setting/setting.dart';
+import 'package:all_app_direct/modules/appbar/popupmenubutton/setting/theme.dart';
 import 'package:all_app_direct/modules/appbar/popupmenubutton/share/shareapp.dart';
 import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/utils/navigation/dart/navigation.dart';
@@ -83,7 +82,7 @@ class _customAppbarState extends State<customAppbar> {
                         // },
                         child: Container(
                           decoration: BoxDecoration(
-                            color: themeController.isSwitched.value ? AppColor.white : AppColor.darkBlue,
+                            color: themeController.isSwitched.value ? AppColor.grey[200] : AppColor.darkBlue,
                             boxShadow: const [
                                 BoxShadow(
                                   color: Colors.black12,
@@ -103,7 +102,7 @@ class _customAppbarState extends State<customAppbar> {
                               Icon(
                                 widget.icon,
                                 size: widget.size,
-                                color: themeController.isSwitched.value ? AppColor.darkBlue : AppColor.white,
+                                color: themeController.isSwitched.value ? AppColor.white : AppColor.white,
                               ),
 
                           ),
@@ -117,13 +116,12 @@ class _customAppbarState extends State<customAppbar> {
                         style:  TextStyle(
                             fontSize: 18,
                             fontFamily: "Customtext",
-                            color: themeController.isSwitched.value ? AppColor.white : AppColor.darkBlue,
-                            fontWeight: FontWeight.w700),
+                            color: themeController.isSwitched.value ? AppColor.white: AppColor.darkBlue,                            fontWeight: FontWeight.w700),
                       ),
                       PopupMenuButton<int>(
                         key: _key,
-                        elevation: 20,
-                        child: const Icon(Icons.arrow_drop_down),
+                        elevation: themeController.isSwitched.value ? 0 : 20,
+                        child:  Icon(Icons.arrow_drop_down, color: themeController.isSwitched.value ? AppColor.white : AppColor.darkBlue,),
                         onSelected: (int value) async {
                           controller.popupMenuItemIndex.value = value;
                           if (controller.popupMenuItemIndex.value == 1) {
@@ -201,9 +199,10 @@ class _customAppbarState extends State<customAppbar> {
                   ),
                 ),
                 PopupMenuButton(
+                  elevation: themeController.isSwitched.value ? 0 : 20,
                   onSelected: (int value)async{
                     if (value == 1) {
-                      Get.to(DarkDemo());
+                      Get.to(Setting());
                     } else if (value == 2) {
                       Share();
                     } else if (value == 3) {

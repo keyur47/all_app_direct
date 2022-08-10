@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:all_app_direct/modules/appbar/popupmenubutton/setting/theme.dart';
 import 'package:all_app_direct/modules/controller/all_screen_controller.dart';
 import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/utils/size_utils.dart';
@@ -10,7 +11,7 @@ class MessagesTextFormField extends StatelessWidget {
    MessagesTextFormField({Key? key}) : super(key: key);
 
   AllScreenController controller = Get.put(AllScreenController());
-
+  ThemeController _themeController = Get.find();
   @override
   Widget build(BuildContext context) {
     return FocusScope(
@@ -37,7 +38,7 @@ class MessagesTextFormField extends StatelessWidget {
           value = controller.textController.text;
         },
         style: TextStyle(
-            color: AppColor.darkBlue,
+            color: AppColor.black,
             fontSize:
             SizeUtils.horizontalBlockSize * 5),
         showCursor: false,
@@ -74,7 +75,7 @@ class MessagesTextFormField extends StatelessWidget {
                       size: SizeUtils
                           .verticalBlockSize *
                           3,
-                      color: AppColor.appColors,
+                      color: AppColor.appGreen,
                     ),
                   ),
                   Platform.isAndroid
@@ -107,7 +108,7 @@ class MessagesTextFormField extends StatelessWidget {
                             .verticalBlockSize *
                             2.7,
                         color: AppColor
-                            .appColors,
+                            .appGreen,
                       ))
                       : const SizedBox(
                     height: 0,
@@ -141,7 +142,7 @@ class MessagesTextFormField extends StatelessWidget {
                       size: SizeUtils
                           .verticalBlockSize *
                           3,
-                      color: AppColor.appColors,
+                      color: AppColor.appGreen,
                     ),
                   ),
                 ],
@@ -151,8 +152,7 @@ class MessagesTextFormField extends StatelessWidget {
           hintText: StringsUtils.typeYourMessage,
           hintStyle: TextStyle(
               fontFamily: 'Customtext',
-              color:
-              AppColor.darkBlue.withOpacity(0.6),
+              color:  _themeController.isSwitched.value ?AppColor.white :AppColor.darkBlue.withOpacity(0.6),
               fontSize:
               SizeUtils.horizontalBlockSize * 4),
         ),

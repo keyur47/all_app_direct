@@ -1,6 +1,8 @@
 import 'dart:typed_data';
 
+import 'package:all_app_direct/helper/app_color.dart';
 import 'package:all_app_direct/helper/shared_preferences.dart';
+import 'package:all_app_direct/modules/appbar/popupmenubutton/setting/theme.dart';
 import 'package:all_app_direct/modules/controller/all_screen_controller.dart';
 import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/utils/size_utils.dart';
@@ -19,7 +21,7 @@ class MyContactList extends StatefulWidget {
 
 class _MyContactListState extends State<MyContactList> {
   AllScreenController controller = Get.find();
-
+  ThemeController themeController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -37,7 +39,7 @@ class _MyContactListState extends State<MyContactList> {
             Uint8List? image = controller.contacts![index].photo;
             return  AnimationConfiguration.staggeredList(
               position: index,
-              delay: const Duration(milliseconds: 50),
+              delay: const Duration(milliseconds: 10),
               child: SlideAnimation(
                 duration: const Duration(milliseconds: 50),
                 curve: Curves.fastLinearToSlowEaseIn,
@@ -67,7 +69,7 @@ class _MyContactListState extends State<MyContactList> {
                                 backgroundColor: AppColor.darkBlue,
                                 child: (controller.contacts![index].photo == null)
                                     ? CircleAvatar(
-                                        backgroundColor: AppColor.darkBlue,
+                                        backgroundColor: themeController.isSwitched.value ? AppColor.grey[200]:AppColor.darkBlue,
                                         child: Text(
                                           controller.contacts![index].displayName
                                               .substring(0, 1)
@@ -130,7 +132,7 @@ class _MyContactListState extends State<MyContactList> {
                                 },
                                 child: Icon(
                                   Icons.whatsapp,
-                                  color: AppColor.appColors,
+                                  color: AppColor.appGreen,
                                 ),
                               )
                             ],

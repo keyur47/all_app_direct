@@ -35,9 +35,7 @@ class OpenWhatsAppNumber extends StatelessWidget {
       left: SizeUtils.horizontalBlockSize* 2.5,
       right: SizeUtils.horizontalBlockSize* 1,
       bottom: SizeUtils.horizontalBlockSize* 2.2,
-      ImageColor: AppColor.green,
-      boxColor: AppColor.white,
-      iconColor:AppColor.appColors,
+      iconColor:AppColor.appGreen,
       // iconColor: Color(0xFF28D146),
       sizeIcon: SizeUtils.horizontalBlockSize* 7,
     );

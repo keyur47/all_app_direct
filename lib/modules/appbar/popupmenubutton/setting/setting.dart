@@ -1,38 +1,117 @@
+import 'dart:developer';
+
 import 'package:all_app_direct/helper/app_color.dart';
+import 'package:all_app_direct/helper/setting_controller.dart';
 import 'package:all_app_direct/helper/shared_preferences.dart';
-import 'package:all_app_direct/modules/appbar/popupmenubutton/about/theme.dart';
+import 'package:all_app_direct/modules/appbar/popupmenubutton/setting/theme.dart';
 import 'package:all_app_direct/utils/app_color.dart';
+import 'package:app_settings/app_settings.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 
-class DarkDemo extends StatelessWidget {
-   DarkDemo({Key? key}) : super(key: key);
+class Setting extends StatefulWidget {
+   Setting({Key? key}) : super(key: key);
+
+  @override
+  State<Setting> createState() => _SettingState();
+}
+
+class _SettingState extends State<Setting>  with WidgetsBindingObserver {
+   Permission _permission = Permission.notification;
+
+   @override
+   void initState() {
+     super.initState();
+     WidgetsBinding.instance.addObserver(this);
+   }
+
+   @override
+   void dispose() {
+     WidgetsBinding.instance.removeObserver(this);
+     super.dispose();
+   }
+
+   @override
+   Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
+     switch (state) {
+       case AppLifecycleState.resumed:
+         log("app in resumed");
+         await grantedPermission();
+         break;
+       case AppLifecycleState.inactive:
+         await grantedPermission();
+         log("app in inactive"); //app in background
+         break;
+       case AppLifecycleState.paused:
+         log("app in paused"); //app in background
+         break;
+       case AppLifecycleState.detached:
+         log("app in detached"); //app remove from background
+         break;
+     }
+   }
+
+   Future<void> grantedPermission() async {
+     _permission = Permission.notification;
+     final status = await _permission.isGranted;
+     settingController.isNotificationCheck.value = status;
+     SharedPrefs.setNotification(
+         notification: settingController.isNotificationCheck.value);
+   }
 
   ThemeController themeController = Get.find();
+
+   SettingController settingController = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: AppBar(),
-      body: Column(
-        children: [
-          Obx(()=>
-             Switch(
-              activeColor: AppColor2.primaryColor,
-              value: themeController.isSwitched.value,
-              onChanged: (value) {
-                themeController.isSwitched.value = value;
-                Get.changeThemeMode(
-                  themeController.isSwitched.value == true
-                      ? ThemeMode.dark
-                      : ThemeMode.light,
-                );
-                SharedPrefs.setBoolean("theme",
-                    value: themeController.isSwitched.value);
-              },
+      backgroundColor:ColorRes.backgroundColor(context),
+      appBar: AppBar(),
+      body: Padding(
+        padding:  EdgeInsets.only(left: 20,right: 10),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text("Theme Mode"),
+                Obx(()=>
+                   Switch(
+                    activeColor: AppColor2.primaryColor,
+                    value: themeController.isSwitched.value,
+                    onChanged: (value) {
+                      themeController.isSwitched.value = value;
+                      Get.changeThemeMode(
+                        themeController.isSwitched.value == true
+                            ? ThemeMode.dark
+                            : ThemeMode.light,
+                      );
+                      SharedPrefs.setBoolean("theme",
+                          value: themeController.isSwitched.value);
+                    },
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+              Text("Notification"),
+              Obx(()=>
+                  Switch(
+                    activeColor: AppColor2.primaryColor,
+                    value: settingController.isNotificationCheck.value,
+                    onChanged: (value) {
+                      AppSettings.openNotificationSettings();
+                    },
+                  ),
+              ),
+            ],)
+          ],
+        ),
       ),
     );
   }

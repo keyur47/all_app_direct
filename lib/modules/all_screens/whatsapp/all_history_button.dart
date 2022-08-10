@@ -1,4 +1,7 @@
 import 'dart:developer';
+
+import 'package:all_app_direct/helper/app_color.dart';
+import 'package:all_app_direct/modules/appbar/popupmenubutton/setting/theme.dart';
 import 'package:all_app_direct/modules/controller/all_screen_controller.dart';
 import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/utils/size_utils.dart';
@@ -8,12 +11,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
+
 import '../history/all_history.dart';
 import '../history/mycallhistory.dart';
 import '../history/mycontactlist.dart';
 
-class AllHistoryButton  extends StatefulWidget {
-   AllHistoryButton({Key? key}) : super(key: key);
+class AllHistoryButton extends StatefulWidget {
+  AllHistoryButton({Key? key}) : super(key: key);
 
   @override
   State<AllHistoryButton> createState() => _AllHistoryButtonState();
@@ -21,6 +25,7 @@ class AllHistoryButton  extends StatefulWidget {
 
 class _AllHistoryButtonState extends State<AllHistoryButton> {
   AllScreenController _homePageController = Get.find();
+  ThemeController themeController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -34,21 +39,21 @@ class _AllHistoryButtonState extends State<AllHistoryButton> {
           ),
           child: Container(
             decoration: BoxDecoration(
-              boxShadow: const [
-                BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 4,
-                  offset: Offset(4, 8), // Shadow position
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 4,
+                    offset: Offset(4, 8), // Shadow position
+                  ),
+                ],
+                border: Border.all(
+                    width: 0.2, color: AppColor.grey.withOpacity(0.3)),
+                borderRadius: BorderRadius.circular(
+                  SizeUtils.horizontalBlockSize * 5,
                 ),
-              ],
-              border: Border.all(
-                  width: 0.2, color: AppColor.grey.withOpacity(
-                  0.3)),
-              borderRadius: BorderRadius.circular(
-                SizeUtils.horizontalBlockSize * 1,
-              ),
-              color: AppColor.white,
-            ),
+                color: themeController.isSwitched.value
+                    ? AppColor.grey[200]
+                    : AppColor.white),
             child: Padding(
               padding: EdgeInsets.only(
                 left: SizeUtils.horizontalBlockSize * 4,
@@ -66,9 +71,10 @@ class _AllHistoryButtonState extends State<AllHistoryButton> {
                       Text(
                         "Direct reply to",
                         style: TextStyle(
-                            fontSize:
-                            SizeUtils.horizontalBlockSize * 4.4,
-                            color: AppColor.darkBlue,
+                            fontSize: SizeUtils.horizontalBlockSize * 4.4,
+                            color: themeController.isSwitched.value
+                                ? AppColor.white
+                                : AppColor.darkBlue,
                             fontWeight: FontWeight.w700),
                       ),
                       SizedBox(
@@ -77,179 +83,144 @@ class _AllHistoryButtonState extends State<AllHistoryButton> {
 
                       /// contacts
                       Obx(
-                            () =>
-                            GestureDetector(
-                              onTap: () async {
-                                _homePageController
-                                    .myContactListHistoryChekBox
-                                    .value = false;
-                                _homePageController.myAllContactListChekBox
-                                    .value = false;
-                                _homePageController
-                                    .isError.value = false;
-                                _homePageController.myContactListChekBox
-                                    .value =
-                                !_homePageController.myContactListChekBox
-                                    .value;
-                                // await controller.contactCallHistoryButtonClick();
-                                fetchContacts();
-                              },
-                              child: Row(
-                                children: [
-                                  _homePageController.myContactListChekBox
-                                      .value
-                                      ? const Icon(
-                                    Icons.radio_button_checked,
-                                    color: AppColor.appColors,
-                                  )
-                                      : const Icon(
-                                      Icons
-                                          .radio_button_unchecked_sharp,
-                                      color: AppColor.appColors),
-                                  SizedBox(
-                                    width:
-                                    SizeUtils
-                                        .horizontalBlockSize * 1,
-                                  ),
-                                  Text(
-                                    StringsUtils.contactList,
-                                    style: TextStyle(
-                                        color: _homePageController
-                                            .myContactListChekBox
-                                            .value
-                                            ? AppColor.darkBlue
-                                            .withOpacity(0.6)
-                                            : AppColor.grey,
-                                        fontSize:
-                                        SizeUtils
-                                            .horizontalBlockSize *
-                                            4),
-                                  ),
-                                ],
+                        () => GestureDetector(
+                          onTap: () async {
+                            _homePageController.myContactListHistoryChekBox.value = false;
+                            _homePageController.myAllContactListChekBox.value = false;
+                            _homePageController.isError.value = false;
+                            _homePageController.myContactListChekBox.value = !_homePageController.myContactListChekBox.value;
+                            // await controller.contactCallHistoryButtonClick();
+                            fetchContacts();
+                          },
+                          child: Row(
+                            children: [
+                              _homePageController.myContactListChekBox.value
+                                  ? const Icon(
+                                      Icons.radio_button_checked,
+                                      color: AppColor.appGreen,
+                                    )
+                                  : const Icon(
+                                      Icons.radio_button_unchecked_sharp,
+                                      color: AppColor.appGreen),
+                              SizedBox(
+                                width: SizeUtils.horizontalBlockSize * 1,
                               ),
-                            ),
+                              Text(
+                                StringsUtils.contactList,
+                                style: TextStyle(
+                                    color: _homePageController
+                                            .myContactListChekBox.value
+                                        ? themeController.isSwitched.value ? AppColor.black: AppColor.darkBlue.withOpacity(0.6)
+                                        : themeController.isSwitched.value
+                                            ? AppColor.white
+                                            : AppColor.grey,
+                                    fontSize:
+                                        SizeUtils.horizontalBlockSize * 4),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                       SizedBox(
                         height: SizeUtils.horizontalBlockSize * 2,
                       ),
 
                       /// history
-                      Obx(
-                            () =>
-                            GestureDetector(
-                              onTap: () async {
-                                _homePageController
-                                    .isError.value = false;
-                                try {
-                                  print("callHistoryButtonClick error :- 1123");
-                                  callHistoryButtonClick();
-                                } catch (e,st) {
-                                 print("callHistoryButtonClick error :- $e $st");
-                                }
-
-                                _homePageController.myContactListChekBox
-                                    .value =
-                                false;
-                                _homePageController.myAllContactListChekBox
-                                    .value = false;
-                                _homePageController
-                                    .myContactListHistoryChekBox
-                                    .value =
-                                !_homePageController
-                                    .myContactListHistoryChekBox
-                                    .value;
-                              },
-                              child: Row(
-                                children: [
-                                  _homePageController
-                                      .myContactListHistoryChekBox
-                                      .value
-                                      ? const Icon(
-                                    Icons.radio_button_checked,
-                                    color: AppColor.appColors,
-                                  )
-                                      : const Icon(
-                                      Icons
-                                          .radio_button_unchecked_sharp,
-                                      color: AppColor.appColors),
-                                  SizedBox(
-                                    width:
-                                    SizeUtils
-                                        .horizontalBlockSize * 1,
-                                  ),
-                                  Text(
-                                    StringsUtils.callHistoryList,
-                                    style: TextStyle(
-                                        color: _homePageController
-                                            .myContactListHistoryChekBox
-                                            .value
-                                            ? AppColor.darkBlue
-                                            .withOpacity(0.6)
-                                            : AppColor.grey,
-                                        fontSize:
-                                        SizeUtils
-                                            .horizontalBlockSize *
-                                            4),
-                                  ),
-                                ],
-                              ),
-                            ),
-                      ),
-                      SizedBox(
-                        height: SizeUtils.horizontalBlockSize * 2,
-                      ),
+                      // Obx(
+                      //   () => GestureDetector(
+                      //     onTap: () async {
+                      //       _homePageController.isError.value = false;
+                      //       try {
+                      //         print("callHistoryButtonClick error :- 1123");
+                      //         callHistoryButtonClick();
+                      //       } catch (e, st) {
+                      //         print("callHistoryButtonClick error :- $e $st");
+                      //       }
+                      //
+                      //       _homePageController.myContactListChekBox.value =
+                      //           false;
+                      //       _homePageController.myAllContactListChekBox.value =
+                      //           false;
+                      //       _homePageController
+                      //               .myContactListHistoryChekBox.value =
+                      //           !_homePageController
+                      //               .myContactListHistoryChekBox.value;
+                      //     },
+                      //     child: Row(
+                      //       children: [
+                      //         _homePageController
+                      //                 .myContactListHistoryChekBox.value
+                      //             ? const Icon(
+                      //                 Icons.radio_button_checked,
+                      //                 color: AppColor.appColors,
+                      //               )
+                      //             : const Icon(
+                      //                 Icons.radio_button_unchecked_sharp,
+                      //                 color: AppColor.appColors),
+                      //         SizedBox(
+                      //           width: SizeUtils.horizontalBlockSize * 1,
+                      //         ),
+                      //         Text(
+                      //           StringsUtils.callHistoryList,
+                      //           style: TextStyle(
+                      //               color: _homePageController
+                      //                       .myContactListHistoryChekBox.value
+                      //                   ? AppColor.darkBlue.withOpacity(0.6)
+                      //                   : themeController.isSwitched.value
+                      //                   ? AppColor.white
+                      //                   : AppColor.grey,
+                      //               fontSize:
+                      //                   SizeUtils.horizontalBlockSize * 4),
+                      //         ),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
+                      // SizedBox(
+                      //   height: SizeUtils.horizontalBlockSize * 2,
+                      // ),
 
                       /// all data
-                      Obx(() =>
-                          GestureDetector(
-                            onTap: () async {
-                              _homePageController
-                                  .isError.value = false;
-                              _homePageController.myContactListChekBox
-                                  .value =
-                              false;
-                              _homePageController
-                                  .myContactListHistoryChekBox
-                                  .value = false;
-                              _homePageController.myAllContactListChekBox
-                                  .value =
-                              !_homePageController.myAllContactListChekBox
-                                  .value;
-                            },
-                            child: Row(
-                              children: [
-                                _homePageController
-                                    .myAllContactListChekBox.value
-                                    ? const Icon(
-                                  Icons.radio_button_checked,
-                                  color: AppColor.appColors,
-                                )
-                                    : const Icon(
-                                    Icons
-                                        .radio_button_unchecked_sharp,
-                                    color: AppColor.appColors),
-                                SizedBox(
-                                  width:
-                                  SizeUtils.horizontalBlockSize *
-                                      1,
-                                ),
-                                Text(
-                                  StringsUtils.allHistoryList,
-                                  style: TextStyle(
-                                      color: _homePageController
-                                          .myAllContactListChekBox
-                                          .value
-                                          ? AppColor.darkBlue
-                                          .withOpacity(0.6)
-                                          : AppColor.grey,
-                                      fontSize:
-                                      SizeUtils
-                                          .horizontalBlockSize *
-                                          4),
-                                ),
-                              ],
-                            ),
+                      Obx(
+                        () => GestureDetector(
+                          onTap: () async {
+                            _homePageController.isError.value = false;
+                            _homePageController.myContactListChekBox.value =
+                                false;
+                            _homePageController
+                                .myContactListHistoryChekBox.value = false;
+                            _homePageController.myAllContactListChekBox.value =
+                                !_homePageController
+                                    .myAllContactListChekBox.value;
+                          },
+                          child: Row(
+                            children: [
+                              _homePageController.myAllContactListChekBox.value
+                                  ? const Icon(
+                                      Icons.radio_button_checked,
+                                      color: AppColor.appGreen,
+                                    )
+                                  : const Icon(
+                                      Icons.radio_button_unchecked_sharp,
+                                      color: AppColor.appGreen),
+                              SizedBox(
+                                width: SizeUtils.horizontalBlockSize * 1,
+                              ),
+                              Text(
+                                StringsUtils.allHistoryList,
+                                style: TextStyle(
+                                    color: _homePageController
+                                            .myAllContactListChekBox.value
+                                        ? themeController.isSwitched.value ? AppColor.black: AppColor.darkBlue.withOpacity(0.6)
+                                        : themeController.isSwitched.value
+                                        ? AppColor.white
+                                        : AppColor.grey,
+                                    fontSize:
+                                        SizeUtils.horizontalBlockSize * 4),
+                              ),
+                            ],
                           ),
+                        ),
                       ),
                       SizedBox(
                         height: SizeUtils.horizontalBlockSize * 2,
@@ -271,10 +242,11 @@ class _AllHistoryButtonState extends State<AllHistoryButton> {
                       //   },
                       // );
                     },
-                    child: Icon(
-                      Icons.info_outline,
-                      size: SizeUtils.horizontalBlockSize * 6,
-                    ),
+                    child: Icon(Icons.info_outline,
+                        size: SizeUtils.horizontalBlockSize * 6,
+                        color: themeController.isSwitched.value
+                            ? AppColor.white
+                            : AppColor.black),
                   ),
                 ],
               ),
@@ -285,17 +257,17 @@ class _AllHistoryButtonState extends State<AllHistoryButton> {
           height: SizeUtils.verticalBlockSize * 1,
         ),
         Obx(
-              () => _homePageController.myContactListChekBox.value == true
+          () => _homePageController.myContactListChekBox.value == true
               ? MyContactList()
               : SizedBox(),
         ),
+        // Obx(
+        //   () => _homePageController.myContactListHistoryChekBox.value == true
+        //       ? MyCallHistory()
+        //       : SizedBox(),
+        // ),
         Obx(
-              () => _homePageController.myContactListHistoryChekBox.value == true
-              ? MyCallHistory()
-              : SizedBox(),
-        ),
-        Obx(
-              () => _homePageController.myAllContactListChekBox.value == true
+          () => _homePageController.myAllContactListChekBox.value == true
               ? AllHistory()
               : SizedBox(),
         ),
@@ -305,7 +277,6 @@ class _AllHistoryButtonState extends State<AllHistoryButton> {
       ],
     );
   }
-
 
   callHistoryButtonClick() async {
     try {
@@ -331,9 +302,9 @@ class _AllHistoryButtonState extends State<AllHistoryButton> {
       }
     }
     _homePageController.isShowDialPad.value =
-    !_homePageController.isShowDialPad.value;
+        !_homePageController.isShowDialPad.value;
     _homePageController.isShowCallHistory.value =
-    !_homePageController.isShowCallHistory.value;
+        !_homePageController.isShowCallHistory.value;
   }
 
   Future<void> getContact() async {
@@ -354,30 +325,20 @@ class _AllHistoryButtonState extends State<AllHistoryButton> {
     setState(() {});
   }
 
-   Future fetchContacts() async {
-     if (!await FlutterContacts.requestPermission(readonly: true)) {
-       setState(() {
-         _homePageController.permissionDenied = true.obs;
-       });
-     } else {
-       final _contacts = await FlutterContacts.getContacts(withPhoto: true,withProperties: true);
-       setState(() {
-         _homePageController.contacts = _contacts.obs;
-       });
-     }
-   }
-
+  Future fetchContacts() async {
+    if (!await FlutterContacts.requestPermission(readonly: true)) {
+      setState(() {
+        _homePageController.permissionDenied = true.obs;
+      });
+    } else {
+      final _contacts = await FlutterContacts.getContacts(
+          withPhoto: true, withProperties: true);
+      setState(() {
+        _homePageController.contacts = _contacts.obs;
+      });
+    }
+  }
 }
-
-
-
-
-
-
-
-
-
-
 
 /// callHistoryButtonClick
 // callHistoryButtonClick() async {

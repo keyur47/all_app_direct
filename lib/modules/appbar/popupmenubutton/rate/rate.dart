@@ -20,10 +20,10 @@ Future RateBox(context) {
               children: [
                 Icon(Icons.whatsapp,
                     size: 16,
-                    color: AppColor.appColors,
+                    color: AppColor.appGreen,
                     shadows: [
                       BoxShadow(
-                        color: AppColor.appColors.withOpacity(0.8),
+                        color: AppColor.appGreen.withOpacity(0.8),
                         spreadRadius: 10,
                         blurRadius: 7,
                         offset: const Offset(

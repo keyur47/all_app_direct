@@ -52,9 +52,7 @@ class OpenShareLocationWhatsAppNumber extends StatelessWidget {
         left: SizeUtils.horizontalBlockSize* 2,
         right: SizeUtils.horizontalBlockSize* 1,
         bottom: SizeUtils.horizontalBlockSize* 2.2,
-        ImageColor: AppColor.green,
-        boxColor: AppColor.white,
-        iconColor: AppColor.appColors,
+        iconColor: AppColor.appGreen,
         sizeIcon: SizeUtils.horizontalBlockSize*  7);
   }
 

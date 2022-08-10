@@ -1,10 +1,13 @@
 import 'dart:io';
+import 'package:all_app_direct/helper/app_color.dart';
 import 'package:all_app_direct/helper/shared_preferences.dart';
+import 'package:all_app_direct/modules/appbar/popupmenubutton/setting/theme.dart';
 import 'package:all_app_direct/modules/controller/all_screen_controller.dart';
 import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/utils/assets_path.dart';
 import 'package:all_app_direct/utils/size_utils.dart';
 import 'package:all_app_direct/utils/string_utils.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -12,13 +15,15 @@ import 'package:get/get.dart';
 class PhoneNumberTextFormField extends StatelessWidget {
    PhoneNumberTextFormField({Key? key}) : super(key: key);
 AllScreenController controller = Get.find();
-  @override
+ThemeController _themeController = Get.find();
+
+   @override
   Widget build(BuildContext context) {
     return FocusScope(
       node:  FocusScopeNode(),
       child: TextFormField(
         // enableInteractiveSelection: true,
-        toolbarOptions: const ToolbarOptions(
+        toolbarOptions:  ToolbarOptions(
           paste: false,
           copy: true,
           selectAll: true,
@@ -47,12 +52,13 @@ AllScreenController controller = Get.find();
               allow: true)
         ],
         style: TextStyle(
-            color: AppColor.darkBlue,
+            color: _themeController.isSwitched.value ? AppColor.black : AppColor.darkBlue,
             fontSize:
             SizeUtils.horizontalBlockSize * 5),
         showCursor: false,
         keyboardType: TextInputType.phone,
         decoration: InputDecoration(
+          contentPadding: EdgeInsets.only(top: 13),
           suffixIcon: SizedBox(
             width: SizeUtils.horizontalBlockSize * 18,
             child: Padding(
@@ -75,7 +81,7 @@ AllScreenController controller = Get.find();
                       size:
                       SizeUtils.verticalBlockSize *
                           3,
-                      color: AppColor.appColors,
+                      color: AppColor.appGreen,
                     ),
                   ),
                   Platform.isAndroid
@@ -108,7 +114,7 @@ AllScreenController controller = Get.find();
                         size: SizeUtils
                             .verticalBlockSize *
                             2.7,
-                        color: AppColor.appColors,
+                        color: AppColor.appGreen,
                       )
                     // Image.asset(
                     //   AppString.iconBack,
@@ -127,9 +133,8 @@ AllScreenController controller = Get.find();
           hintText: StringsUtils.phoneNumber,
           hintStyle: TextStyle(
               fontFamily: 'Customtext',
-              color: AppColor.darkBlue.withOpacity(0.6),
-              fontSize:
-              SizeUtils.horizontalBlockSize * 4),
+              color:  _themeController.isSwitched.value ?AppColor.white :AppColor.darkBlue.withOpacity(0.6),
+              fontSize: SizeUtils.horizontalBlockSize * 4),
           border: InputBorder.none,
         ),
       ),
