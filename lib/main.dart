@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:developer';
-
 import 'package:all_app_direct/direct.dart';
 import 'package:all_app_direct/helper/push_notification.dart';
 import 'package:firebase_core/firebase_core.dart';

@@ -1,12 +1,9 @@
 import 'dart:developer';
-
 import 'package:all_app_direct/helper/app_color.dart';
-import 'package:all_app_direct/helper/setting_controller.dart';
+import 'package:all_app_direct/modules/appbar/popupmenubutton/setting/setting_controller/setting_controller.dart';
 import 'package:all_app_direct/helper/shared_preferences.dart';
 import 'package:all_app_direct/modules/appbar/popupmenubutton/setting/theme.dart';
-import 'package:all_app_direct/utils/app_color.dart';
 import 'package:app_settings/app_settings.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';

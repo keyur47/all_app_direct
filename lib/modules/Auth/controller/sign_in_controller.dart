@@ -12,6 +12,7 @@ class LogInController extends GetxController {
   RxBool isObscure = true.obs;
   RxBool gmailLoading = false.obs;
   RxBool facebookLoading = false.obs;
+  RxBool isSignInButtonColorEnable = false.obs;
 
   GlobalKey<FormState> logInFormKey = GlobalKey<FormState>();
 

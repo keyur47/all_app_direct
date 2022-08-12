@@ -1,7 +1,9 @@
 
 import 'package:all_app_direct/modules/Auth/controller/sign_up_controller.dart';
+import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/utils/navigation/dart/navigation.dart';
 import 'package:all_app_direct/utils/navigation/dart/route_page.dart';
+import 'package:all_app_direct/widgets/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -100,7 +102,7 @@ class _SignUpPageState extends State<SignUpPage> {
         children:  <Widget>[
           const Text(
             'Already have an account ?',
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400,color: AppColor.grey),
           ),
           const SizedBox(
             width: 10,
@@ -185,13 +187,15 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
               ],
             ),
-            child: TextField(
+            child: TextFormField(
                 controller: TextEditingController,
                 obscureText: isPassword,
+                style: TextStyle(color: AppColor.grey),
                 decoration:  InputDecoration(
                     contentPadding: const EdgeInsets.symmetric(vertical: 14,horizontal: 15),
                     border: InputBorder.none,
                     hintText: hinText,
+                    hintStyle: TextStyle(color: AppColor.grey),
                     focusedBorder: OutlineInputBorder(
                       borderSide: const BorderSide(color: Colors.red, width: 1.5),
                       borderRadius: BorderRadius.circular(10),
@@ -225,27 +229,37 @@ class _SignUpPageState extends State<SignUpPage> {
               right: -MediaQuery.of(context).size.width * .4,
               child: const BezierContainer(),
             ),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    SizedBox(height: height * .2),
-                    _title(),
-                    const SizedBox(
-                      height: 50,
+            Obx(()=>
+               Stack(
+                 alignment: Alignment.bottomCenter,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          SizedBox(height: height * .2),
+                          _title(),
+                          const SizedBox(
+                            height: 50,
+                          ),
+                          _emailPasswordWidget(),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          _submitButton(),
+                          // SizedBox(height: height * .14),
+                          _loginAccountLabel(),
+                        ],
+                      ),
                     ),
-                    _emailPasswordWidget(),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    _submitButton(),
-                    // SizedBox(height: height * .14),
-                    _loginAccountLabel(),
-                  ],
-                ),
+                  ),
+                  signUpController.signUpLoading.value
+                      ? lottie()
+                      : const SizedBox(),
+                ],
               ),
             ),
             Positioned(top: 40, left: 0, child: _backButton()),

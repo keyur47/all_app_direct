@@ -18,6 +18,11 @@ class AssetsPath {
   static const String faceBook = _baseImagePath +'facebook.png';
   static const String profile = _baseImagePath + 'profile.jpg';
   static const String instagram = _baseImagePath + 'instagram.png';
+   static const String lottie = _baseImagePath + 'lottie.json';
+  // static const String lottie = _baseImagePath + 'lottie3.json';
+  // static const String lottie = _baseImagePath + 'lottie2.json';
+  //static const String lottie = _baseImagePath + 'lottie1.json';
+
 
 
 }

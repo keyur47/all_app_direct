@@ -6,10 +6,10 @@ import 'package:all_app_direct/utils/assets_path.dart';
 import 'package:all_app_direct/utils/navigation/dart/navigation.dart';
 import 'package:all_app_direct/utils/navigation/dart/route_page.dart';
 import 'package:all_app_direct/widgets/Clipper/bezierContainer.dart';
+import 'package:all_app_direct/widgets/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key? key, this.title}) : super(key: key);
@@ -45,18 +45,9 @@ class _LoginPageState extends State<LoginPage> {
       // colors: [Color(0xfffbb448), Color(0xfff7892b)])),
       child: GestureDetector(
         onTap: () async {
-          await logInController
-              .signInUsingEmailPassword(
-              email:
-              logInController
-                  .logInEmail
-                  .text
-                  .trim(),
-              password:
-              logInController
-                  .logInPassword
-                  .text
-                  .trim());
+          await logInController.signInUsingEmailPassword(
+              email: logInController.logInEmail.text.trim(),
+              password: logInController.logInPassword.text.trim());
         },
         child: const Text(
           'Sign In',
@@ -77,7 +68,10 @@ class _LoginPageState extends State<LoginPage> {
         children: <Widget>[
           Text(
             'Don\'t have an account ?',
-            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+            style: TextStyle(
+                fontSize: 13,
+                color: AppColor.grey,
+                fontWeight: FontWeight.w400),
           ),
           SizedBox(
             width: 10,
@@ -89,7 +83,7 @@ class _LoginPageState extends State<LoginPage> {
             child: Text(
               'Sign Up',
               style: TextStyle(
-                  color: Color(0xFF000749),
+                  color: AppColor.darkBlue[200],
                   // color: Color(0xfff79c4f),
                   fontSize: 13,
                   fontWeight: FontWeight.w600),
@@ -109,15 +103,15 @@ class _LoginPageState extends State<LoginPage> {
           style: TextStyle(
               fontSize: 30,
               fontWeight: FontWeight.w700,
-              color: Color(0xFF000749)),
+              color: AppColor.darkBlue),
           children: [
             TextSpan(
               text: ' In',
-              style: TextStyle(color: Color(0xFF000749), fontSize: 30),
+              style: TextStyle(color: AppColor.darkBlue, fontSize: 30),
             ),
             TextSpan(
               text: '',
-              style: TextStyle(color: Color(0xffe46b10), fontSize: 30),
+              style: TextStyle(color: AppColor.darkBlue, fontSize: 30),
             ),
           ]),
     );
@@ -137,7 +131,6 @@ class _LoginPageState extends State<LoginPage> {
       ],
     );
   }
-
 
   /// _entryField
   Widget _entryField(
@@ -211,28 +204,17 @@ class _LoginPageState extends State<LoginPage> {
             height: 40,
             child: ElevatedButton(
               onPressed: () async {
-                FirebaseService
-                service =
-                FirebaseService();
-                await service
-                    .signInWithGoogle();
+                FirebaseService service = FirebaseService();
+                await service.signInWithGoogle();
               },
               style: ButtonStyle(
-                elevation:
-                MaterialStateProperty
-                    .all(5),
-                backgroundColor:
-                MaterialStateProperty
-                    .all(AppColor
-                    .white),
-                shape:
-                MaterialStateProperty
-                    .all(
+                elevation: MaterialStateProperty.all(5),
+                backgroundColor: MaterialStateProperty.all(AppColor.white),
+                shape: MaterialStateProperty.all(
                   const CircleBorder(),
                 ),
               ),
-              child: SvgPicture.asset(
-                  AssetsPath.google),
+              child: SvgPicture.asset(AssetsPath.google),
             ),
           ),
           SizedBox(
@@ -243,16 +225,9 @@ class _LoginPageState extends State<LoginPage> {
                 //     .mobileScreen);
               },
               style: ButtonStyle(
-                elevation:
-                MaterialStateProperty
-                    .all(5),
-                backgroundColor:
-                MaterialStateProperty
-                    .all(AppColor
-                    .white),
-                shape:
-                MaterialStateProperty
-                    .all(
+                elevation: MaterialStateProperty.all(5),
+                backgroundColor: MaterialStateProperty.all(AppColor.white),
+                shape: MaterialStateProperty.all(
                   const CircleBorder(),
                 ),
               ),
@@ -266,8 +241,9 @@ class _LoginPageState extends State<LoginPage> {
             height: 40,
             child: ElevatedButton(
               onPressed: () async {
-                 signInWithFacebook();
-///
+                signInWithFacebook();
+
+                ///
                 //for login with fb but without firebase
                 // try {
                 //   final result =
@@ -291,28 +267,19 @@ class _LoginPageState extends State<LoginPage> {
                 // }
               },
               style: ButtonStyle(
-                elevation:
-                MaterialStateProperty
-                    .all(5),
-                backgroundColor:
-                MaterialStateProperty
-                    .all(AppColor
-                    .white),
-                shape:
-                MaterialStateProperty
-                    .all(
+                elevation: MaterialStateProperty.all(5),
+                backgroundColor: MaterialStateProperty.all(AppColor.white),
+                shape: MaterialStateProperty.all(
                   const CircleBorder(),
                 ),
               ),
               child: Padding(
-                padding:
-                const EdgeInsets
-                    .all(8.0),
-                child: Image.asset(
-                    AssetsPath.faceBook),
+                padding: const EdgeInsets.all(8.0),
+                child: Image.asset(AssetsPath.faceBook),
               ),
             ),
           ),
+
           ///
           // Expanded(
           //   flex: 1,
@@ -353,13 +320,12 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-
- // / _divider
+  // / _divider
   Widget _divider() {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10),
+      margin: EdgeInsets.symmetric(vertical: 10),
       child: Row(
-        children: const <Widget>[
+        children: <Widget>[
           SizedBox(
             width: 20,
           ),
@@ -368,15 +334,20 @@ class _LoginPageState extends State<LoginPage> {
               padding: EdgeInsets.symmetric(horizontal: 10),
               child: Divider(
                 thickness: 1,
+                color: AppColor.grey.withOpacity(0.4),
               ),
             ),
           ),
-          Text('Or login with'),
+          Text(
+            'Or login with',
+            style: TextStyle(color: AppColor.black),
+          ),
           Expanded(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 10),
               child: Divider(
                 thickness: 1,
+                color: AppColor.grey.withOpacity(0.4),
               ),
             ),
           ),
@@ -389,63 +360,83 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
-    return Scaffold(
-        backgroundColor: Color(0xffEFEFFF),
-        body: Container(
-          height: height,
-          child: Stack(
-            children: <Widget>[
-              Positioned(
-                  top: -height * .15,
-                  right: -MediaQuery.of(context).size.width * .4,
-                  child: const BezierContainer()),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      SizedBox(height: height * .2),
-                      _title(),
-                      const SizedBox(height: 50),
-                      _emailPasswordWidget(),
-                      Container(
-                        padding: const EdgeInsets.only(top: 3, bottom: 5),
-                        alignment: Alignment.centerRight,
-                        child: GestureDetector(
-                                     onTap: (){
-                                       Navigation.popAndPushNamed(Routes.forgotPassword);
-                                     },
-                           child: const Text('Forgot Password ?',
-                              style: TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.w500)),
+    return Obx(
+      () => Scaffold(
+          backgroundColor: Color(0xffEFEFFF),
+          body: Container(
+            height: height,
+            child: Stack(
+              children: <Widget>[
+                Positioned(
+                    top: -height * .15,
+                    right: -MediaQuery.of(context).size.width * .4,
+                    child: const BezierContainer()),
+                Stack(
+                  alignment: Alignment.bottomCenter,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            SizedBox(height: height * .2),
+                            _title(),
+                            const SizedBox(height: 50),
+                            _emailPasswordWidget(),
+                            Container(
+                              padding: const EdgeInsets.only(top: 3, bottom: 5),
+                              alignment: Alignment.centerRight,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigation.popAndPushNamed(
+                                      Routes.forgotPassword);
+                                },
+                                child: Text('Forgot Password ?',
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500,
+                                        color: AppColor.darkBlue[200])),
+                              ),
+                            ),
+
+                            const SizedBox(height: 50),
+                            _submitButton(),
+                            _createAccountLabel(),
+                            // Container(
+                            //   padding: const EdgeInsets.symmetric(vertical: 10),
+                            //   alignment: Alignment.centerRight,
+                            //   child: const Text('Forgot Password ?',
+                            //       style: TextStyle(
+                            //           fontSize: 14, fontWeight: FontWeight.w500)),
+                            // ),
+                            _divider(),
+                            _auto_login_G_F_M(),
+                            // SizedBox(height: height * .055),
+                          ],
                         ),
                       ),
-
-                      const SizedBox(height: 50),
-                      _submitButton(),
-                      _createAccountLabel(),
-                      // Container(
-                      //   padding: const EdgeInsets.symmetric(vertical: 10),
-                      //   alignment: Alignment.centerRight,
-                      //   child: const Text('Forgot Password ?',
-                      //       style: TextStyle(
-                      //           fontSize: 14, fontWeight: FontWeight.w500)),
-                      // ),
-                      _divider(),
-                      _auto_login_G_F_M(),
-                      // SizedBox(height: height * .055),
-                    ],
-                  ),
+                    ),
+                    logInController.logInLoading.value ||
+                            logInController.gmailLoading.value ||
+                            logInController.facebookLoading.value
+                        ? lottie()
+                        : const SizedBox(),
+                  ],
                 ),
-              ),
-              // Positioned(top: 40, left: 0, child: _backButton()),
-            ],
-          ),
-        ));
+                // Positioned(top: 40, left: 0, child: _backButton()),
+              ],
+            ),
+          )),
+    );
   }
 }
 

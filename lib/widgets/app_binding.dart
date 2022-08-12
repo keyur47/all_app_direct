@@ -1,5 +1,5 @@
 import 'package:all_app_direct/ads/adr.controller.dart';
-import 'package:all_app_direct/helper/setting_controller.dart';
+import 'package:all_app_direct/modules/appbar/popupmenubutton/setting/setting_controller/setting_controller.dart';
 import 'package:all_app_direct/modules/Auth/controller/forget_password_controller.dart';
 import 'package:all_app_direct/modules/Auth/controller/sign_in_controller.dart';
 import 'package:all_app_direct/modules/Auth/controller/sign_up_controller.dart';
