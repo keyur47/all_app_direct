@@ -27,37 +27,48 @@ class _WhatsAppState extends State<WhatsApp> with WidgetsBindingObserver{
   AllScreenController controller = Get.find();
   ThemeController themeController = Get.find();
 
+  late AppLifecycleReactor _appLifecycleReactor;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
+    AppOpenAdManager appOpenAdManager = AppOpenAdManager()..loadAd();
+    _appLifecycleReactor =
+        AppLifecycleReactor(appOpenAdManager: appOpenAdManager);
+    _appLifecycleReactor.listenToAppStateChanges();
+    print("r");
   }
+  //
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   WidgetsBinding.instance.addObserver(this);
+  // }
 
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    WidgetsBinding.instance.removeObserver(this);
-  }
+  // @override
+  // void dispose() {
+  //   // TODO: implement dispose
+  //   super.dispose();
+  //   WidgetsBinding.instance.removeObserver(this);
+  // }
 
-  bool isPaused =false;
+  // bool isPaused =false;
 
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    // TODO: implement didChangeAppLifecycleState
-    super.didChangeAppLifecycleState(state);
-    if (state == AppLifecycleState.paused) {
-      // AppOpenAdManager.loadAd();
-      print("------AppLifecycleState---1-->$state");
-      isPaused = true;
-    }
-    if (state == AppLifecycleState.inactive && isPaused) {
-      print("------AppLifecycleState---2->$state");
-      AppOpenAdManager.showOpenAdIfAvailable();
-      isPaused = false;
-    }
-  }
+  // @override
+  // void didChangeAppLifecycleState(AppLifecycleState state) {
+  //   // TODO: implement didChangeAppLifecycleState
+  //   super.didChangeAppLifecycleState(state);
+  //   if (state == AppLifecycleState.paused) {
+  //     // AppOpenAdManager.loadAd();
+  //     print("------AppLifecycleState---1-->$state");
+  //     isPaused = true;
+  //   }
+  //   if (state == AppLifecycleState.inactive && isPaused) {
+  //     print("------AppLifecycleState---2->$state");
+  //     AppOpenAdManager.showOpenAdIfAvailable();
+  //     isPaused = false;
+  //   }
+  // }
 
 
   @override

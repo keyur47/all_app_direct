@@ -26,9 +26,9 @@ class SplashController extends GetxController {
   void onInit()  {
     super.onInit();
     Future.delayed(const Duration(seconds: 5));
-    AppOpenAdManager.loadAd();
+    // AppOpenAdManager.loadAd();
     InterstitalAd.createInterstitialAd();
-    AppOpenAdManager.showOpenAdIfAvailable();
+    // AppOpenAdManager.showOpenAdIfAvailable();
     // Navigation.popAndPushNamed(Routes.dashBordScreen);
     checkFirstSeen();
   }
