@@ -26,7 +26,7 @@ void main() async {
     await crashlytics.setCrashlyticsCollectionEnabled(true);
     FlutterError.onError = crashlytics.recordFlutterError;
     await SharedPrefs.initMySharedPreferences();
-    MobileAds.instance.initialize();
+    // MobileAds.instance.initialize();
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
     FirebaseMessagingUtils().init();
     runApp(Direct());

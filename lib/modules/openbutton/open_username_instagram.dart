@@ -1,6 +1,4 @@
-
-import 'package:all_app_direct/ads/adr.controller.dart';
-import 'package:all_app_direct/helper/app_color.dart';
+import 'package:all_app_direct/ads/ads_new.dart';
 import 'package:all_app_direct/helper/shared_preferences.dart';
 import 'package:all_app_direct/modules/appbar/popupmenubutton/setting/theme.dart';
 import 'package:all_app_direct/modules/controller/all_screen_controller.dart';
@@ -10,18 +8,15 @@ import 'package:all_app_direct/utils/assets_path.dart';
 import 'package:all_app_direct/utils/size_utils.dart';
 import 'package:all_app_direct/utils/string_utils.dart';
 import 'package:all_app_direct/widgets/button_box.dart';
-import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-// ignore: must_be_immutable
 class OpenUserNameInstagram extends StatelessWidget {
   OpenUserNameInstagram({Key? key}) : super(key: key);
 
   AllScreenController controller = Get.find();
-  AdController adController = Get.find();
   ThemeController themeController = Get.find();
   final ValueNotifier<bool> isCheck = ValueNotifier(true);
 
@@ -33,8 +28,7 @@ class OpenUserNameInstagram extends StatelessWidget {
       return button(
           onTap: () async {
             if (controller.instagramUsernameController.text.isNotEmpty) {
-              await adController.createInterstitialAd();
-              // await adController.createRewardedAd();
+              InterstitalAd.showInterstitialAd();
               controller.setInstagramUsernameList.addAll([(controller.instagramUsernameController.text)]);
               SharedPrefs.setInstagramList(controller.setInstagramUsernameList);
               controller.url.value = "instagram://user?username=${controller.instagramUsernameController.text}";

@@ -1,5 +1,4 @@
 
-import 'package:all_app_direct/ads/adr.controller.dart';
 import 'package:all_app_direct/modules/controller/all_screen_controller.dart';
 import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/utils/size_utils.dart';
@@ -16,13 +15,11 @@ class OpenShareLocationWhatsAppNumber extends StatelessWidget {
   OpenShareLocationWhatsAppNumber({Key? key}) : super(key: key);
 
   AllScreenController controller = Get.find();
-  AdController adController = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return button(
         onTap: () async {
-           await adController.createRewardedAd();
           await getPermission();
           var permission =
           await Permission.location.status.isGranted;

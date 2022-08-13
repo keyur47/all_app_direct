@@ -20,6 +20,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:in_app_review/in_app_review.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class customAppbar extends StatefulWidget {
@@ -54,6 +55,7 @@ class _customAppbarState extends State<customAppbar> {
   final GlobalKey<PopupMenuButtonState<int>> _key = GlobalKey();
   HomeController homeController = Get.find();
   ThemeController themeController = Get.find();
+  final InAppReview inAppReview = InAppReview.instance;
 
   @override
   void initState() {
@@ -206,7 +208,13 @@ class _customAppbarState extends State<customAppbar> {
                     } else if (value == 2) {
                       Share();
                     } else if (value == 3) {
-                      RateBox(context);
+                      // RateBox(context);
+                      if (await inAppReview.isAvailable()) {
+                        inAppReview.requestReview();
+                      } else {
+                        AppToast.toastMessage(
+                            "app review not available at time.");
+                      }
                     } else if (value == 4) {
                       FeedbackBox(context);
                     } else {

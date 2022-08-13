@@ -1,9 +1,7 @@
-import 'package:all_app_direct/ads/adr.controller.dart';
 import 'package:all_app_direct/helper/shared_preferences.dart';
 import 'package:all_app_direct/modules/controller/all_screen_controller.dart';
 import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/utils/appsnackbar.dart';
-import 'package:all_app_direct/utils/assets_path.dart';
 import 'package:all_app_direct/utils/size_utils.dart';
 import 'package:all_app_direct/utils/string_utils.dart';
 import 'package:all_app_direct/widgets/button_box.dart';
@@ -17,7 +15,6 @@ import 'package:url_launcher/url_launcher.dart';
 class OpenUserNameTelegram extends StatelessWidget {
   OpenUserNameTelegram({Key? key}) : super(key: key);
   AllScreenController controller = Get.find();
-  AdController adController = Get.find();
   final ValueNotifier<bool> isCheck = ValueNotifier(true);
 
   @override
@@ -28,7 +25,6 @@ class OpenUserNameTelegram extends StatelessWidget {
         return button(
             onTap: () async {
               if (controller.telegramUsernameController.text.isNotEmpty) {
-                await adController.createRewardedAd();
                 controller.setTelegramUsernameList
                     .addAll([(controller.telegramUsernameController.text)]);
                 SharedPrefs.setTelegramList(controller.setTelegramUsernameList);

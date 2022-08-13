@@ -22,7 +22,7 @@ class StringsUtils {
   static const String Messages = 'Messages';
   static const String call = 'Open Call';
   static const String userNameHistory = 'Username History';
-  static const String history = 'History';
+  static const String history = 'Settings';
   static const String userName = 'Username';
   static const String whatsDirect = 'WhatsDirect';
   static const String contactList = 'Except my phone contacts ';
@@ -48,7 +48,7 @@ class StringsUtils {
   static const String shareApp = 'Share App';
   static const String rateApp = 'Rate App';
   static const String feedback = 'Feedback';
-  static const String aboutApp = 'About App';
+  static const String aboutApp = 'Log out';
   static const String termsAndPrivacy = "Terms and Privacy";
   static const String feedBackMessages = "Top a star to rate it on the \n App Store.";
   static const String feedBackTitle = "Enjoying Direct All app";

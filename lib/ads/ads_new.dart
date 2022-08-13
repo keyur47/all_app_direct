@@ -1,90 +1,111 @@
 import 'dart:developer';
+import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-class AdsADs  extends StatefulWidget {
-  const AdsADs({Key? key}) : super(key: key);
+class InterstitalAd {
+  static InterstitialAd? _interstitialAd;
+  static int maxFailedLoadAttempts = 3;
+  static int _numInterstitialLoadAttempts = 0;
 
-  @override
-  _AdsADsState createState() => _AdsADsState();
-}
+  // static final String appInterstitialId =
+  //     FirebaseRemoteConfigUtils.appInterstitialId;
+  // static final String iosInterstitialId =
+  //     FirebaseRemoteConfigUtils.iosInterstitialId;
+  static const AdRequest request = AdRequest(
+    keywords: <String>['foo', 'bar'],
+    contentUrl: 'http://foo.com/bar.html',
+    nonPersonalizedAds: true,
+  );
 
-class _AdsADsState extends State<AdsADs> {
-@override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _showRewardedAd();
-}
+  // @override
+  // void initState() {
+  //   createInterstitialAd();
+  //   super.initState();
+  // }
+  //
+  // @override
+  // void dispose() {
+  //   _interstitialAd?.dispose();
+  //   super.dispose();
+  // }
 
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    _rewardedAd?.dispose();
-  }
-  RewardedAd? _rewardedAd;
-  int _numRewardedLoadAttempts = 0;
-  bool _isRewardedAdLoaded = false;
-  int maxFailedLoadAttempts = 5 ;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: GestureDetector(
-          onTap: (){
-            _showRewardedAd();
-          },
-          child: Icon(Icons.add_circle)),
-    );
-  }
-  void _createRewardedAd() {
-    RewardedAd.load(
-      adUnitId:"ca-app-pub-3940256099942544/5224354917",
-      request: const AdRequest(),
-      rewardedAdLoadCallback: RewardedAdLoadCallback(
-        onAdLoaded: (RewardedAd ad) {
-          log('$ad loaded.');
-          _rewardedAd = ad;
-          _numRewardedLoadAttempts = 0;
-          _rewardedAd!.setImmersiveMode(true);
-          _isRewardedAdLoaded = true;
+  // @override
+  // InterstitialAd myInterstitial = InterstitialAd(
+  //   adUnitId: Platform.isAndroid
+  //       ? 'ca-app-pub-3940256099942544~3347511713'
+  //       : '', //and:ca-app-pub-3940256099942544/6300978111,
+  //   request: request,
+  //   listener: AdListener(
+  //     onAdLoaded: (Ad ad) {
+  //       print('${ad.runtimeType} loaded.');
+  //       _interstitialReady = true;
+  //     },
+  //     onAdFailedToLoad: (Ad ad, LoadAdError error) {
+  //       print('${ad.runtimeType} failed to load: $error.');
+  //       ad.dispose();
+  //       _interstitialAd = null;
+  //       createInterstitialAd();
+  //     },
+  //     onAdOpened: (Ad ad) => print('${ad.runtimeType} onAdOpened.'),
+  //     onAdClosed: (Ad ad) {
+  //       print('${ad.runtimeType} closed.');
+  //       ad.dispose();
+  //       createInterstitialAd();
+  //     },
+  //     onApplicationExit: (Ad ad) =>
+  //         print('${ad.runtimeType} onApplicationExit.'),
+  //   ),
+  // );
+
+  static Future<void> createInterstitialAd() async {
+    await InterstitialAd.load(
+      adUnitId: Platform.isAndroid
+          ? "ca-app-pub-3940256099942544/1033173712"
+      // : "ca-app-pub-3940256099942544/4411468910",
+          : "ca-app-pub-3197546275943457/7635360865",
+      //and:ca-app-pub-3940256099942544/6300978111
+      request: request,
+      adLoadCallback: InterstitialAdLoadCallback(
+        onAdLoaded: (InterstitialAd ad) {
+          log('$ad loaded');
+          _interstitialAd = ad;
+          _numInterstitialLoadAttempts = 0;
+          _interstitialAd!.setImmersiveMode(true);
         },
         onAdFailedToLoad: (LoadAdError error) {
-          log('RewardedAd failed to load: $error');
-          _rewardedAd = null;
-          _numRewardedLoadAttempts += 1;
-          if (_numRewardedLoadAttempts < maxFailedLoadAttempts) {
-            _createRewardedAd();
+          log('InterstitialAd failed to load: $error.');
+          _numInterstitialLoadAttempts += 1;
+          _interstitialAd = null;
+          if (_numInterstitialLoadAttempts < maxFailedLoadAttempts) {
+            createInterstitialAd();
           }
         },
       ),
     );
   }
-  void _showRewardedAd() {
-    if (_rewardedAd == null) {
-      log('Warning: attempt to show rewarded before loaded.');
-      _createRewardedAd();
+
+  static void showInterstitialAd() {
+    if (_interstitialAd == null) {
+      log('Warning: attempt to show interstitial before loaded.');
       return;
     }
-    _rewardedAd!.fullScreenContentCallback = FullScreenContentCallback(
-      onAdShowedFullScreenContent: (RewardedAd ad) {
-        _isRewardedAdLoaded = true;
+    _interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
+      onAdShowedFullScreenContent: (InterstitialAd ad) {
         log('ad onAdShowedFullScreenContent.');
       },
-      onAdDismissedFullScreenContent: (RewardedAd ad) {
+      onAdDismissedFullScreenContent: (InterstitialAd ad) {
         log('$ad onAdDismissedFullScreenContent.');
         ad.dispose();
-        _createRewardedAd();
+        createInterstitialAd();
       },
-      onAdFailedToShowFullScreenContent: (RewardedAd ad, AdError error) {
+      onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error) {
         log('$ad onAdFailedToShowFullScreenContent: $error');
         ad.dispose();
-        _createRewardedAd();
+        createInterstitialAd();
       },
     );
-    _rewardedAd!
-        .show(onUserEarnedReward: (AdWithoutView ad, RewardItem reward) {});
-    _rewardedAd = null;
+    _interstitialAd!.show();
+    _interstitialAd = null;
   }
 }

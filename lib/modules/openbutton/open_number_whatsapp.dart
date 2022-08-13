@@ -1,4 +1,4 @@
-import 'package:all_app_direct/ads/adr.controller.dart';
+import 'package:all_app_direct/ads/ads_new.dart';
 import 'package:all_app_direct/modules/controller/all_screen_controller.dart';
 import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/utils/size_utils.dart';
@@ -10,16 +10,14 @@ import 'package:get/get.dart';
 
 class OpenWhatsAppNumber extends StatelessWidget {
   AllScreenController controller = Get.find();
-  AdController adController = Get.find();
   @override
   Widget build(BuildContext context) {
     return button(
       onTap: () async {
         await controller.getPermission();
         if (controller.numberController.text != "") {
-          await adController.createRewardedAd();
-          // await adController.createInterstitialAd();
           print("numberController");
+          InterstitalAd.showInterstitialAd();
           controller.onOpenWhatsApp(controller.numberController.text,controller.textController.text);
           print("numberController11${controller.numberController.text}");
         } else {

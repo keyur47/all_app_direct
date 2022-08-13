@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:all_app_direct/ads/ads_new.dart';
 import 'package:all_app_direct/helper/shared_preferences.dart';
 import 'package:all_app_direct/utils/string_utils.dart';
 import 'package:all_app_direct/widgets/call.dart';
@@ -122,6 +123,7 @@ class AllScreenController extends GetxController {
             await launch(redirectUrl, forceSafariVC: false);
           }
         } else {
+
           String mobileNumber = getCountryNumberHistory();
           print("Mobile Number $mobileNumber");
           setContactsNumberList.addAll([(mobileNumber)]);

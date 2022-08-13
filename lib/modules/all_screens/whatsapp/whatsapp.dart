@@ -1,10 +1,6 @@
-import 'dart:developer';
-import 'package:all_app_direct/ads/ads.dart';
+import 'package:all_app_direct/ads/banner_ad.dart';
 import 'package:all_app_direct/ads/open_ad.dart';
 import 'package:all_app_direct/helper/app_color.dart';
-import 'package:all_app_direct/modules/all_screens/history/all_history.dart';
-import 'package:all_app_direct/modules/all_screens/history/mycallhistory.dart';
-import 'package:all_app_direct/modules/all_screens/history/mycontactlist.dart';
 import 'package:all_app_direct/modules/all_screens/whatsapp/all_history_button.dart';
 import 'package:all_app_direct/modules/all_screens/whatsapp/messages_textformfield.dart';
 import 'package:all_app_direct/modules/all_screens/whatsapp/phone_number_textformfield.dart';
@@ -17,11 +13,8 @@ import 'package:all_app_direct/modules/openbutton/open_number_whatsapp.dart';
 import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/utils/size_utils.dart';
 import 'package:all_app_direct/utils/string_utils.dart';
-import 'package:call_log/call_log.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:get/get.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class WhatsApp extends StatefulWidget {
   WhatsApp({Key? key}) : super(key: key);
@@ -30,11 +23,41 @@ class WhatsApp extends StatefulWidget {
   State<WhatsApp> createState() => _WhatsAppState();
 }
 
-class _WhatsAppState extends State<WhatsApp> {
+class _WhatsAppState extends State<WhatsApp> with WidgetsBindingObserver{
   AllScreenController controller = Get.find();
   ThemeController themeController = Get.find();
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
+  }
+
+  bool isPaused =false;
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // TODO: implement didChangeAppLifecycleState
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.paused) {
+      // AppOpenAdManager.loadAd();
+      print("------AppLifecycleState---1-->$state");
+      isPaused = true;
+    }
+    if (state == AppLifecycleState.inactive && isPaused) {
+      print("------AppLifecycleState---2->$state");
+      AppOpenAdManager.showOpenAdIfAvailable();
+      isPaused = false;
+    }
+  }
 
 
   @override

@@ -1,4 +1,3 @@
-import 'package:all_app_direct/ads/adr.controller.dart';
 import 'package:all_app_direct/helper/shared_preferences.dart';
 import 'package:all_app_direct/modules/controller/all_screen_controller.dart';
 import 'package:all_app_direct/utils/app_color.dart';
@@ -15,7 +14,6 @@ class OpenUserNameSnapchat extends StatelessWidget {
   OpenUserNameSnapchat({Key? key}) : super(key: key);
 
   AllScreenController controller = Get.find();
-  AdController adController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +21,6 @@ class OpenUserNameSnapchat extends StatelessWidget {
         onTap: () async {
           if (controller
               .snapchatUsernameController.text.isNotEmpty){
-            await adController.createRewardedAd();
             controller.setSnapchatUsernameList.addAll([(controller.snapchatUsernameController.text)]);
             SharedPrefs.setSnapchatList(controller.setSnapchatUsernameList);
             controller.url.value = "https://www.snapchat.com/add/${controller.snapchatUsernameController.text}/";

@@ -1,3 +1,5 @@
+import 'package:all_app_direct/ads/ads_new.dart';
+import 'package:all_app_direct/ads/open_ad.dart';
 import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/utils/assets_path.dart';
 import 'package:all_app_direct/utils/size_utils.dart';
@@ -15,6 +17,16 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // AppOpenAdManager.loadAd();
+    // InterstitalAd.createInterstitialAd();
+  }
+
   // late Timer _timer;
   final List<Color> _kDefaultRainbowColors = const [
     AppColor.darkBlue,

@@ -26,125 +26,130 @@ class _MyContactListState extends State<MyContactList> {
   Widget build(BuildContext context) {
     return Obx(
       () =>  AnimationLimiter(
-        child: ListView.builder(
-          physics: NeverScrollableScrollPhysics(),
-          // physics: const BouncingScrollPhysics(
-          //     parent: AlwaysScrollableScrollPhysics()),
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          controller: AllScreenController.myContactScrollController,
-          padding: EdgeInsets.zero,
-          itemCount: controller.contacts!.length,
-          itemBuilder: (context, index) {
-            Uint8List? image = controller.contacts![index].photo;
-            return  AnimationConfiguration.staggeredList(
-              position: index,
-              delay: const Duration(milliseconds: 10),
-              child: SlideAnimation(
-                duration: const Duration(milliseconds: 50),
-                curve: Curves.fastLinearToSlowEaseIn,
-                child: FadeInAnimation(
-                  curve: Curves.fastLinearToSlowEaseIn,
-                  duration: const Duration(milliseconds: 50),
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                        left: SizeUtils.horizontalBlockSize * 2.4,
-                        top: SizeUtils.verticalBlockSize * 1.2,
-                        right: SizeUtils.horizontalBlockSize * 2),
-                    child: GestureDetector(
-                      child: Container(
-                        // decoration: BoxDecoration(
-                        //     color: Colors.black12,
-                        //     borderRadius: BorderRadius.circular(20)),
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                              left: SizeUtils.horizontalBlockSize * 2,
-                              // top: SizeUtils.verticalBlockSize * 1,
-                              // bottom: SizeUtils.verticalBlockSize * 1,
-                              right: SizeUtils.horizontalBlockSize * 2),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              CircleAvatar(
-                                backgroundColor: AppColor.darkBlue,
-                                child: (controller.contacts![index].photo == null)
-                                    ? CircleAvatar(
-                                        backgroundColor: themeController.isSwitched.value ? AppColor.grey[200]:AppColor.darkBlue,
-                                        child: Text(
-                                          controller.contacts![index].displayName
-                                              .substring(0, 1)
-                                              .toUpperCase(),
-                                          style: TextStyle(
-                                              color: AppColor.white,
-                                              fontSize: SizeUtils.horizontalBlockSize * 5,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                      )
-                                    :
-                                CircleAvatar(
-                                        backgroundImage: MemoryImage(image!)),
-                              ),
-                              SizedBox(
-                                width: SizeUtils.horizontalBlockSize * 3,
-                              ),
-                              Expanded(
-                                  child: GestureDetector(
-                                      onTap: () async {
-                                        final fullContact =
+        child: Column(
+          children: [
+            ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              // physics: const BouncingScrollPhysics(
+              //     parent: AlwaysScrollableScrollPhysics()),
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              controller: AllScreenController.myContactScrollController,
+              padding: EdgeInsets.zero,
+              itemCount: controller.contacts!.length,
+              itemBuilder: (context, index) {
+                Uint8List? image = controller.contacts![index].photo;
+                return  AnimationConfiguration.staggeredList(
+                  position: index,
+                  delay: const Duration(milliseconds: 10),
+                  child: SlideAnimation(
+                    duration: const Duration(milliseconds: 50),
+                    curve: Curves.fastLinearToSlowEaseIn,
+                    child: FadeInAnimation(
+                      curve: Curves.fastLinearToSlowEaseIn,
+                      duration: const Duration(milliseconds: 50),
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            left: SizeUtils.horizontalBlockSize * 2.4,
+                            top: SizeUtils.verticalBlockSize * 1.2,
+                            right: SizeUtils.horizontalBlockSize * 2),
+                        child: GestureDetector(
+                          child: Container(
+                            // decoration: BoxDecoration(
+                            //     color: Colors.black12,
+                            //     borderRadius: BorderRadius.circular(20)),
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                  left: SizeUtils.horizontalBlockSize * 2,
+                                  // top: SizeUtils.verticalBlockSize * 1,
+                                  // bottom: SizeUtils.verticalBlockSize * 1,
+                                  right: SizeUtils.horizontalBlockSize * 2),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  CircleAvatar(
+                                    backgroundColor: AppColor.darkBlue,
+                                    child: (controller.contacts![index].photo == null)
+                                        ? CircleAvatar(
+                                            backgroundColor: themeController.isSwitched.value ? AppColor.grey[200]:AppColor.darkBlue,
+                                            child: Text(
+                                              controller.contacts![index].displayName
+                                                  .substring(0, 1)
+                                                  .toUpperCase(),
+                                              style: TextStyle(
+                                                  color: AppColor.white,
+                                                  fontSize: SizeUtils.horizontalBlockSize * 5,
+                                                  fontWeight: FontWeight.w500),
+                                            ),
+                                          )
+                                        :
+                                    CircleAvatar(
+                                            backgroundImage: MemoryImage(image!)),
+                                  ),
+                                  SizedBox(
+                                    width: SizeUtils.horizontalBlockSize * 3,
+                                  ),
+                                  Expanded(
+                                      child: GestureDetector(
+                                          onTap: () async {
+                                            final fullContact =
+                                                await FlutterContacts.getContact(
+                                                  withPhoto: true,
+                                                    controller.contacts![index].id);
+                                            controller.numberController.text =
+                                                fullContact!.phones.first.number;
+                                          },
+                                          onLongPress: ()async{
+                                            final fullContact =
                                             await FlutterContacts.getContact(
-                                              withPhoto: true,
                                                 controller.contacts![index].id);
-                                        controller.numberController.text =
-                                            fullContact!.phones.first.number;
-                                      },
-                                      onLongPress: ()async{
-                                        final fullContact =
-                                        await FlutterContacts.getContact(
-                                            controller.contacts![index].id);
-                                        controller.textController.text =  fullContact!.phones.first.number;
-                                      },
-                                      child: Text(controller
-                                          .contacts![index].displayName,style: TextStyle(fontSize: SizeUtils.horizontalBlockSize * 4.5),))),
-                              GestureDetector(
-                                onTap: () async {
-                                  // controller.photo.value =
-                                  //     await FlutterContacts.openExternalPick().toString();
-                                  // final fullContact = await FlutterContacts.getContact(
-                                  //     controller.contacts![index].id);
-                                  // controller.numberController.text =
-                                  //     fullContact!.phones.first.number;
-                                  final fullContact =
-                                      await FlutterContacts.getContact(
-                                          controller.contacts![index].id);
-                                  controller.url.value =
-                                      "https://wa.me/+${fullContact!.phones.first.number}'?text=${controller.textController.text}";
-                                  await launch(controller.url.value);
-                                  print("------${controller.url.value}");
-                                  // controller.contactsNumberList.addAll([
-                                  //   (controller
-                                  //           .contactListHistory[index].number ??
-                                  //       "")
-                                  // ]);
-                                  // await SharedPrefs.setNumberList(
-                                  //     controller.contactsNumberList);
-                                  // print(
-                                  //     "contactsNumberList:-${controller.contactsNumberList}");
-                                },
-                                child: Icon(
-                                  Icons.whatsapp,
-                                  color: AppColor.appGreen,
-                                ),
-                              )
-                            ],
+                                            controller.textController.text =  fullContact!.phones.first.number;
+                                          },
+                                          child: Text(controller
+                                              .contacts![index].displayName,style: TextStyle(fontSize: SizeUtils.horizontalBlockSize * 4.5),))),
+                                  GestureDetector(
+                                    onTap: () async {
+                                      // controller.photo.value =
+                                      //     await FlutterContacts.openExternalPick().toString();
+                                      // final fullContact = await FlutterContacts.getContact(
+                                      //     controller.contacts![index].id);
+                                      // controller.numberController.text =
+                                      //     fullContact!.phones.first.number;
+                                      final fullContact =
+                                          await FlutterContacts.getContact(
+                                              controller.contacts![index].id);
+                                      controller.url.value =
+                                          "https://wa.me/+${fullContact!.phones.first.number}'?text=${controller.textController.text}";
+                                      await launch(controller.url.value);
+                                      print("------${controller.url.value}");
+                                      // controller.contactsNumberList.addAll([
+                                      //   (controller
+                                      //           .contactListHistory[index].number ??
+                                      //       "")
+                                      // ]);
+                                      // await SharedPrefs.setNumberList(
+                                      //     controller.contactsNumberList);
+                                      // print(
+                                      //     "contactsNumberList:-${controller.contactsNumberList}");
+                                    },
+                                    child: Icon(
+                                      Icons.whatsapp,
+                                      color: AppColor.appGreen,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ),
-            );
-          },
+                );
+              },
+            ),
+            SizedBox(height: SizeUtils.verticalBlockSize * 2.5,)
+          ],
         ),
       ),
     );

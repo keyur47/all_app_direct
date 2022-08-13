@@ -1,4 +1,4 @@
-import 'package:all_app_direct/ads/ads.dart';
+import 'package:all_app_direct/ads/banner_ad.dart';
 import 'package:all_app_direct/helper/app_color.dart';
 import 'package:all_app_direct/helper/shared_preferences.dart';
 import 'package:all_app_direct/modules/appbar/appbar.dart';

@@ -79,6 +79,7 @@ dependencies:
   flutter_local_notifications: ^9.7.0
   push_notification: ^1.1.1
   app_settings: ^4.1.8
+  in_app_review: ^2.0.4
 
 dev_dependencies:
   flutter_test:
