@@ -37,6 +37,7 @@ class customAppbar extends StatefulWidget {
 
   String text;
   IconData icon;
+
   // Color iconColor;
   double top;
   double bottom;
@@ -75,8 +76,8 @@ class _customAppbarState extends State<customAppbar> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Obx(()=>
-                   Row(
+                Obx(
+                  () => Row(
                     children: [
                       GestureDetector(
                         // onTap: () {
@@ -84,29 +85,31 @@ class _customAppbarState extends State<customAppbar> {
                         // },
                         child: Container(
                           decoration: BoxDecoration(
-                            color: themeController.isSwitched.value ? AppColor.grey[200] : AppColor.darkBlue,
+                            color: themeController.isSwitched.value
+                                ? AppColor.grey[200]
+                                : AppColor.darkBlue,
                             boxShadow: const [
-                                BoxShadow(
-                                  color: Colors.black12,
-                                  blurRadius: 3,
-                                  offset: Offset(4, 6), // Shadow position
-                                ),
-                              ],
-                              borderRadius: BorderRadius.circular(10),
-                           ),
+                              BoxShadow(
+                                color: Colors.black12,
+                                blurRadius: 3,
+                                offset: Offset(4, 6), // Shadow position
+                              ),
+                            ],
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                           child: Padding(
                             padding: EdgeInsets.only(
                                 top: widget.top,
                                 bottom: widget.bottom,
                                 right: widget.right,
                                 left: widget.left),
-                            child:
-                              Icon(
-                                widget.icon,
-                                size: widget.size,
-                                color: themeController.isSwitched.value ? AppColor.white : AppColor.white,
-                              ),
-
+                            child: Icon(
+                              widget.icon,
+                              size: widget.size,
+                              color: themeController.isSwitched.value
+                                  ? AppColor.white
+                                  : AppColor.white,
+                            ),
                           ),
                         ),
                       ),
@@ -115,15 +118,23 @@ class _customAppbarState extends State<customAppbar> {
                       ),
                       Text(
                         widget.directText,
-                        style:  TextStyle(
+                        style: TextStyle(
                             fontSize: 18,
                             fontFamily: "Customtext",
-                            color: themeController.isSwitched.value ? AppColor.white: AppColor.darkBlue,                            fontWeight: FontWeight.w700),
+                            color: themeController.isSwitched.value
+                                ? AppColor.white
+                                : AppColor.darkBlue,
+                            fontWeight: FontWeight.w700),
                       ),
                       PopupMenuButton<int>(
                         key: _key,
                         elevation: themeController.isSwitched.value ? 0 : 20,
-                        child:  Icon(Icons.arrow_drop_down, color: themeController.isSwitched.value ? AppColor.white : AppColor.darkBlue,),
+                        child: Icon(
+                          Icons.arrow_drop_down,
+                          color: themeController.isSwitched.value
+                              ? AppColor.white
+                              : AppColor.darkBlue,
+                        ),
                         onSelected: (int value) async {
                           controller.popupMenuItemIndex.value = value;
                           if (controller.popupMenuItemIndex.value == 1) {
@@ -145,55 +156,66 @@ class _customAppbarState extends State<customAppbar> {
                           print("Value19:- ${controller.pageIndex.value}");
                         },
                         itemBuilder: (context) => [
-                           PopupMenuItem(
+                          PopupMenuItem(
                             padding: EdgeInsets.zero,
                             value: 1,
                             child: Center(
-                                child:  Obx(()=> Text(
-                              StringsUtils.whatsApp,
-                              style: TextStyle(
-                                    color: themeController.isSwitched.value ? AppColor.white : AppColor.darkBlue,
-                                   ),
-                            ),
-                                )),
+                                child: Obx(
+                              () => Text(
+                                StringsUtils.whatsApp,
+                                style: TextStyle(
+                                  color: themeController.isSwitched.value
+                                      ? AppColor.white
+                                      : AppColor.darkBlue,
+                                ),
+                              ),
+                            )),
                           ),
-                           PopupMenuItem(
+                          PopupMenuItem(
                             padding: EdgeInsets.zero,
                             value: 2,
                             child: Center(
-                                child: Obx(()=>
-                                   Text(StringsUtils.instagram,
-                                      style: TextStyle(
-                                        color: themeController.isSwitched.value ? AppColor.white : AppColor.darkBlue,
-                                         )),
-                                )),
+                                child: Obx(
+                              () => Text(StringsUtils.instagram,
+                                  style: TextStyle(
+                                    color: themeController.isSwitched.value
+                                        ? AppColor.white
+                                        : AppColor.darkBlue,
+                                  )),
+                            )),
                           ),
-                           PopupMenuItem(
+                          PopupMenuItem(
                             padding: EdgeInsets.zero,
                             value: 3,
                             child: Center(
                                 child: Text(StringsUtils.telegram,
                                     style: TextStyle(
-                                      color: themeController.isSwitched.value ? AppColor.white : AppColor.darkBlue,
-                                       ))),
+                                      color: themeController.isSwitched.value
+                                          ? AppColor.white
+                                          : AppColor.darkBlue,
+                                    ))),
                           ),
-                           PopupMenuItem(
+                          PopupMenuItem(
                             padding: EdgeInsets.zero,
                             value: 4,
                             child: Center(
                                 child: Text(StringsUtils.snapchat,
                                     style: TextStyle(
-                                      color: themeController.isSwitched.value ? AppColor.white : AppColor.darkBlue,
-                                       ))),
+                                      color: themeController.isSwitched.value
+                                          ? AppColor.white
+                                          : AppColor.darkBlue,
+                                    ))),
                           ),
-                           PopupMenuItem(
+                          PopupMenuItem(
                             padding: EdgeInsets.zero,
                             value: 5,
                             child: Center(
                                 child: Text(StringsUtils.gallery,
                                     style: TextStyle(
-                                      color: themeController.isSwitched.value ? AppColor.white : AppColor.darkBlue,
-                                       ))),
+                                      color: themeController.isSwitched.value
+                                          ? AppColor.white
+                                          : AppColor.darkBlue,
+                                    ))),
                           ),
                         ],
                       ),
@@ -202,13 +224,12 @@ class _customAppbarState extends State<customAppbar> {
                 ),
                 PopupMenuButton(
                   elevation: themeController.isSwitched.value ? 0 : 20,
-                  onSelected: (int value)async{
+                  onSelected: (int value) async {
                     if (value == 1) {
                       Get.to(Setting());
                     } else if (value == 2) {
                       Share();
                     } else if (value == 3) {
-                      // RateBox(context);
                       if (await inAppReview.isAvailable()) {
                         inAppReview.requestReview();
                       } else {
@@ -216,14 +237,13 @@ class _customAppbarState extends State<customAppbar> {
                             "app review not available at time.");
                       }
                     } else if (value == 4) {
-                      FeedbackBox(context);
+                    } else if (value == 5) {
                     } else {
-                    // Get.to(DarkDemo());
                       sp = await SharedPreferences.getInstance();
                       isUserLogin = sp.setBool('login', false);
                       log('spout-----${sp.getBool('login')}');
                       for (final providerProfile
-                      in FirebaseAuth.instance.currentUser!.providerData) {
+                          in FirebaseAuth.instance.currentUser!.providerData) {
                         // ID of the provider (google.com, apple.cpm, etc.)
                         final provider = providerProfile.providerId;
                         try {
@@ -288,7 +308,7 @@ class _customAppbarState extends State<customAppbar> {
                     ),
                     const PopupMenuItem(
                       value: 6,
-                      child: Text(StringsUtils.aboutApp),
+                      child: Text(StringsUtils.logout),
                     ),
                   ],
                 )

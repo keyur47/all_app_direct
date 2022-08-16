@@ -48,7 +48,10 @@ class StringsUtils {
   static const String shareApp = 'Share App';
   static const String rateApp = 'Rate App';
   static const String feedback = 'Feedback';
-  static const String aboutApp = 'Log out';
+  static const String logout = 'Log out';
+  static const String register = 'Register Now';
+  static const String signIn = 'Sign In';
+  static const String confirm = 'Confirm';
   static const String termsAndPrivacy = "Terms and Privacy";
   static const String feedBackMessages = "Top a star to rate it on the \n App Store.";
   static const String feedBackTitle = "Enjoying Direct All app";

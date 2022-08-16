@@ -85,16 +85,14 @@ class _AllHistoryButtonState extends State<AllHistoryButton> {
                       Obx(
                         () => GestureDetector(
                           onTap: () async {
-                            _homePageController.myContactListHistoryChekBox.value = false;
-                            _homePageController.myAllContactListChekBox.value = false;
-                            _homePageController.isError.value = false;
-                            _homePageController.myContactListChekBox.value = !_homePageController.myContactListChekBox.value;
-                            // await controller.contactCallHistoryButtonClick();
+                            _homePageController.myPhoneCallListChekBox.value = false;
+                            _homePageController.myAppCallHistoryChekBox.value = false;
+                            _homePageController.myPhoneContactListChekBox.value = !_homePageController.myPhoneContactListChekBox.value;
                             fetchContacts();
                           },
                           child: Row(
                             children: [
-                              _homePageController.myContactListChekBox.value
+                              _homePageController.myPhoneContactListChekBox.value
                                   ? const Icon(
                                       Icons.radio_button_checked,
                                       color: AppColor.appGreen,
@@ -109,7 +107,7 @@ class _AllHistoryButtonState extends State<AllHistoryButton> {
                                 StringsUtils.contactList,
                                 style: TextStyle(
                                     color: _homePageController
-                                            .myContactListChekBox.value
+                                            .myPhoneContactListChekBox.value
                                         ? themeController.isSwitched.value ? AppColor.black: AppColor.darkBlue.withOpacity(0.6)
                                         : themeController.isSwitched.value
                                             ? AppColor.white
@@ -184,18 +182,17 @@ class _AllHistoryButtonState extends State<AllHistoryButton> {
                       Obx(
                         () => GestureDetector(
                           onTap: () async {
-                            _homePageController.isError.value = false;
-                            _homePageController.myContactListChekBox.value =
+                            _homePageController.myPhoneContactListChekBox.value =
                                 false;
                             _homePageController
-                                .myContactListHistoryChekBox.value = false;
-                            _homePageController.myAllContactListChekBox.value =
+                                .myPhoneCallListChekBox.value = false;
+                            _homePageController.myAppCallHistoryChekBox.value =
                                 !_homePageController
-                                    .myAllContactListChekBox.value;
+                                    .myAppCallHistoryChekBox.value;
                           },
                           child: Row(
                             children: [
-                              _homePageController.myAllContactListChekBox.value
+                              _homePageController.myAppCallHistoryChekBox.value
                                   ? const Icon(
                                       Icons.radio_button_checked,
                                       color: AppColor.appGreen,
@@ -210,7 +207,7 @@ class _AllHistoryButtonState extends State<AllHistoryButton> {
                                 StringsUtils.allHistoryList,
                                 style: TextStyle(
                                     color: _homePageController
-                                            .myAllContactListChekBox.value
+                                            .myAppCallHistoryChekBox.value
                                         ? themeController.isSwitched.value ? AppColor.black: AppColor.darkBlue.withOpacity(0.6)
                                         : themeController.isSwitched.value
                                         ? AppColor.white
@@ -257,7 +254,7 @@ class _AllHistoryButtonState extends State<AllHistoryButton> {
           height: SizeUtils.verticalBlockSize * 1,
         ),
         Obx(
-          () => _homePageController.myContactListChekBox.value == true
+          () => _homePageController.myPhoneContactListChekBox.value == true
               ? MyContactList()
               : SizedBox(),
         ),
@@ -267,7 +264,7 @@ class _AllHistoryButtonState extends State<AllHistoryButton> {
         //       : SizedBox(),
         // ),
         Obx(
-          () => _homePageController.myAllContactListChekBox.value == true
+          () => _homePageController.myAppCallHistoryChekBox.value == true
               ? AllHistory()
               : SizedBox(),
         ),

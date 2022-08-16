@@ -52,7 +52,7 @@ class OpenUserNameInstagram extends StatelessWidget {
           imageColor: themeController.isSwitched.value ? AppColor.appGreen : AppColor.appGreen,
         scale: SizeUtils.horizontalBlockSize* 3,
         top: SizeUtils.horizontalBlockSize*  2,
-        left: SizeUtils.horizontalBlockSize* 4,
+        left: SizeUtils.horizontalBlockSize* 3.5,
         right: SizeUtils.horizontalBlockSize* 1,
         bottom: SizeUtils.horizontalBlockSize* 2.4,
           decoration: BoxDecoration(

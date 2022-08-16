@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:all_app_direct/ads/ads_new.dart';
-import 'package:all_app_direct/ads/open_ad.dart';
 import 'package:all_app_direct/helper/shared_preferences.dart';
 import 'package:all_app_direct/main.dart';
 import 'package:all_app_direct/utils/app_color.dart';
@@ -25,7 +23,7 @@ class SplashController extends GetxController {
   @override
   void onInit()  {
     super.onInit();
-    Future.delayed(const Duration(seconds: 5));
+    Future.delayed(const Duration(minutes: 1000));
     // AppOpenAdManager.loadAd();
     InterstitalAd.createInterstitialAd();
     // AppOpenAdManager.showOpenAdIfAvailable();

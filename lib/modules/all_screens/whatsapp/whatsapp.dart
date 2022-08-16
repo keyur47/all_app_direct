@@ -157,7 +157,7 @@ class _WhatsAppState extends State<WhatsApp> with WidgetsBindingObserver{
                         ),
                         Obx(
                           () => Container(
-                            height: controller.collpan.value
+                            height: controller.messageSizeButton.value
                                 ? SizeUtils.horizontalBlockSize * 36
                                 : SizeUtils.horizontalBlockSize * 13.5,
                             decoration: BoxDecoration(
@@ -169,7 +169,7 @@ class _WhatsAppState extends State<WhatsApp> with WidgetsBindingObserver{
                                 ),
                               ],
                               borderRadius: BorderRadius.circular(
-                                controller.collpan.value
+                                controller.messageSizeButton.value
                                     ? SizeUtils.horizontalBlockSize * 5
                                     : SizeUtils.horizontalBlockSize * 10,
                               ),
@@ -216,13 +216,13 @@ class _WhatsAppState extends State<WhatsApp> with WidgetsBindingObserver{
             ],
           ),
           floatingActionButton: Obx(
-            () => controller.myContactListHistoryChekBox.value == true || controller.myContactListChekBox.value == true
+            () => controller.myPhoneCallListChekBox.value == true || controller.myPhoneContactListChekBox.value == true
                 ? FloatingActionButton(
                  elevation: 0,
                  backgroundColor: themeController.isSwitched.value ? AppColor.grey[200]:AppColor.darkBlue,
                     child: const Icon(Icons.arrow_upward_rounded),
                     onPressed: ()async {
-                      controller.myContactListHistoryChekBox.value == true
+                      controller.myPhoneCallListChekBox.value == true
                           ?  AllScreenController.callScrollUp()
                           : AllScreenController.contactScrollUp();
                     },

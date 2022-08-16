@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:all_app_direct/ads/ads_new.dart';
 import 'package:all_app_direct/helper/shared_preferences.dart';
 import 'package:all_app_direct/utils/string_utils.dart';
 import 'package:all_app_direct/widgets/call.dart';
@@ -41,12 +39,10 @@ class AllScreenController extends GetxController {
   RxList<String> newSnapchatUsernameList = <String>[].obs;
   RxBool isShowDialPad = false.obs;
   RxBool isShowCallHistory = true.obs;
-  RxBool collpan = false.obs;
-  RxBool myContactListHistoryChekBox = false.obs;
-  RxBool myContactListChekBox = false.obs;
-  RxBool myAllContactListChekBox = false.obs;
-  RxBool collpan1 = false.obs;
-  RxBool isError = true.obs;
+  RxBool messageSizeButton = false.obs;
+  RxBool myPhoneCallListChekBox = false.obs;
+  RxBool myPhoneContactListChekBox = false.obs;
+  RxBool myAppCallHistoryChekBox = true.obs;
   RxString errorMessage = "".obs;
   FocusNode emailFocusNode = FocusNode();
   FocusNode feedBackFocusNode = FocusNode();

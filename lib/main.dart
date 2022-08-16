@@ -19,19 +19,16 @@ void main() async {
   await Firebase.initializeApp();
   await MobileAds.instance.initialize();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  // await SharedPrefs.initMySharedPreferences();
   await initSp();
   final FirebaseCrashlytics crashlytics = FirebaseCrashlytics.instance;
   runZonedGuarded<Future<void>>(() async {
     await crashlytics.setCrashlyticsCollectionEnabled(true);
     FlutterError.onError = crashlytics.recordFlutterError;
     await SharedPrefs.initMySharedPreferences();
-    // MobileAds.instance.initialize();
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
     FirebaseMessagingUtils().init();
     runApp(Direct());
   }, (error, stack) => crashlytics.recordError(error, stack));
-  // runApp(Direct());
 }
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {

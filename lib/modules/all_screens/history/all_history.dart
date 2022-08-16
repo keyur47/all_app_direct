@@ -126,7 +126,7 @@ class _AllHistoryState extends State<AllHistory> {
                 ],
               ),
             )
-          : Center(child: noData()),
+          : noData(),
     );
   }
 }

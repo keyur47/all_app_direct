@@ -19,15 +19,8 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
 
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    // AppOpenAdManager.loadAd();
-    // InterstitalAd.createInterstitialAd();
-  }
 
-  // late Timer _timer;
+
   final List<Color> _kDefaultRainbowColors = const [
     AppColor.darkBlue,
   ];
@@ -79,7 +72,6 @@ class _SplashScreenState extends State<SplashScreen> {
                     StringsUtils.whatsAppDirect,
                     style: TextStyle(
                         fontSize: 26,
-                        fontFamily: "Customtext",
                         color: AppColor.darkBlue,
                         fontWeight: FontWeight.w700),
                   ),

@@ -25,10 +25,6 @@ class Direct extends StatelessWidget {
       theme: Themes.light,
       darkTheme: Themes.dark,
       themeMode: _themeController.setTheme(),
-      // theme: ThemeData(
-      //     fontFamily: AssetsPath.roboto,
-      //     colorScheme:
-      //     Theme.of(context).colorScheme.copyWith(secondary: Colors.red)),
       debugShowCheckedModeBanner: false,
       initialRoute: Routes.splash,
       getPages: Routes.routes,

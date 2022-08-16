@@ -49,7 +49,7 @@ class MessagesTextFormField extends StatelessWidget {
           enabledBorder: InputBorder.none,
           errorBorder: InputBorder.none,
           disabledBorder: InputBorder.none,
-          suffixIcon: controller.collpan.value
+          suffixIcon: controller.messageSizeButton.value
               ? SizedBox(
             width:
             SizeUtils.horizontalBlockSize *
@@ -66,9 +66,9 @@ class MessagesTextFormField extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () async {
-                      controller.collpan.value =
+                      controller.messageSizeButton.value =
                       !controller
-                          .collpan.value;
+                          .messageSizeButton.value;
                     },
                     child: Icon(
                       Icons.add_circle_outline,
@@ -133,9 +133,9 @@ class MessagesTextFormField extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () async {
-                      controller.collpan.value =
+                      controller.messageSizeButton.value =
                       !controller
-                          .collpan.value;
+                          .messageSizeButton.value;
                     },
                     child: Icon(
                       Icons.add_circle_outline,

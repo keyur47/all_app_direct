@@ -41,7 +41,7 @@ class _MyContactListState extends State<MyContactList> {
                 Uint8List? image = controller.contacts![index].photo;
                 return  AnimationConfiguration.staggeredList(
                   position: index,
-                  delay: const Duration(milliseconds: 10),
+                  delay: const Duration(milliseconds: 50),
                   child: SlideAnimation(
                     duration: const Duration(milliseconds: 50),
                     curve: Curves.fastLinearToSlowEaseIn,
