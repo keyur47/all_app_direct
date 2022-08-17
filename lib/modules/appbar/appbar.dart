@@ -1,11 +1,11 @@
+import 'dart:async';
 import 'dart:developer';
+
 import 'package:all_app_direct/main.dart';
 import 'package:all_app_direct/modules/Auth/login_with_google_mobile_facebook/facebook_login/facebook_login.dart';
 import 'package:all_app_direct/modules/Auth/login_with_google_mobile_facebook/gmail_login/gmail_login.dart';
 import 'package:all_app_direct/modules/Auth/logout/home_controller.dart';
 import 'package:all_app_direct/modules/appbar/appbar_controller.dart';
-import 'package:all_app_direct/modules/appbar/popupmenubutton/feedback/feedback.dart';
-import 'package:all_app_direct/modules/appbar/popupmenubutton/rate/rate.dart';
 import 'package:all_app_direct/modules/appbar/popupmenubutton/setting/setting.dart';
 import 'package:all_app_direct/modules/appbar/popupmenubutton/setting/theme.dart';
 import 'package:all_app_direct/modules/appbar/popupmenubutton/share/shareapp.dart';
@@ -62,7 +62,26 @@ class _customAppbarState extends State<customAppbar> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    // startTimeOut();
   }
+
+  // void startTimeOut() {
+  //   Timer(
+  //     Duration(seconds: 3),
+  //     () {
+  //       // Navigation.pushNamed(Routes.homePage);
+  //       print("---splashscreen---");
+  //     },
+  //   );
+  // }
+
+
+  void timeDelay() {
+    Future.delayed(const Duration(seconds: 3), () async {
+        controller.isLoading.value ? CircularProgressIndicator():
+        Navigation.pushNamed(Routes.instagram);
+      }
+    );}
 
   @override
   Widget build(BuildContext context) {
@@ -138,15 +157,22 @@ class _customAppbarState extends State<customAppbar> {
                         onSelected: (int value) async {
                           controller.popupMenuItemIndex.value = value;
                           if (controller.popupMenuItemIndex.value == 1) {
-                            Navigation.popAndPushNamed(Routes.whatsapp);
+                            Navigation.pushNamed(Routes.whatsapp);
                           } else if (controller.popupMenuItemIndex.value == 2) {
-                            Navigation.popAndPushNamed(Routes.instagram);
+                            Navigation.pushNamed(Routes.instagram);
+                            // if(controller.isLoading.value){
+                            //   controller.isLoading.value  == false;
+                            //   Future.delayed(const Duration(seconds: 4)).
+                            //   Navigation.pushNamed(Routes.instagram);
+                            // }else{
+                            //   controller.isLoading.value = false;
+                            // }
                           } else if (controller.popupMenuItemIndex.value == 3) {
-                            Navigation.popAndPushNamed(Routes.telegram);
+                            Navigation.pushNamed(Routes.telegram);
                           } else if (controller.popupMenuItemIndex.value == 4) {
-                            Navigation.popAndPushNamed(Routes.snapchat);
+                            Navigation.pushNamed(Routes.snapchat);
                           } else if (controller.popupMenuItemIndex.value == 5) {
-                            Navigation.popAndPushNamed(Routes.galleryFileImage);
+                            Navigation.pushNamed(Routes.galleryFileImage);
                           } else {}
                           controller.pageIndex.value =
                               controller.popupMenuItemIndex.value;

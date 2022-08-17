@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:all_app_direct/helper/app_color.dart';
 import 'package:all_app_direct/modules/Auth/controller/sign_in_controller.dart';
 import 'package:all_app_direct/modules/Auth/login_with_google_mobile_facebook/facebook_login/facebook_login.dart';
@@ -285,14 +287,39 @@ class _LoginPageState extends State<LoginPage> {
         _entryField("Email address", (String data) {
           _handleButtonDisable();
         }, "Enter your email", logInController.logInEmail),
-        _entryField(
-          "Password",
-          (String data) {
-            _handleButtonDisable();
-          },
-          "Enter password",
-          isPassword: true,
-          logInController.logInPassword,
+        Obx(()=>
+           _entryField(
+            "Password",
+            (String data) {
+              _handleButtonDisable();
+            },
+            "Enter password",
+            isPassword: logInController.isObscure.value,
+            logInController.logInPassword,
+            suffixIcon: Obx(()=>
+              GestureDetector(
+                onTap: () {
+                  logInController
+                      .isObscure.value =
+                  !logInController
+                      .isObscure.value;
+                  log("${logInController.isObscure.value}");
+                },
+                child: logInController
+                    .isObscure.value
+                    ? const Icon(
+                  Icons
+                      .remove_red_eye_outlined,
+                  color: Colors.grey,
+                )
+                    : const Icon(
+                  Icons
+                      .remove_red_eye,
+                  color: Colors.grey,
+                ),
+              ),
+            ),
+          ),
         ),
       ],
     );
@@ -301,7 +328,7 @@ class _LoginPageState extends State<LoginPage> {
   /// _entryField
   Widget _entryField(String title, ValueChanged<String>? onChanged,
       String hinText, TextEditingController TextEditingController,
-      {bool isPassword = false}) {
+      {bool isPassword = false,Widget? suffixIcon,}) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
       child: Column(
@@ -341,6 +368,7 @@ class _LoginPageState extends State<LoginPage> {
                         ? AppColor.white
                         : AppColor.grey),
                 decoration: InputDecoration(
+                  suffixIcon: suffixIcon,
                     hintText: hinText,
                     hintStyle: TextStyle(
                         color: themeController.isSwitched.value

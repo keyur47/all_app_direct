@@ -23,12 +23,25 @@ class SplashController extends GetxController {
   @override
   void onInit()  {
     super.onInit();
-    Future.delayed(const Duration(minutes: 1000));
+    // Future.delayed(const Duration(seconds: 4),(){});
     // AppOpenAdManager.loadAd();
-    InterstitalAd.createInterstitialAd();
+    // InterstitalAd.createInterstitialAd();
     // AppOpenAdManager.showOpenAdIfAvailable();
     // Navigation.popAndPushNamed(Routes.dashBordScreen);
-    checkFirstSeen();
+    startTimeOut();
+  }
+
+  void startTimeOut() {
+    Timer(
+      const Duration(seconds: 3),
+          () {
+        // AppOpenAdManager.showOpenAdIfAvailable();
+        InterstitalAd.createInterstitialAd();
+        checkFirstSeen();
+        // Navigation.pushNamed(Routes.homePage);
+        print("---splashscreen---");
+      },
+    );
   }
 
   @override

@@ -3,6 +3,7 @@
   class AppbarController extends GetxController {
     RxInt pageIndex = 0.obs;
     RxInt popupMenuItemIndex = 1.obs;
+    RxBool isLoading = true.obs;
     // RxString value = "".obs;
     // RxList data = [
     //   "${StringsUtils.whatsDirects}",
