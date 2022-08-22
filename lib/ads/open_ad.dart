@@ -73,8 +73,6 @@
 
 
 import 'dart:io';
-
-import 'package:firebase_database/firebase_database.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class AppOpenAdManager {

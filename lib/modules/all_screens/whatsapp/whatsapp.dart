@@ -1,6 +1,6 @@
 import 'package:all_app_direct/ads/banner_ad.dart';
 import 'package:all_app_direct/ads/open_ad.dart';
-import 'package:all_app_direct/helper/app_color.dart';
+import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/modules/all_screens/whatsapp/all_history_button.dart';
 import 'package:all_app_direct/modules/all_screens/whatsapp/messages_textformfield.dart';
 import 'package:all_app_direct/modules/all_screens/whatsapp/phone_number_textformfield.dart';
@@ -10,7 +10,6 @@ import 'package:all_app_direct/modules/controller/all_screen_controller.dart';
 import 'package:all_app_direct/modules/openbutton/open_call.dart';
 import 'package:all_app_direct/modules/openbutton/open_number-share_location_whatsapp.dart';
 import 'package:all_app_direct/modules/openbutton/open_number_whatsapp.dart';
-import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/utils/size_utils.dart';
 import 'package:all_app_direct/utils/string_utils.dart';
 import 'package:flutter/material.dart';
@@ -37,38 +36,7 @@ class _WhatsAppState extends State<WhatsApp> with WidgetsBindingObserver{
     _appLifecycleReactor.listenToAppStateChanges();
     print("r");
   }
-  //
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   WidgetsBinding.instance.addObserver(this);
-  // }
 
-  // @override
-  // void dispose() {
-  //   // TODO: implement dispose
-  //   super.dispose();
-  //   WidgetsBinding.instance.removeObserver(this);
-  // }
-
-  // bool isPaused =false;
-
-  // @override
-  // void didChangeAppLifecycleState(AppLifecycleState state) {
-  //   // TODO: implement didChangeAppLifecycleState
-  //   super.didChangeAppLifecycleState(state);
-  //   if (state == AppLifecycleState.paused) {
-  //     // AppOpenAdManager.loadAd();
-  //     print("------AppLifecycleState---1-->$state");
-  //     isPaused = true;
-  //   }
-  //   if (state == AppLifecycleState.inactive && isPaused) {
-  //     print("------AppLifecycleState---2->$state");
-  //     AppOpenAdManager.showOpenAdIfAvailable();
-  //     isPaused = false;
-  //   }
-  // }
 
 
   @override
@@ -77,7 +45,7 @@ class _WhatsAppState extends State<WhatsApp> with WidgetsBindingObserver{
       return (await showDialog(
             context: context,
             builder: (context) => AlertDialog(
-              backgroundColor: AppColor.backgroundColor,
+              backgroundColor: AppColor.backgroundColorScreen,
               content: const Text(
                 'Are you sure want to exit?',
                 style: TextStyle(color: AppColor.darkBlue),
@@ -132,26 +100,7 @@ class _WhatsAppState extends State<WhatsApp> with WidgetsBindingObserver{
                         vertical: SizeUtils.verticalBlockSize * 2),
                     child: Column(
                       children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            boxShadow: const [
-                              BoxShadow(
-                                color: Colors.black12,
-                                blurRadius: 4,
-                                offset: Offset(4, 8), // Shadow position
-                              ),
-                            ],
-                            borderRadius: BorderRadius.circular(
-                              SizeUtils.horizontalBlockSize * 10,
-                            ),
-                            color:  themeController.isSwitched.value ?AppColor.grey[200] :AppColor.white,
-                          ),
-                          child: Padding(
-                              padding: EdgeInsets.only(
-                                left: SizeUtils.horizontalBlockSize * 4,
-                              ),
-                              child: PhoneNumberTextFormField()),
-                        ),
+                        PhoneNumberTextFormField(),
                         SizedBox(
                           height: SizeUtils.verticalBlockSize * 1,
                         ),
@@ -161,7 +110,7 @@ class _WhatsAppState extends State<WhatsApp> with WidgetsBindingObserver{
                                 ? SizeUtils.horizontalBlockSize * 36
                                 : SizeUtils.horizontalBlockSize * 13.5,
                             decoration: BoxDecoration(
-                              boxShadow: const [
+                              boxShadow:  const [
                                 BoxShadow(
                                   color: Colors.black12,
                                   blurRadius: 4,
@@ -175,12 +124,7 @@ class _WhatsAppState extends State<WhatsApp> with WidgetsBindingObserver{
                               ),
                               color:  themeController.isSwitched.value ?AppColor.grey[200] :AppColor.white,
                             ),
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                left: SizeUtils.horizontalBlockSize * 4,
-                              ),
-                              child: MessagesTextFormField(),
-                            ),
+                            child: MessagesTextFormField(),
                           ),
                         ),
                       ],
@@ -215,19 +159,22 @@ class _WhatsAppState extends State<WhatsApp> with WidgetsBindingObserver{
               BannerAds()
             ],
           ),
-          floatingActionButton: Obx(
-            () => controller.myPhoneCallListChekBox.value == true || controller.myPhoneContactListChekBox.value == true
-                ? FloatingActionButton(
-                 elevation: 0,
-                 backgroundColor: themeController.isSwitched.value ? AppColor.grey[200]:AppColor.darkBlue,
-                    child: const Icon(Icons.arrow_upward_rounded),
-                    onPressed: ()async {
-                      controller.myPhoneCallListChekBox.value == true
-                          ?  AllScreenController.callScrollUp()
-                          : AllScreenController.contactScrollUp();
-                    },
-                  )
-                : const SizedBox(),
+          floatingActionButton: Padding(
+            padding:  EdgeInsets.only(bottom: SizeUtils.verticalBlockSize * 8),
+            child: Obx(
+              () => controller.myAppCallHistoryChekBox.value == true || controller.myPhoneContactListChekBox.value == true
+                  ? FloatingActionButton(
+                   elevation: 0,
+                   backgroundColor: themeController.isSwitched.value ? AppColor.grey[200]:AppColor.darkBlue,
+                      child: const Icon(Icons.arrow_upward_rounded),
+                      onPressed: () async {
+                        controller.myPhoneCallListChekBox.value == true
+                            ?  AllScreenController.myAppScrollUp()
+                            : AllScreenController.contactScrollUp();
+                      },
+                    )
+                  : const SizedBox(),
+            ),
           ),
         ),
 

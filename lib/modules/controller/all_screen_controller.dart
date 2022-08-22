@@ -19,6 +19,7 @@ class AllScreenController extends GetxController {
   RxList<CallLogEntry> contactList = <CallLogEntry>[].obs;
   static ScrollController myCallScrollController = ScrollController();
   static ScrollController myContactScrollController = ScrollController();
+  static ScrollController myAppScrollController = ScrollController();
   TextEditingController numberController = TextEditingController();
   TextEditingController textController = TextEditingController();
   TextEditingController instagramUsernameController = TextEditingController();
@@ -195,10 +196,10 @@ class AllScreenController extends GetxController {
     }
   }
 
-  ///  callScrollUp
-  static void callScrollUp() {
-    myCallScrollController.animateTo(
-        myCallScrollController.position.minScrollExtent,
+  ///  myAppScrollUp
+  static void myAppScrollUp() {
+    myAppScrollController.animateTo(
+        myAppScrollController.position.minScrollExtent,
         duration: const Duration(seconds: 3),
         curve: Curves.easeInToLinear);
   }

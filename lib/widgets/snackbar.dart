@@ -53,7 +53,6 @@ Widget lottie() {
       child: Lottie.asset("assets/lottie/lottie4.json", repeat: true,height: 150,
         reverse: true,
         animate: true,
-
         delegates: LottieDelegates(
           values: [
             ValueDelegate.colorFilter(

@@ -1,12 +1,12 @@
 class StringsUtils {
   StringsUtils._();
+
   static const String typeYourMessage = 'Type Your Message..';
   static const String internetCheckError = 'Please check internet connection!!';
-  static const String list1 = '- To send auto reply only to your contact list you added in WhatsAuto App' ;
-  static const String list2 = 'My Phone Contact list ' ;
-  static const String list3 = 'My Phone Call History list ' ;
-  static const String list4 = '- To send auto reply only to your call history list you added in WhatsAuto App' ;
-
+  static const String list1 = '- To send auto reply only to your contact list you added in WhatsAuto App';
+  static const String list2 = 'My Phone Contact list ';
+  static const String list3 = 'My Phone Call History list ';
+  static const String list4 = '- To send auto reply only to your call history list you added in WhatsAuto App';
   static const String check = 'check';
   static const String ok = 'ok';
   static const String email = 'Email';
@@ -40,9 +40,9 @@ class StringsUtils {
   static const String telegram = 'Telegram';
   static const String instagram = 'Instagram';
   static const String callAndMessages = ' Call & Messages';
-   static const String sms = 'Call & Sms';
-   static const String snapchat = 'Snapchat';
-   static const String gallery = 'Gallery';
+  static const String sms = 'Call & Sms';
+  static const String snapchat = 'Snapchat';
+  static const String gallery = 'Gallery';
   static const String contacts = 'Contacts';
   static const String contactsHistory = 'Contacts History';
   static const String shareApp = 'Share App';
@@ -53,7 +53,8 @@ class StringsUtils {
   static const String signIn = 'Sign In';
   static const String confirm = 'Confirm';
   static const String termsAndPrivacy = "Terms and Privacy";
-  static const String feedBackMessages = "Top a star to rate it on the \n App Store.";
+  static const String feedBackMessages =
+      "Top a star to rate it on the \n App Store.";
   static const String feedBackTitle = "Enjoying Direct All app";
   static const String feedBackButtonNotNow = "Not Now";
   static const String pleasePhoneNumber = "Please Enter Phone Number";
@@ -61,10 +62,11 @@ class StringsUtils {
   static const String pleaseUsername = "Please Enter Username";
   static const String pleaseEmail = "Please Enter Email & Feedback";
   static const String pleaseEmails = "Please Enter Email";
+  static const String usernameRegExp = "r'[a-z_.0-9]'";
+  static const String numberRegExp = "r'[0-9]'";
   static const String emailRegExp =
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
 }
-
 
 // class AppString {
 //   static const phoneNumber = 'Phone Number';

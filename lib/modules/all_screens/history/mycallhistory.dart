@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:all_app_direct/modules/controller/all_screen_controller.dart';
 import 'package:all_app_direct/utils/app_color.dart';
+import 'package:all_app_direct/modules/controller/all_screen_controller.dart';
 import 'package:all_app_direct/utils/size_utils.dart';
 import 'package:all_app_direct/widgets/call.dart';
 import 'package:bootstrap_icons/bootstrap_icons.dart';
@@ -54,7 +54,7 @@ class MyCallHistory extends StatelessWidget {
                           },
                           child: const Icon(
                             Icons.whatsapp,
-                            color: AppColor.appGreen,
+                            color: AppColor.appIconColor,
                           )),
                       title: GestureDetector(
                         onTap: () {
@@ -271,18 +271,18 @@ class MyCallHistory extends StatelessWidget {
       case CallType.incoming:
         {
           return imageDetails(
-              icons: BootstrapIcons.arrow_down_left, color: AppColor.appGreen);
+              icons: BootstrapIcons.arrow_down_left, color: AppColor.appIconColor);
         }
 
       case CallType.outgoing:
         {
           return imageDetails(
-              icons: BootstrapIcons.arrow_up_right, color: AppColor.appGreen);
+              icons: BootstrapIcons.arrow_up_right, color: AppColor.appIconColor);
         }
       case CallType.rejected:
         {
           return imageDetails(
-              icons: BootstrapIcons.arrow_up_right, color: AppColor.appGreen);
+              icons: BootstrapIcons.arrow_up_right, color: AppColor.appIconColor);
         }
       case CallType.missed:
         {
@@ -292,23 +292,23 @@ class MyCallHistory extends StatelessWidget {
       case CallType.wifiOutgoing:
         {
           return imageDetails(
-              icons: BootstrapIcons.arrow_up_right, color: AppColor.appGreen);
+              icons: BootstrapIcons.arrow_up_right, color: AppColor.appIconColor);
         }
       case CallType.wifiIncoming:
         {
           return imageDetails(
-              icons: BootstrapIcons.wifi, color: AppColor.appGreen);
+              icons: BootstrapIcons.wifi, color: AppColor.appIconColor);
         }
       case CallType.blocked:
         {
           return imageDetails(
               icons: BootstrapIcons.arrow_down_right_square_fill,
-              color: AppColor.appGreen);
+              color: AppColor.appIconColor);
         }
       default:
         {
           return imageDetails(
-              icons: BootstrapIcons.arrow_up_right, color: AppColor.appGreen);
+              icons: BootstrapIcons.arrow_up_right, color: AppColor.appIconColor);
         }
     }
   }

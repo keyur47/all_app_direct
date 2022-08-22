@@ -68,7 +68,7 @@ class _BannerAdsState extends State<BannerAds> {
     }
 
     final BannerAd banner = BannerAd(
-      size: const AdSize(width: 320, height: 70),
+      size: const AdSize(width: 330, height: 70),
       // size: AdSize.fullBanner,
       request: request,
 

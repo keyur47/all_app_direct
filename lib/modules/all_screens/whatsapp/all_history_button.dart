@@ -1,9 +1,8 @@
 import 'dart:developer';
 
-import 'package:all_app_direct/helper/app_color.dart';
+import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/modules/appbar/popupmenubutton/setting/theme.dart';
 import 'package:all_app_direct/modules/controller/all_screen_controller.dart';
-import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/utils/size_utils.dart';
 import 'package:all_app_direct/utils/string_utils.dart';
 import 'package:call_log/call_log.dart';
@@ -95,11 +94,11 @@ class _AllHistoryButtonState extends State<AllHistoryButton> {
                               _homePageController.myPhoneContactListChekBox.value
                                   ? const Icon(
                                       Icons.radio_button_checked,
-                                      color: AppColor.appGreen,
+                                      color: AppColor.appIconColor,
                                     )
                                   : const Icon(
                                       Icons.radio_button_unchecked_sharp,
-                                      color: AppColor.appGreen),
+                                      color: AppColor.appIconColor),
                               SizedBox(
                                 width: SizeUtils.horizontalBlockSize * 1,
                               ),
@@ -123,7 +122,7 @@ class _AllHistoryButtonState extends State<AllHistoryButton> {
                         height: SizeUtils.horizontalBlockSize * 2,
                       ),
 
-                      /// history
+                      /// call
                       // Obx(
                       //   () => GestureDetector(
                       //     onTap: () async {
@@ -195,11 +194,11 @@ class _AllHistoryButtonState extends State<AllHistoryButton> {
                               _homePageController.myAppCallHistoryChekBox.value
                                   ? const Icon(
                                       Icons.radio_button_checked,
-                                      color: AppColor.appGreen,
+                                      color: AppColor.appIconColor,
                                     )
                                   : const Icon(
                                       Icons.radio_button_unchecked_sharp,
-                                      color: AppColor.appGreen),
+                                      color: AppColor.appIconColor),
                               SizedBox(
                                 width: SizeUtils.horizontalBlockSize * 1,
                               ),

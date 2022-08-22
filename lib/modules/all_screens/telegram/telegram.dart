@@ -1,11 +1,12 @@
+import 'dart:io';
+
 import 'package:all_app_direct/ads/banner_ad.dart';
-import 'package:all_app_direct/helper/app_color.dart';
+import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/helper/shared_preferences.dart';
 import 'package:all_app_direct/modules/appbar/appbar.dart';
 import 'package:all_app_direct/modules/appbar/popupmenubutton/setting/theme.dart';
 import 'package:all_app_direct/modules/controller/all_screen_controller.dart';
 import 'package:all_app_direct/modules/openbutton/open_username_telegram.dart';
-import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/utils/navigation/dart/navigation.dart';
 import 'package:all_app_direct/utils/navigation/dart/route_page.dart';
 import 'package:all_app_direct/utils/size_utils.dart';
@@ -13,6 +14,7 @@ import 'package:all_app_direct/utils/string_utils.dart';
 import 'package:all_app_direct/widgets/custom_textfield.dart';
 import 'package:all_app_direct/widgets/snackbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -28,22 +30,6 @@ class _TelegramState extends State<Telegram> {
   AllScreenController controller = Get.find();
   ThemeController themeController = Get.find();
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   getData();
-  // }
-  //
-  // getData() async {
-  //   controller.setTelegramUsernameList.value = await SharedPrefs.getTelegramString();
-  //   controller.getTelegramUsernameList.value =
-  //       controller.setTelegramUsernameList.toSet().toList();
-  //   setState(() {
-  //     controller.setTelegramUsernameList.join("");
-  //     controller.getTelegramUsernameList.join("");
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -52,7 +38,7 @@ class _TelegramState extends State<Telegram> {
         return false;
       },
       child: Scaffold(
-        backgroundColor:ColorRes.backgroundColor(context),
+        backgroundColor: ColorRes.backgroundColor(context),
         resizeToAvoidBottomInset: false,
         body: Stack(
           alignment: Alignment.bottomCenter,
@@ -63,7 +49,6 @@ class _TelegramState extends State<Telegram> {
                 customAppbar(
                   text: StringsUtils.telegramDirects,
                   icon: Icons.telegram,
-
                   top: SizeUtils.horizontalBlockSize * 1,
                   bottom: SizeUtils.horizontalBlockSize * 1,
                   right: SizeUtils.horizontalBlockSize * 1.1,
@@ -75,27 +60,75 @@ class _TelegramState extends State<Telegram> {
                   padding: EdgeInsets.only(
                       left: SizeUtils.horizontalBlockSize * 4,
                       right: SizeUtils.horizontalBlockSize * 4,
-                      top: SizeUtils.horizontalBlockSize * 2),
+                      top: SizeUtils.horizontalBlockSize * 3),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      usernameTextField(
-                          controller: controller.telegramUsernameController,
-                          showCursor: false,
-                          hintText: StringsUtils.username,
-                          textInputType: TextInputType.none,
-                          onTap: () async {
-                            controller.telegramUsernameController.text =
-                                controller.telegramUsernameController.text
-                                    .substring(
-                                        0,
-                                        controller.telegramUsernameController
-                                                .text.length -
-                                            1);
-                          },
-                          longPress: () async {
-                            controller.telegramUsernameController.clear();
-                          }),
+                      CustomeTextField(
+                        isBoxShadow: true,
+                        isSearch: true,
+                        maxLine: 1,
+                        suffixIcon: Padding(
+                          padding: EdgeInsets.only(
+                              right: SizeUtils.horizontalBlockSize * 4),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              GestureDetector(
+                                onTap: () async {
+                                  List<String> Username =
+                                      await SharedPrefs.getTelegramList();
+                                  var username = controller
+                                      .telegramUsernameController
+                                      .text = Username.last;
+                                  print("Username:-  $username");
+                                },
+                                child: Icon(
+                                  Icons.history,
+                                  size: SizeUtils.verticalBlockSize * 3,
+                                  color: AppColor.appIconColor,
+                                ),
+                              ),
+                              Platform.isAndroid
+                                  ? const SizedBox(
+                                      width: 3,
+                                    )
+                                  : const SizedBox(),
+                              GestureDetector(
+                                  onTap: () async {
+                                    controller.telegramUsernameController.text =
+                                        controller
+                                            .telegramUsernameController.text
+                                            .substring(
+                                                0,
+                                                controller
+                                                        .telegramUsernameController
+                                                        .text
+                                                        .length -
+                                                    1);
+                                  },
+                                  onLongPress: () async {
+                                    controller.telegramUsernameController
+                                        .clear();
+                                  },
+                                  child: Icon(Icons.close,
+                                      color: themeController.isSwitched.value
+                                          ? AppColor.appIconColor
+                                          : AppColor.appIconColor)),
+                            ],
+                          ),
+                        ),
+                        textInputFormatter: [
+                          FilteringTextInputFormatter(RegExp(r'[a-z_.0-9]'),
+                              allow: true)
+                        ],
+                        radius: SizeUtils.horizontalBlockSize * 10,
+                        controller: controller.telegramUsernameController,
+                        showCursor: false,
+                        hintText: StringsUtils.username,
+                        textInputType: TextInputType.none,
+                      ),
                     ],
                   ),
                 ),
@@ -171,8 +204,11 @@ class _TelegramState extends State<Telegram> {
                                                       .spaceBetween,
                                               children: [
                                                 CircleAvatar(
-                                                  backgroundColor: themeController.isSwitched.value ? AppColor.white : AppColor.darkBlue,
-
+                                                  backgroundColor:
+                                                      themeController
+                                                              .isSwitched.value
+                                                          ? AppColor.white
+                                                          : AppColor.darkBlue,
                                                   child: Text(
                                                     "${controller.getTelegramUsernameList[index]}"
                                                         .substring(0, 1)

@@ -1,5 +1,5 @@
-import 'package:all_app_direct/modules/controller/all_screen_controller.dart';
 import 'package:all_app_direct/utils/app_color.dart';
+import 'package:all_app_direct/modules/controller/all_screen_controller.dart';
 import 'package:all_app_direct/utils/size_utils.dart';
 import 'package:all_app_direct/utils/string_utils.dart';
 import 'package:all_app_direct/widgets/button_box.dart';
@@ -37,7 +37,7 @@ class _OpenCallsState extends State<OpenCalls> {
       left: SizeUtils.horizontalBlockSize * 2.5,
       right: SizeUtils.horizontalBlockSize * 1,
       bottom: SizeUtils.horizontalBlockSize * 2,
-      iconColor: AppColor.appGreen,
+      iconColor: AppColor.appIconColor,
       sizeIcon: SizeUtils.horizontalBlockSize * 7,
     );
   }

@@ -1,11 +1,12 @@
-import 'package:all_app_direct/helper/app_color.dart';
+import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/modules/Auth/controller/sign_up_controller.dart';
 import 'package:all_app_direct/modules/appbar/popupmenubutton/setting/theme.dart';
-import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/utils/navigation/dart/navigation.dart';
 import 'package:all_app_direct/utils/navigation/dart/route_page.dart';
 import 'package:all_app_direct/utils/string_utils.dart';
 import 'package:all_app_direct/widgets/Clipper/bezierContainer.dart';
+import 'package:all_app_direct/widgets/button_box.dart';
+import 'package:all_app_direct/widgets/custom_textfield.dart';
 import 'package:all_app_direct/widgets/snackbar.dart';
 import 'package:all_app_direct/widgets/validation.dart';
 import 'package:flutter/material.dart';
@@ -20,12 +21,49 @@ class SignUpPage extends StatefulWidget {
   _SignUpPageState createState() => _SignUpPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _SignUpPageState extends State<SignUpPage>  with SingleTickerProviderStateMixin{
   SignUpController signUpController = Get.find();
   final ValueNotifier<bool> isDisable = ValueNotifier(true);
   final ValueNotifier<bool> _test = ValueNotifier(true);
   ThemeController themeController = Get.find();
+  late final Animation<double> _formElementAnimation;
+  late final Animation<double> _headerTextAnimation;
+  late final AnimationController _animationController;
+  // Duration kLoginAnimationDuration = Duration(milliseconds: 2000);
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    _animationController = AnimationController(
+      vsync: this,
+      duration: signUpController.kLoginAnimationDuration,
+    );
+    final fadeSlideTween = Tween<double>(begin: 0.0, end: 1.0);
+    _headerTextAnimation = fadeSlideTween.animate(CurvedAnimation(
+      parent: _animationController,
+      curve: const Interval(
+        0.0,
+        0.6,
+        curve: Curves.easeInOut,
+      ),
+    ));
+    _formElementAnimation = fadeSlideTween.animate(CurvedAnimation(
+      parent: _animationController,
+      curve: const Interval(
+        0.7,
+        1.0,
+        curve: Curves.easeInOut,
+      ),
+    ));
+    super.initState();
+    _animationController.forward();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -73,7 +111,11 @@ class _SignUpPageState extends State<SignUpPage> {
                                       ValueListenableBuilder(
                                           valueListenable: isDisable,
                                           builder: (context, bool value, _) {
-                                            return _submitButton(
+                                            return submitButton(
+                                                animation: _headerTextAnimation,
+
+                                                context: context,
+                                              text: StringsUtils.register,
                                                 onTap: () async {
                                                   FocusScope.of(context)
                                                       .unfocus();
@@ -117,7 +159,11 @@ class _SignUpPageState extends State<SignUpPage> {
                 ],
               ),
             ),
-            Positioned(top: 40, left: 0, child: _backButton()),
+            Positioned(top: 40, left: 0, child: backButton(
+                  () {
+                Navigation.popAndPushNamed(Routes.loginPage);
+              },
+            )),
           ],
         ),
       ),
@@ -134,81 +180,7 @@ class _SignUpPageState extends State<SignUpPage> {
             signUpController.signUpPassword.text.isEmpty);
   }
 
-  /// _submitButton
-  Widget _submitButton({
-    required GestureTapCallback? onTap,
-    bool change = false,
-  }) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      padding: const EdgeInsets.symmetric(vertical: 15),
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(5)),
-        color: change
-            ? themeController.isSwitched.value
-            ? AppColor.grey[200]
-            : AppColor.darkBlue.withOpacity(0.4)
-            : themeController.isSwitched.value
-            ? AppColor.white
-            : AppColor.darkBlue,
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-              color: change
-                  ? themeController.isSwitched.value
-                      ? AppColor.black
-                      : AppColor.backgroundColor
-                      : themeController.isSwitched.value
-                      ? AppColor.black
-                  : AppColor.grey.withOpacity(0.5),
-              offset: Offset(2, 4),
-              blurRadius: 5,
-              spreadRadius: 2)
-        ],
-      ),
-      child: change
-          ? Text(
-              StringsUtils.register,
-              style: TextStyle(fontSize: 20, color: AppColor.white),
-            )
-          : GestureDetector(
-              onTap: onTap,
-              child: Text(
-                StringsUtils.register,
-                style: TextStyle(
-                    fontSize: 20,
-                    color: themeController.isSwitched.value
-                        ? AppColor.grey
-                        : AppColor.white),
-              ),
-            ),
-    );
-  }
-
   /// _backButton
-  Widget _backButton() {
-    return GestureDetector(
-      onTap: () {
-        Navigation.popAndPushNamed(Routes.loginPage);
-      },
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10),
-        child: Row(
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.only(left: 0, top: 10, bottom: 10),
-              child: Icon(Icons.keyboard_arrow_left,
-                  color: themeController.isSwitched.value
-                      ? AppColor.white
-                      : AppColor.black),
-            ),
-            const Text('Back',
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500))
-          ],
-        ),
-      ),
-    );
-  }
 
   ///_loginAccountLabel
   Widget _loginAccountLabel() {
@@ -285,96 +257,17 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget _emailPasswordWidget() {
     return Column(
       children: <Widget>[
-        _entryField("Name address", (String data) {
+        entryField("Name address", (String data) {
           _handleButtonDisable();
-        }, "Enter your name", signUpController.signUpName),
-        _entryField("Email address", (String data) {
+        }, "Enter your name", signUpController.signUpName,_headerTextAnimation),
+        entryField("Email address", (String data) {
           _handleButtonDisable();
-        }, "Enter your email", signUpController.signUpEmail),
-        // _entryField(
-        //   "Contacts no.",
-        //   (String data) {
-        //     _handleButtonDisable();
-        //   },
-        //   "Enter your Contacts",
-        //   signUpController.signUpContactNo,
-        //   isPassword: true,
-        // ),
-        _entryField("Password", (String data) {
+        }, "Enter your email", signUpController.signUpEmail,_headerTextAnimation),
+        entryField("Password", (String data) {
           _handleButtonDisable();
-        }, "Enter password", signUpController.signUpPassword),
+        }, "Enter password", signUpController.signUpPassword,_headerTextAnimation),
       ],
     );
   }
 
-  /// _entryField
-  Widget _entryField(String title, ValueChanged<String>? onChanged, hinText,
-      TextEditingController? TextEditingController,
-      {bool isPassword = false}) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 8),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            title,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 15,
-              color: themeController.isSwitched.value
-                  ? AppColor.white
-                  : AppColor.darkBlue,
-            ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                BoxShadow(
-                  color: themeController.isSwitched.value
-                      ? AppColor.black
-                      : AppColor.grey.withOpacity(0.3),
-                  blurRadius: 4,
-                  offset: Offset(4, 8), // Shadow position
-                ),
-              ],
-            ),
-            child: TextFormField(
-                controller: TextEditingController,
-                obscureText: isPassword,
-                onChanged: onChanged,
-                style: TextStyle(
-                    color: themeController.isSwitched.value
-                        ? AppColor.white
-                        : AppColor.grey),
-                decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.symmetric(
-                        vertical: 14, horizontal: 15),
-                    border: InputBorder.none,
-                    hintText: hinText,
-                    hintStyle: TextStyle(
-                        color: themeController.isSwitched.value
-                            ? AppColor.white
-                            : AppColor.grey),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          const BorderSide(color: AppColor.red, width: 1.5),
-                      borderRadius: BorderRadius.circular(10),
-                      // borderSide: BorderSide.none
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide.none),
-                    fillColor: themeController.isSwitched.value
-                        ? AppColor.grey[200]
-                        : AppColor.white,
-                    filled: true)),
-          )
-        ],
-      ),
-    );
-  }
 }

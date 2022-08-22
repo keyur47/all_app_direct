@@ -1,10 +1,8 @@
-// ignore_for_file: non_constant_identifier_names
-
-import 'package:all_app_direct/modules/appbar/popupmenubutton/setting/theme.dart';
 import 'package:all_app_direct/utils/app_color.dart';
+import 'package:all_app_direct/modules/appbar/popupmenubutton/setting/theme.dart';
 import 'package:all_app_direct/utils/size_utils.dart';
+import 'package:all_app_direct/widgets/fade_slide_transition.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -97,6 +95,92 @@ Widget button(
             ),
           ),
         ),
+      ),
+    ),
+  );
+}
+
+
+
+Widget submitButton({
+  required GestureTapCallback? onTap,
+  bool change = false,context,
+  required String text,
+  required Animation<double> animation,
+}) {
+  ThemeController themeController = Get.find();
+  return  FadeSlideTransition(
+    animation: animation,
+    additionalOffset: 0.0,
+    child: Container(
+      width: MediaQuery.of(context).size.width,
+      padding: const EdgeInsets.symmetric(vertical: 15),
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(5)),
+        color: change
+            ? themeController.isSwitched.value
+            ? AppColor.grey.withOpacity(0.6)
+            : AppColor.darkBlue.withOpacity(0.4)
+            : themeController.isSwitched.value
+            ? AppColor.grey[200]
+            : AppColor.darkBlue,
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+              color: change
+                  ? themeController.isSwitched.value
+                  ? AppColor.black
+                  : AppColor.backgroundColorScreen
+                  : themeController.isSwitched.value
+                  ? AppColor.black
+                  : AppColor.grey.withOpacity(0.5),
+              offset: Offset(2, 4),
+              blurRadius: 5,
+              spreadRadius: 2)
+        ],
+      ),
+      child: change
+          ? Text(
+       text,
+        style: TextStyle(fontSize: 20, color: AppColor.white),
+      )
+          : GestureDetector(
+        onTap: onTap,
+        child: Text(
+          text,
+          style: TextStyle(
+              fontSize: 20,
+              color: themeController.isSwitched.value
+                  ? AppColor.white
+                  : AppColor.white),
+        ),
+      ),
+    ),
+  );
+}
+
+
+Widget backButton(GestureTapCallback onTap) {
+  ThemeController themeController = Get.find();
+  return GestureDetector(
+    onTap: onTap,
+    //     () {
+    //   Navigation.popAndPushNamed(Routes.loginPage);
+    // },
+    child: Container(
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      child: Row(
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.only(left: 0, top: 10, bottom: 10),
+            child: Icon(Icons.keyboard_arrow_left,
+                color: themeController.isSwitched.value
+                    ? AppColor.white
+                    : AppColor.black),
+          ),
+          const Text('Back',
+              style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500))
+        ],
       ),
     ),
   );

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/main.dart';
 import 'package:all_app_direct/modules/Auth/login_with_google_mobile_facebook/facebook_login/facebook_login.dart';
 import 'package:all_app_direct/modules/Auth/login_with_google_mobile_facebook/gmail_login/gmail_login.dart';
@@ -9,7 +10,6 @@ import 'package:all_app_direct/modules/appbar/appbar_controller.dart';
 import 'package:all_app_direct/modules/appbar/popupmenubutton/setting/setting.dart';
 import 'package:all_app_direct/modules/appbar/popupmenubutton/setting/theme.dart';
 import 'package:all_app_direct/modules/appbar/popupmenubutton/share/shareapp.dart';
-import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/utils/navigation/dart/navigation.dart';
 import 'package:all_app_direct/utils/navigation/dart/route_page.dart';
 import 'package:all_app_direct/utils/size_utils.dart';
@@ -374,7 +374,7 @@ Widget contactsAppbar({required String text, IconData? iconData}) {
             style: const TextStyle(
                 fontSize: 22.0,
                 fontFamily: 'Customtext',
-                color: AppColor.backgroundColor),
+                color: AppColor.backgroundColorScreen),
             child: AnimatedTextKit(
               pause: Duration(milliseconds: 100),
               animatedTexts: [
@@ -403,7 +403,7 @@ Widget usernameAppbar({required String text}) {
             style: const TextStyle(
                 fontSize: 22.0,
                 fontFamily: 'Customtext',
-                color: AppColor.backgroundColor),
+                color: AppColor.backgroundColorScreen),
             child: AnimatedTextKit(
               pause: Duration(milliseconds: 100),
               animatedTexts: [

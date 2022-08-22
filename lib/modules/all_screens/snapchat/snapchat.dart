@@ -1,11 +1,12 @@
+import 'dart:io';
+
 import 'package:all_app_direct/ads/banner_ad.dart';
-import 'package:all_app_direct/helper/app_color.dart';
+import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/helper/shared_preferences.dart';
 import 'package:all_app_direct/modules/appbar/appbar.dart';
 import 'package:all_app_direct/modules/appbar/popupmenubutton/setting/theme.dart';
 import 'package:all_app_direct/modules/controller/all_screen_controller.dart';
 import 'package:all_app_direct/modules/openbutton/oepn_username_snapchat.dart';
-import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/utils/navigation/dart/navigation.dart';
 import 'package:all_app_direct/utils/navigation/dart/route_page.dart';
 import 'package:all_app_direct/utils/size_utils.dart';
@@ -13,6 +14,7 @@ import 'package:all_app_direct/utils/string_utils.dart';
 import 'package:all_app_direct/widgets/custom_textfield.dart';
 import 'package:all_app_direct/widgets/snackbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -34,7 +36,8 @@ class _SnapchatState extends State<Snapchat> {
         return false;
       },
       child: Scaffold(
-        backgroundColor:ColorRes.backgroundColor(context),        resizeToAvoidBottomInset: false,
+        backgroundColor: ColorRes.backgroundColor(context),
+        resizeToAvoidBottomInset: false,
         body: Stack(
           alignment: Alignment.bottomCenter,
           children: [
@@ -43,7 +46,6 @@ class _SnapchatState extends State<Snapchat> {
                 customAppbar(
                   text: StringsUtils.snapchatDirects,
                   icon: Icons.snapchat,
-
                   top: SizeUtils.horizontalBlockSize * 1,
                   bottom: SizeUtils.horizontalBlockSize * 1.1,
                   right: SizeUtils.horizontalBlockSize * 1.4,
@@ -55,26 +57,73 @@ class _SnapchatState extends State<Snapchat> {
                   padding: EdgeInsets.only(
                       left: SizeUtils.horizontalBlockSize * 4,
                       right: SizeUtils.horizontalBlockSize * 4,
-                      top: SizeUtils.horizontalBlockSize * 2),
+                      top: SizeUtils.horizontalBlockSize * 3),
                   child: Column(
                     children: [
-                      usernameTextField(
-                          controller: controller.snapchatUsernameController,
-                          showCursor: false,
-                          hintText: StringsUtils.username,
-                          textInputType: TextInputType.none,
-                          onTap: () async {
-                            controller.snapchatUsernameController.text =
-                                controller.snapchatUsernameController.text
-                                    .substring(
-                                        0,
-                                        controller.snapchatUsernameController
-                                                .text.length -
-                                            1);
-                          },
-                          longPress: () async {
-                            controller.snapchatUsernameController.clear();
-                          }),
+                      CustomeTextField(
+                        isSearch: true,
+                        isBoxShadow: true,
+
+                        radius: SizeUtils.horizontalBlockSize * 10,
+                        textInputFormatter: [
+                          FilteringTextInputFormatter(
+                              RegExp(r'[a-z_.0-9]'),
+                              allow: true)
+                        ],
+                        controller: controller.snapchatUsernameController,
+                        showCursor: false,
+                        hintText: StringsUtils.username,
+                        textInputType: TextInputType.none,
+                        suffixIcon: Padding(
+                          padding: EdgeInsets.only(
+                              right: SizeUtils.horizontalBlockSize *
+                                  4),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment:
+                            MainAxisAlignment.end,
+                            children: [
+                              GestureDetector(
+                                onTap: () async {
+                                  List<String> Username = await SharedPrefs.getSnapchatList();
+                                  var username = controller.snapchatUsernameController.text = Username.last;
+                                  print("Username:-  $username");
+                                },
+                                child: Icon(
+                                  Icons.history,
+                                  size:
+                                  SizeUtils.verticalBlockSize *
+                                      3,
+                                  color: AppColor.appIconColor,
+                                ),
+                              ),
+                              Platform.isAndroid
+                                  ? const SizedBox(
+                                width: 3,
+                              )
+                                  : const SizedBox(),
+
+                              GestureDetector(
+                                  onTap: () async {
+                                    controller.snapchatUsernameController.text =
+                                        controller.snapchatUsernameController.text
+                                            .substring(
+                                                0,
+                                                controller.snapchatUsernameController
+                                                        .text.length -
+                                                    1);
+                                  },
+                                  onLongPress: () async {
+                                    controller.snapchatUsernameController.clear();
+                                  },
+                                  child: Icon(Icons.close,
+                                      color: themeController.isSwitched.value
+                                          ? AppColor.appIconColor
+                                          : AppColor.appIconColor)),
+                            ],
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -140,8 +189,11 @@ class _SnapchatState extends State<Snapchat> {
                                                       .spaceBetween,
                                               children: [
                                                 CircleAvatar(
-                                                  backgroundColor: themeController.isSwitched.value ? AppColor.white : AppColor.darkBlue,
-
+                                                  backgroundColor:
+                                                      themeController
+                                                              .isSwitched.value
+                                                          ? AppColor.white
+                                                          : AppColor.darkBlue,
                                                   child: GestureDetector(
                                                     child: Text(
                                                       "${controller.getSnapchatUsernameList[index]}"

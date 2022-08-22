@@ -1,10 +1,10 @@
+import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/helper/shared_preferences.dart';
 import 'package:all_app_direct/modules/controller/all_screen_controller.dart';
-import 'package:all_app_direct/utils/app_color.dart';
-import 'package:all_app_direct/utils/appsnackbar.dart';
 import 'package:all_app_direct/utils/size_utils.dart';
 import 'package:all_app_direct/utils/string_utils.dart';
 import 'package:all_app_direct/widgets/button_box.dart';
+import 'package:all_app_direct/widgets/snackbar.dart';
 import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -36,12 +36,13 @@ class OpenUserNameTelegram extends StatelessWidget {
                   print("------${controller.url.value}");
                 }
               } else {
-                AppSnackBar.showErrorSnackBar(
-                  Icon: const Icon(Icons.people_alt_rounded, color: Colors.blue),
-                  message: StringsUtils.pleaseUsername,
-                  title: StringsUtils.userNameTelegram,
-                  snackPosition: SnackPosition.BOTTOM,
-                );
+                AppToast.toastMessage("Enter Username");
+                // AppSnackBar.showErrorSnackBar(
+                //   Icon: const Icon(Icons.people_alt_rounded, color: Colors.blue),
+                //   message: StringsUtils.pleaseUsername,
+                //   title: StringsUtils.userNameTelegram,
+                //   snackPosition: SnackPosition.BOTTOM,
+                // );
               }
             },
             // imageIcon: value,
@@ -53,7 +54,7 @@ class OpenUserNameTelegram extends StatelessWidget {
             left: SizeUtils.horizontalBlockSize * 3.5,
             right: SizeUtils.horizontalBlockSize * 1,
             bottom: SizeUtils.horizontalBlockSize * 2.4,
-            iconColor: AppColor.appGreen,
+            iconColor: AppColor.appIconColor,
             // iconColor: Colors.blue,
             // decoration: const BoxDecoration(
             //   gradient: LinearGradient(

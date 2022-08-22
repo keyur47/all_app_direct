@@ -17,11 +17,11 @@ class SharedPrefs {
     return value;
   }
 
-  static Future setBoolean(String key, {required bool value}) async {
+  static Future setThemeBoolean(String key, {required bool value}) async {
     await _prefs.setBool(key, value);
   }
 
-  static bool getBoolean(String key) {
+  static bool getThemeBoolean(String key) {
     final bool? value = _prefs.getBool(key);
     return value ?? false;
   }
@@ -80,22 +80,6 @@ class SharedPrefs {
     final SharedPreferences prefs = await prefsData;
     return prefs.getStringList("snapchat") ?? [];
   }
-
-
-
-
-
-
-
-  // static Future<bool> setSaveUserData(bool value) async {
-  //   final SharedPreferences prefs = await prefsData;
-  //   return await prefs.setBool('flag', value);
-  // }
-  //
-  // static Future getSaveUserData() async {
-  //   final SharedPreferences prefs = await prefsData;
-  //   prefs.getBool("flag") ?? false;
-  // }
 
   static Future<void> remove() async {
     final SharedPreferences prefs = await prefsData;

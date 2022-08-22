@@ -21,7 +21,7 @@ class ThemeController extends GetxController {
   }
 
   void getTheme() {
-    isSwitched.value = SharedPrefs.getBoolean("theme");
+    isSwitched.value = SharedPrefs.getThemeBoolean("theme");
     isDarkMode.value = isSwitched.value;
   }
 

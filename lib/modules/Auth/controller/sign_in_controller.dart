@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:all_app_direct/utils/navigation/dart/route_page.dart';
 import 'package:all_app_direct/widgets/snackbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,6 +12,7 @@ class LogInController extends GetxController {
   RxBool gmailLoading = false.obs;
   RxBool facebookLoading = false.obs;
   RxBool isSignInButtonColorEnable = false.obs;
+  Duration kLoginAnimationDuration = Duration(milliseconds: 1000);
 
   GlobalKey<FormState> logInFormKey = GlobalKey<FormState>();
 

@@ -1,5 +1,5 @@
 import 'dart:developer';
-import 'package:all_app_direct/helper/app_color.dart';
+import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/modules/appbar/popupmenubutton/setting/setting_controller/setting_controller.dart';
 import 'package:all_app_direct/helper/shared_preferences.dart';
 import 'package:all_app_direct/modules/appbar/popupmenubutton/setting/theme.dart';
@@ -77,7 +77,7 @@ class _SettingState extends State<Setting>  with WidgetsBindingObserver {
                 Text("Theme Mode"),
                 Obx(()=>
                    Switch(
-                    activeColor: AppColor2.primaryColor,
+                    activeColor: AppColor.primaryColor,
                     value: themeController.isSwitched.value,
                     onChanged: (value) {
                       themeController.isSwitched.value = value;
@@ -86,7 +86,7 @@ class _SettingState extends State<Setting>  with WidgetsBindingObserver {
                             ? ThemeMode.dark
                             : ThemeMode.light,
                       );
-                      SharedPrefs.setBoolean("theme",
+                      SharedPrefs.setThemeBoolean("theme",
                           value: themeController.isSwitched.value);
                     },
                   ),
@@ -99,7 +99,7 @@ class _SettingState extends State<Setting>  with WidgetsBindingObserver {
               Text("Notification"),
               Obx(()=>
                   Switch(
-                    activeColor: AppColor2.primaryColor,
+                    activeColor: AppColor.primaryColor,
                     value: settingController.isNotificationCheck.value,
                     onChanged: (value) {
                       AppSettings.openNotificationSettings();

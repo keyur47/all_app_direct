@@ -1,16 +1,18 @@
 import 'dart:developer';
 
-import 'package:all_app_direct/helper/app_color.dart';
+import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/modules/Auth/controller/sign_in_controller.dart';
 import 'package:all_app_direct/modules/Auth/login_with_google_mobile_facebook/facebook_login/facebook_login.dart';
 import 'package:all_app_direct/modules/Auth/login_with_google_mobile_facebook/gmail_login/gmail_login.dart';
 import 'package:all_app_direct/modules/appbar/popupmenubutton/setting/theme.dart';
-import 'package:all_app_direct/utils/app_color.dart';
 import 'package:all_app_direct/utils/assets_path.dart';
 import 'package:all_app_direct/utils/navigation/dart/navigation.dart';
 import 'package:all_app_direct/utils/navigation/dart/route_page.dart';
 import 'package:all_app_direct/utils/string_utils.dart';
 import 'package:all_app_direct/widgets/Clipper/bezierContainer.dart';
+import 'package:all_app_direct/widgets/button_box.dart';
+import 'package:all_app_direct/widgets/custom_textfield.dart';
+import 'package:all_app_direct/widgets/fade_slide_transition.dart';
 import 'package:all_app_direct/widgets/snackbar.dart';
 import 'package:all_app_direct/widgets/validation.dart';
 import 'package:flutter/material.dart';
@@ -26,11 +28,49 @@ class LoginPage extends StatefulWidget {
   _LoginPageState createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<LoginPage>
+    with SingleTickerProviderStateMixin {
   LogInController logInController = Get.find();
   final ValueNotifier<bool> _test = ValueNotifier(true);
   final ValueNotifier<bool> isDisable = ValueNotifier(true);
   ThemeController themeController = Get.find();
+  late final Animation<double> _formElementAnimation;
+  late final Animation<double> _headerTextAnimation;
+  late final AnimationController _animationController;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    _animationController = AnimationController(
+      vsync: this,
+      duration: logInController.kLoginAnimationDuration,
+    );
+    final fadeSlideTween = Tween<double>(begin: 0.0, end: 1.0);
+    _headerTextAnimation = fadeSlideTween.animate(CurvedAnimation(
+      parent: _animationController,
+      curve: const Interval(
+        0.0,
+        0.6,
+        curve: Curves.easeInOut,
+      ),
+    ));
+    _formElementAnimation = fadeSlideTween.animate(CurvedAnimation(
+      parent: _animationController,
+      curve: const Interval(
+        0.7,
+        1.0,
+        curve: Curves.easeInOut,
+      ),
+    ));
+    super.initState();
+    _animationController.forward();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,32 +110,39 @@ class _LoginPageState extends State<LoginPage> {
                                           MainAxisAlignment.center,
                                       children: [
                                         const SizedBox(height: 50),
-                                        _emailPasswordWidget(),
-                                        Container(
-                                          padding: const EdgeInsets.only(
-                                              top: 3, bottom: 5),
-                                          alignment: Alignment.centerRight,
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              Navigation.popAndPushNamed(
-                                                  Routes.forgotPassword);
-                                            },
-                                            child: Text('Forgot Password ?',
-                                                style: TextStyle(
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: themeController
-                                                            .isSwitched.value
-                                                        ? AppColor.white
-                                                        : AppColor
-                                                            .darkBlue[200])),
+                                        _emailAndPasswordWidget(),
+                                        FadeSlideTransition(
+                                          animation: _headerTextAnimation,
+                                          additionalOffset: 0.0,
+                                          child: Container(
+                                            padding: const EdgeInsets.only(
+                                                top: 3, bottom: 5),
+                                            alignment: Alignment.centerRight,
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                Navigation.pushNamed(
+                                                    Routes.forgotPassword);
+                                              },
+                                              child: Text('Forgot Password ?',
+                                                  style: TextStyle(
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w500,
+                                                      color: themeController
+                                                              .isSwitched.value
+                                                          ? AppColor.white
+                                                          : AppColor
+                                                              .darkBlue[200])),
+                                            ),
                                           ),
                                         ),
                                         const SizedBox(height: 50),
                                         ValueListenableBuilder(
                                             valueListenable: isDisable,
                                             builder: (context, bool value, _) {
-                                              return _submitButton(
+                                              return submitButton(
+                                                animation: _headerTextAnimation,
+                                                  context: context,
+                                                  text: StringsUtils.signIn,
                                                   onTap: () async {
                                                     FocusScope.of(context)
                                                         .unfocus();
@@ -158,58 +205,6 @@ class _LoginPageState extends State<LoginPage> {
             logInController.logInPassword.text.isEmpty);
   }
 
-  /// _submitButton
-  Widget _submitButton({
-    required GestureTapCallback? onTap,
-    bool change = false,
-  }) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      padding: const EdgeInsets.symmetric(vertical: 15),
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        color: change
-            ? themeController.isSwitched.value
-                ? AppColor.grey[200]
-            : AppColor.darkBlue.withOpacity(0.4)
-            : themeController.isSwitched.value
-                ? AppColor.white
-                : AppColor.darkBlue,
-        borderRadius: BorderRadius.all(Radius.circular(5)),
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-              color: change
-                  ? themeController.isSwitched.value
-                      ? AppColor.black
-                      : AppColor.backgroundColor
-                  : themeController.isSwitched.value
-                      ? AppColor.black
-                      : AppColor.backgroundColor,
-              offset: const Offset(2, 4),
-              blurRadius: 5,
-              spreadRadius: 2)
-        ],
-      ),
-      // colors: [Color(0xfffbb448), Color(0xfff7892b)])),
-      child: change
-          ? Text(
-              StringsUtils.signIn,
-              style: TextStyle(fontSize: 20, color: AppColor.white),
-            )
-          : GestureDetector(
-              onTap: onTap,
-              child: Text(
-                StringsUtils.signIn,
-                style: TextStyle(
-                    fontSize: 20,
-                    color: themeController.isSwitched.value
-                        ? AppColor.grey
-                        : AppColor.white),
-              ),
-            ),
-    );
-  }
-
   /// _createAccountLabel
   Widget _createAccountLabel() {
     return Container(
@@ -233,7 +228,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
           GestureDetector(
             onTap: () {
-              Navigation.popAndPushNamed(Routes.signUpPage);
+              Navigation.pushNamed(Routes.signUpPage);
             },
             child: Text(
               'Sign Up',
@@ -243,7 +238,7 @@ class _LoginPageState extends State<LoginPage> {
                       : AppColor.darkBlue[200],
                   // color: Color(0xfff79c4f),
                   fontSize: 13,
-                  fontWeight: FontWeight.w600),
+                  fontWeight: FontWeight.w700),
             ),
           ),
         ],
@@ -281,117 +276,41 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   /// _emailPasswordWidget
-  Widget _emailPasswordWidget() {
+  Widget _emailAndPasswordWidget() {
     return Column(
       children: <Widget>[
-        _entryField("Email address", (String data) {
+        entryField("Email address", (String data) {
           _handleButtonDisable();
-        }, "Enter your email", logInController.logInEmail),
-        Obx(()=>
-           _entryField(
-            "Password",
-            (String data) {
-              _handleButtonDisable();
-            },
-            "Enter password",
-            isPassword: logInController.isObscure.value,
-            logInController.logInPassword,
-            suffixIcon: Obx(()=>
-              GestureDetector(
-                onTap: () {
-                  logInController
-                      .isObscure.value =
-                  !logInController
-                      .isObscure.value;
-                  log("${logInController.isObscure.value}");
-                },
-                child: logInController
-                    .isObscure.value
-                    ? const Icon(
-                  Icons
-                      .remove_red_eye_outlined,
-                  color: Colors.grey,
-                )
-                    : const Icon(
-                  Icons
-                      .remove_red_eye,
-                  color: Colors.grey,
+        }, "Enter your email", logInController.logInEmail,
+            _headerTextAnimation),
+        Obx(
+          () => entryField("Password", (String data) {
+            _handleButtonDisable();
+          },
+              "Enter password",
+              obscure: logInController.isObscure.value,
+              logInController.logInPassword,
+              suffixIcon: Obx(
+                () => GestureDetector(
+                  onTap: () {
+                    logInController.isObscure.value =
+                        !logInController.isObscure.value;
+                    log("${logInController.isObscure.value}");
+                  },
+                  child: logInController.isObscure.value
+                      ? const Icon(
+                          Icons.visibility_off,
+                          color: Colors.grey,
+                        )
+                      : const Icon(
+                          Icons.visibility_rounded,
+                          color: Colors.grey,
+                        ),
                 ),
               ),
-            ),
-          ),
+              _headerTextAnimation),
         ),
       ],
-    );
-  }
-
-  /// _entryField
-  Widget _entryField(String title, ValueChanged<String>? onChanged,
-      String hinText, TextEditingController TextEditingController,
-      {bool isPassword = false,Widget? suffixIcon,}) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            title,
-            style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 15,
-                color: themeController.isSwitched.value
-                    ? AppColor.white
-                    : AppColor.darkBlue),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                BoxShadow(
-                  color: themeController.isSwitched.value
-                      ? AppColor.black
-                      : AppColor.grey.withOpacity(0.3),
-                  blurRadius: 4,
-                  offset: Offset(4, 8), // Shadow position
-                ),
-              ],
-            ),
-            child: TextFormField(
-                controller: TextEditingController,
-                obscureText: isPassword,
-                onChanged: onChanged,
-                style: TextStyle(
-                    color: themeController.isSwitched.value
-                        ? AppColor.white
-                        : AppColor.grey),
-                decoration: InputDecoration(
-                  suffixIcon: suffixIcon,
-                    hintText: hinText,
-                    hintStyle: TextStyle(
-                        color: themeController.isSwitched.value
-                            ? AppColor.white
-                            : AppColor.grey),
-                    contentPadding: const EdgeInsets.symmetric(
-                        vertical: 14, horizontal: 15),
-                    border: InputBorder.none,
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide:
-                          const BorderSide(color: AppColor.red, width: 1.5),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide.none),
-                    fillColor: themeController.isSwitched.value
-                        ? AppColor.grey[200]
-                        : AppColor.white,
-                    filled: true)),
-          )
-        ],
-      ),
     );
   }
 
@@ -487,7 +406,10 @@ class _LoginPageState extends State<LoginPage> {
           ),
           Text(
             'Or login with',
-            style: TextStyle(color: AppColor.black),
+            style: TextStyle(
+                color: themeController.isSwitched.value
+                    ? AppColor.white
+                    : AppColor.black),
           ),
           Expanded(
             child: Padding(

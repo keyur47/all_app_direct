@@ -20,10 +20,10 @@ Future RateBox(context) {
               children: [
                 Icon(Icons.whatsapp,
                     size: 16,
-                    color: AppColor.appGreen,
+                    color: AppColor.appIconColor,
                     shadows: [
                       BoxShadow(
-                        color: AppColor.appGreen.withOpacity(0.8),
+                        color: AppColor.appIconColor.withOpacity(0.8),
                         spreadRadius: 10,
                         blurRadius: 7,
                         offset: const Offset(
@@ -57,7 +57,7 @@ Future RateBox(context) {
                     Get.back();
                   } ,
                   child: Text(StringsUtils.feedBackButtonNotNow,
-                    style: TextStyle(color: AppColor.green,fontFamily: "Customtext"),)),
+                    style: TextStyle(fontFamily: "Customtext"),)),
             ],
             content: Center(
               child: RatingBar.builder(

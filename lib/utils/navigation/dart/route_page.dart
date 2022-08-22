@@ -1,3 +1,5 @@
+
+
 import 'package:all_app_direct/modules/Auth/forgot_password.dart';
 import 'package:all_app_direct/modules/Auth/sign_in_page.dart';
 import 'package:all_app_direct/modules/Auth/sign_up_page.dart';
@@ -8,6 +10,7 @@ import 'package:all_app_direct/modules/all_screens/telegram/telegram.dart';
 import 'package:all_app_direct/modules/all_screens/whatsapp/whatsapp.dart';
 import 'package:all_app_direct/modules/onboarding/onboarding_Screen.dart';
 import 'package:all_app_direct/modules/splashscreen/splash_screen.dart';
+import 'package:all_app_direct/utils/onbording/screen/onboarding.dart';
 import 'package:get/get.dart';
 
 
@@ -26,7 +29,6 @@ mixin Routes {
   static const telegram = '/telegram_screen';
   static const snapchat = '/snapchat_screen';
   static const galleryFileImage = '/galleryFileImage';
-
   static List<GetPage<dynamic>> routes = [
     GetPage<dynamic>(
       name: splash,
@@ -35,7 +37,7 @@ mixin Routes {
     ),
     GetPage<dynamic>(
       name: onboardingScreen,
-      page: () => onBoardingScreen(),
+      page: () => Onboarding(),
       transition: defaultTransition,
     ),
     GetPage<dynamic>(

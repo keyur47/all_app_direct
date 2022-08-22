@@ -13,6 +13,7 @@ class SignUpController extends GetxController {
   TextEditingController signUpEmail = TextEditingController();
   TextEditingController signUpContactNo = TextEditingController();
   TextEditingController signUpPassword = TextEditingController();
+  Duration kLoginAnimationDuration = Duration(milliseconds: 1000);
 
   Future<User?> registerUsingEmailPassword({
     required String name,

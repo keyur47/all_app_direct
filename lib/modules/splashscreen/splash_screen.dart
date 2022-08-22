@@ -1,11 +1,13 @@
 import 'package:all_app_direct/ads/ads_new.dart';
 import 'package:all_app_direct/ads/open_ad.dart';
 import 'package:all_app_direct/utils/app_color.dart';
+import 'package:all_app_direct/modules/appbar/popupmenubutton/setting/theme.dart';
 import 'package:all_app_direct/utils/assets_path.dart';
 import 'package:all_app_direct/utils/size_utils.dart';
 import 'package:all_app_direct/utils/string_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -20,9 +22,13 @@ class _SplashScreenState extends State<SplashScreen> {
 
 
 
+  ThemeController themeController = Get.find();
 
-  final List<Color> _kDefaultRainbowColors = const [
+  final List<Color> _kDarkBlueDefaultRainbowColors = const [
     AppColor.darkBlue,
+  ];
+  final List<Color> _kWhiteDefaultRainbowColors = const [
+    AppColor.white,
   ];
   // @override
   // void initState() {
@@ -53,7 +59,7 @@ class _SplashScreenState extends State<SplashScreen> {
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
     return Scaffold(
-      backgroundColor: AppColor.backgroundColor,
+      backgroundColor: ColorRes.backgroundColor(context),
       body: Stack(
         alignment: Alignment.bottomCenter,
         children: [
@@ -67,12 +73,16 @@ class _SplashScreenState extends State<SplashScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(AssetsPath.splashScreenAppLogo,width: SizeUtils.horizontalBlockSize * 35,),
-                  const Text(
+                  Image.asset(AssetsPath.splashScreenAppLogo,width: SizeUtils.horizontalBlockSize * 35,color: themeController.isSwitched.value
+                      ? AppColor.white
+                      : AppColor.darkBlue,),
+                   Text(
                     StringsUtils.whatsAppDirect,
                     style: TextStyle(
                         fontSize: 26,
-                        color: AppColor.darkBlue,
+                        color:  themeController.isSwitched.value
+                            ? AppColor.white
+                            : AppColor.darkBlue,
                         fontWeight: FontWeight.w700),
                   ),
                 ],
@@ -85,7 +95,10 @@ class _SplashScreenState extends State<SplashScreen> {
               height: SizeUtils.horizontalBlockSize * 10,
               child: LoadingIndicator(
                 indicatorType: Indicator.ballPulse,
-                colors: _kDefaultRainbowColors,
+                colors: themeController.isSwitched.value
+                    ? _kWhiteDefaultRainbowColors
+                    : _kDarkBlueDefaultRainbowColors,
+                // colors: _kDefaultRainbowColors,
                 backgroundColor: Colors.transparent,
                 pathBackgroundColor: Colors.white,
               ),

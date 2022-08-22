@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 
 class ForgetPasswordController extends GetxController {
   RxBool forgetPasswordLoading = false.obs;
-
+  Duration kLoginAnimationDuration = Duration(milliseconds: 1000);
   GlobalKey<FormState> forgetPasswordFormKey = GlobalKey<FormState>();
 
   TextEditingController forgetPasswordEmail = TextEditingController();

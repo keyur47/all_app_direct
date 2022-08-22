@@ -1,7 +1,6 @@
 import 'package:all_app_direct/Utils/my_behavior.dart';
-import 'package:all_app_direct/helper/app_color.dart';
-import 'package:all_app_direct/modules/appbar/popupmenubutton/setting/theme.dart';
 import 'package:all_app_direct/utils/app_color.dart';
+import 'package:all_app_direct/modules/appbar/popupmenubutton/setting/theme.dart';
 import 'package:all_app_direct/utils/navigation/dart/route_page.dart';
 import 'package:all_app_direct/widgets/app_binding.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +14,6 @@ class Direct extends StatelessWidget {
     return GetMaterialApp(
       builder: (context, child) {
         return Scaffold(
-          backgroundColor: AppColor.backgroundColor,
           body: ScrollConfiguration(
             behavior: MyBehavior(),
             child: child!,

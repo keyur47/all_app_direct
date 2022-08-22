@@ -1,12 +1,13 @@
 import 'package:all_app_direct/ads/ads_new.dart';
-import 'package:all_app_direct/modules/controller/all_screen_controller.dart';
 import 'package:all_app_direct/utils/app_color.dart';
+import 'package:all_app_direct/modules/controller/all_screen_controller.dart';
 import 'package:all_app_direct/utils/size_utils.dart';
 import 'package:all_app_direct/utils/string_utils.dart';
 import 'package:all_app_direct/widgets/button_box.dart';
 import 'package:all_app_direct/widgets/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 
 class OpenWhatsAppNumber extends StatelessWidget {
   AllScreenController controller = Get.find();
@@ -33,7 +34,7 @@ class OpenWhatsAppNumber extends StatelessWidget {
       left: SizeUtils.horizontalBlockSize* 2.5,
       right: SizeUtils.horizontalBlockSize* 1,
       bottom: SizeUtils.horizontalBlockSize* 2.2,
-      iconColor:AppColor.appGreen,
+      iconColor:AppColor.appIconColor,
       // iconColor: Color(0xFF28D146),
       sizeIcon: SizeUtils.horizontalBlockSize* 7,
     );

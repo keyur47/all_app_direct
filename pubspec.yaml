@@ -79,7 +79,7 @@ dependencies:
   push_notification: ^1.1.1
   app_settings: ^4.1.8
   in_app_review: ^2.0.4
-
+  introduction_screen: ^3.0.2
 
 dev_dependencies:
   flutter_test:
